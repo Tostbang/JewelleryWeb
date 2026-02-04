@@ -1,16 +1,17 @@
+import { CustomerSupportFilled, DashboardSquare03Filled, LaptopPhoneSync1Filled, User02Filled } from "asem-icons";
 import { CircleQuestionMark, Factory, Headset, LayoutDashboard, Star, User } from "lucide-react";
 
 export const sidebarLinks = [
   {
     title: "Kontrol Paneli",
     url: "/dash/dashboard",
-    icon: LayoutDashboard,
+    icon: DashboardSquare03Filled,
     subLinks: null,
   },
   {
     title: "Destek",
     url: "/dash/support",
-    icon: Headset,
+    icon: CustomerSupportFilled,
     subLinks: null
   },
   // {
@@ -61,9 +62,15 @@ export const sidebarLinks = [
   //   ],
   // },
   {
+    title: "Cihazlar",
+    url: "/dash/devices",
+    icon: LaptopPhoneSync1Filled,
+    subLinks: null
+  },
+  {
     title: "profil",
     url: "/dash/profile",
-    icon: User,
+    icon: User02Filled,
     subLinks: null,
   },
   // {

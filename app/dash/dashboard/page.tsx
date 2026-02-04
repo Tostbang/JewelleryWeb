@@ -1,6 +1,5 @@
 "use client"
 
-import { DollarSign, TrendingUp, Package, Users, ShoppingCart } from 'lucide-react'
 import { Bar, BarChart, Line, LineChart, Pie, PieChart, CartesianGrid, XAxis, YAxis, Cell } from "recharts"
 import {
   ChartContainer,
@@ -9,8 +8,10 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart"
-import { IconAlignBoxBottomCenterFilled, IconCoinFilled, IconShoppingCartFilled } from "@tabler/icons-react"
-import Gem from '@/icons/Solid/Game & Sports/Gem'
+import { AlignBoxBottomCenter, User02, TradeMark, UserLock01, Bitcoin, BitcoinCircle, BitcoinFilled, BitcoinSquare, BitcoinSquareFilled, Chart, Coins01Filled, Gem, GemFilled, Package, PackageAdd, ShoppingCart01, TruckReturn, TruckReturnFilled, UserAccount, PackageFilled, Desk, Desk01, Desk02Filled, Football, Basketball02Filled, PackageReceiveFilled, UserMultipleFilled, AnalyticsUpFilled, Analytics01Filled, ArrowExpand01Sharp, BorderFullFilled, Calculator01Filled, IrisScanFilled, Sparkles, TimeQuarterPassFilled } from "asem-icons"
+import { UserMinus } from "lucide-react"
+import { cn } from "@/lib/utils"
+import MyCard from "@/components/MyCard"
 
 const statsCards = [
   {
@@ -18,17 +19,17 @@ const statsCards = [
     value: "₹1,24,500",
     change: "+12.5%",
     trend: "up",
-    icon: IconCoinFilled,
-    bgColor: "bg-blue-50",
-    iconColor: "text-blue-600",
+    icon: Coins01Filled,
+    bgColor: "bg-my-orange",
+    iconColor: "fill-blue-600",
   },
   {
     title: "Gold Rate (24K)",
     value: "₹6,450/g",
     change: "+0.8%",
     trend: "up",
-    icon: IconAlignBoxBottomCenterFilled,
-    bgColor: "bg-yellow-50",
+    icon: AnalyticsUpFilled,
+    bgColor: "bg-my-blue",
     iconColor: "text-yellow-600",
   },
   {
@@ -36,8 +37,8 @@ const statsCards = [
     value: "₹45.2L",
     change: "1,234 items",
     trend: "neutral",
-    icon: Package,
-    bgColor: "bg-purple-50",
+    icon: PackageReceiveFilled,
+    bgColor: "bg-my-lavender",
     iconColor: "text-purple-600",
   },
   {
@@ -45,17 +46,17 @@ const statsCards = [
     value: "847",
     change: "+23 today",
     trend: "up",
-    icon: Users,
-    bgColor: "bg-green-50",
-    iconColor: "text-green-600",
+    icon: UserMultipleFilled,
+    bgColor: "bg-my-pink",
+    iconColor: "text-green-500",
   },
   {
     title: "Pending Orders",
     value: "32",
     change: "5 urgent",
     trend: "neutral",
-    icon: IconShoppingCartFilled,
-    bgColor: "bg-orange-50",
+    icon: PackageReceiveFilled,
+    bgColor: "bg-my-orange2",
     iconColor: "text-orange-600",
   },
   {
@@ -63,8 +64,8 @@ const statsCards = [
     value: "₹82.5/g",
     change: "-0.3%",
     trend: "down",
-    icon: Gem,
-    bgColor: "bg-gray-50",
+    icon: IrisScanFilled,
+    bgColor: "bg-my-lavender2",
     iconColor: "text-gray-600",
   },
 ]
@@ -124,39 +125,47 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {statsCards.map((card, index) => {
-          const Icon = card.icon
-          return (
-            <div
-              key={index}
-              className="relative overflow-hidden rounded-lg border bg-card p-5 shadow-sm transition-all hover:shadow-md hover:scale-[1.02]"
-            >
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-muted-foreground">{card.title}</p>
-                  <h3 className="text-2xl font-bold mt-2">{card.value}</h3>
-                  <p className={`text-xs mt-2 flex items-center gap-1 ${card.trend === 'up' ? 'text-green-600' :
-                    card.trend === 'down' ? 'text-red-600' :
-                      'text-muted-foreground'
-                    }`}>
-                    {card.trend === 'up' && '↑'}
-                    {card.trend === 'down' && '↓'}
-                    {card.change}
-                  </p>
-                </div>
-                <div className={`${card.bgColor} p-3 rounded-lg`}>
-                  <Icon className={`h-6 w-6 ${card.iconColor}`} />
+      <MyCard title="Bussiness Summary" Icon={BorderFullFilled} >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+          {statsCards.map((card, index) => {
+            const Icon = card.icon
+            return (
+              <div
+                key={index}
+
+                className={cn("relative overflow-hidden rounded-[60px] squircle border bg-card p-3 transition-all hover:shadow-md hover:scale-[1.02]", card.bgColor)}
+              >
+                <div className="">
+                  <div className="w-full flex items-center justify-between">
+                    <div className="flex items-center gap-x-2">
+                      <div className={` p-3 rounded-full bg-white/40 `}>
+                        <Icon className={`size-4 `} />
+                      </div>
+                      <p className="text-sm font-medium">{card.title}</p>
+                    </div>
+                    <div className={` p-3 rounded-full bg-white/40 `}>
+                      <ArrowExpand01Sharp className={`size-3 `} />
+                    </div>
+                  </div>
+                  <div className="flex-1 px-2">
+                    <div className="min-h-20 flex items-end">
+                      <h3 className="text-2xl font-bold mt-2 ">{card.value}</h3>
+                    </div>
+                    <p className="text-xs mt-2 flex items-center gap-1 text-black">
+                      {card.trend === 'up' && '↑'}
+                      {card.trend === 'down' && '↓'}
+                      {card.change}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          )
-        })}
-      </div>
+            )
+          })}
+        </div>
+      </MyCard>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
-        <div className="rounded-lg border bg-card p-6">
-          <h3 className="text-lg font-semibold mb-4">Quick Price Calculator</h3>
+        <MyCard title="Quick Price Calculator" Icon={Calculator01Filled}>
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -177,10 +186,9 @@ export default function DashboardPage() {
               Calculate Price
             </button>
           </div>
-        </div>
+        </MyCard>
 
-        <div className="rounded-lg border bg-card p-6">
-          <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
+        <MyCard title="Recent Activity" Icon={TimeQuarterPassFilled}>
           <div className="space-y-3">
             {[
               { action: "New sale", item: "Gold necklace", amount: "₹45,000", time: "5 min ago" },
@@ -199,7 +207,8 @@ export default function DashboardPage() {
               </div>
             ))}
           </div>
-        </div>
+        </MyCard>
+
       </div>
     </div>
   )

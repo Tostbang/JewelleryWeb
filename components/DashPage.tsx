@@ -11,7 +11,7 @@ export default function DashPage({ children }: { children: React.ReactNode }) {
     //     {children}
     //   </div>
     // </ScrollArea>
-    <ScrollArea className={`block h-[calc(100%-56px)] w-full bg-linear-to-r from-[#f8fafd] from-60% to-100% to-[#f2e9d8] border  rounded-xl  ${!isMobile && "dash-page"}  relative `}>
+    <ScrollArea className={`block h-[calc(100%-56px)] w-full  border  rounded-xl  bg-transparent ${!isMobile && "dash-page"}  relative `}>
       <div className={` `}>
         {children}
       </div>

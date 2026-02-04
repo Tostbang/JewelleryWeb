@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const sideBarDefaultValue = Cookies.get("sidebar_state") === "true" ? true : false;
   return (
     <ViewTransitions>
-      <main className="bg-linear-to-r from-[#f8f6f5] to-[#f9f4ea] ">
+      <main className="bg-linear-to-r from-[#f0ece8] via-[#efead5] to-[#f2e7c6] ">
         <SidebarProvider defaultOpen={sideBarDefaultValue}>
           <AppSidebar variant="floating" />
           <SidebarInset className="bg-transparent">

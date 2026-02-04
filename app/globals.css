@@ -4,16 +4,18 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --color-my-orange: "#edd0a3";
-  --color-my-blue: "#a4c1ee";
-  --color-my-lavender: "#c8a3ed";
-  --color-my-pink: "#eda3b7";
-  --color-my-orange2: "#eeb8a4";
-  --color-my-lavender2: "#eea3e6"
+  --color-my-orange: var(--my-orange);
+  --color-my-blue: var(--my-blue);
+  --color-my-lavender: var(--my-lavender);
+  --color-my-pink: var(--my-pink);
+  --color-my-orange2: var(--my-orange2);
+  --color-my-lavender2: var(--my-lavender2);
+
+
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
@@ -56,6 +58,15 @@
 }
 
 :root {
+  --my-orange: #edd0a3;
+  --my-blue: #a4c1ee;
+  --my-lavender: #c8a3ed;
+  --my-pink: #eda3b7;
+  --my-orange2: #eeb8a4;
+  --my-lavender2: #eea3e6;
+
+--grid-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='var(--grid-color)' stroke-width='2'%3E%3Cpath d='M0 .5H31.5V32'/%3E%3C/svg%3E");
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.147 0.004 49.25);
   --card: oklch(1 0 0);
@@ -131,4 +142,34 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer utilities {
+.squircle {
+    corner-shape: squircle;
+}
+ .bg-grid {
+    --grid-size: 32px;
+
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M0 .5H31.5V32' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    mask-size: var(--grid-size) var(--grid-size);
+    mask-repeat: repeat;
+
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M0 .5H31.5V32' stroke='black' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+    -webkit-mask-size: var(--grid-size) var(--grid-size);
+    -webkit-mask-repeat: repeat;
+  }
+}
+
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
