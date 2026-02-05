@@ -32,7 +32,7 @@ export const NavBar = () => {
         duration: 1.25,
         ease: "easeInOut",
       }}
-      className={`fixed left-0 right-0 top-0 z-50 bg-zinc-950/0 py-3 transition-colors ${scrolled && "bg-zinc-950/80 backdrop-blur"}`}
+      className={`fixed left-0 right-0 top-0 z-50 bg-white/0 py-3 transition-colors ${scrolled && "bg-white/70 backdrop-blur-2xl border-b border-white shadow-lg shadow-my-blue/5"}`}
     >
       <MaxWidthWrapper>
         <div className="flex items-center justify-between">

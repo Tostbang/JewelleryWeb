@@ -15,7 +15,7 @@ export const NavCTAs = () => {
       </GhostButton>
       <SplashButton
         onClick={() => router.push("/signin")}
-        className="px-4 py-1 text-base text-zinc-100"
+        className="px-4 py-1 text-base text-zinc-900"
       >
         Sign in
       </SplashButton>

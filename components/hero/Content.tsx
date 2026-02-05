@@ -42,7 +42,7 @@ export const Content = () => {
           delay: 0.25,
           ease: "easeInOut",
         }}
-        className="mb-3 text-center text-3xl font-bold leading-tight text-zinc-50 sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight lg:text-8xl lg:leading-tight"
+        className="mb-3 text-center text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight lg:text-8xl lg:leading-tight"
       >
         A landing page template that works for you
       </motion.h1>
@@ -60,7 +60,7 @@ export const Content = () => {
           delay: 0.5,
           ease: "easeInOut",
         }}
-        className="mb-9 max-w-2xl text-center text-base text-zinc-400 sm:text-lg md:text-xl"
+        className="mb-9 max-w-2xl text-center text-base text-zinc-600 sm:text-lg md:text-xl"
       >
         Build beautiful landing pages for your startups, clients, and side
         projects, without having to think about design.
@@ -90,7 +90,7 @@ export const Content = () => {
         </SplashButton>
         <GhostButton
           onClick={() => router.push("/#features")}
-          className="rounded-md px-4 py-2 text-lg text-zinc-100"
+          className="rounded-md px-4 py-2 text-lg text-zinc-900"
         >
           Learn more
         </GhostButton>

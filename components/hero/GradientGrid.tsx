@@ -16,8 +16,8 @@ export const GradientGrid = () => {
       }}
       className="absolute inset-0 z-0"
     >
-      <div className="absolute inset-0 z-0 bg-grid " />
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-zinc-950/0 to-zinc-950" />
+      <div className="absolute inset-0 z-0 bg-grid opacity-30" style={{ backgroundColor: '#c8a3ed' }} />
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-white/90 via-my-pink/10 to-white backdrop-blur-sm" />
     </motion.div>
   );
 };

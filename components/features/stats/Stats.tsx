@@ -5,9 +5,9 @@ import { CornerBlur } from "@/components/utils/CornerBlur";
 
 export const Stats = () => {
   return (
-    <div className="relative overflow-hidden border-y border-zinc-700 bg-zinc-900/30">
+    <div className="relative overflow-hidden border-y border-white/40 bg-gradient-to-br from-my-orange/30 via-my-pink/20 to-my-lavender/30 backdrop-blur-md">
       <div className="relative z-20 mx-auto max-w-3xl px-4 py-12">
-        <h2 className="mx-auto mb-9 block w-fit bg-gradient-to-br from-zinc-200 to-zinc-500 bg-clip-text text-center text-lg text-transparent">
+        <h2 className="mx-auto mb-9 block w-fit bg-gradient-to-br from-my-blue to-my-lavender bg-clip-text text-center text-lg text-transparent">
           Have hard stats? Numbers don't lie!
         </h2>
 
@@ -17,14 +17,14 @@ export const Stats = () => {
             suffix="%"
             subheading="Lorem ipsum dolor sit amet consectetur"
           />
-          <div className="h-[1px] w-12 bg-zinc-600 sm:h-12 sm:w-[1px]" />
+          <div className="h-[1px] w-12 bg-my-lavender/30 sm:h-12 sm:w-[1px]" />
           <Stat
             num={15.5}
             decimals={1}
             suffix="K+"
             subheading="Lorem ipsum dolor sit amet consectetur"
           />
-          <div className="h-[1px] w-12 bg-zinc-600 sm:h-12 sm:w-[1px]" />
+          <div className="h-[1px] w-12 bg-my-lavender/30 sm:h-12 sm:w-[1px]" />
           <Stat
             num={20}
             suffix="B+"
@@ -64,9 +64,9 @@ const Stat = ({ num, suffix, decimals = 0, subheading }: Props) => {
 
   return (
     <div className="flex w-72 flex-col items-center py-8 sm:py-0">
-      <p className="mb-2 text-center text-7xl font-semibold text-zinc-50 sm:text-6xl">
+      <p className="mb-2 text-center text-7xl font-semibold text-zinc-900 sm:text-6xl">
         <span ref={ref}></span>
-        <span className="text-blue-500">{suffix}</span>
+        <span className="text-my-blue">{suffix}</span>
       </p>
       <p className="max-w-48 text-center text-zinc-500">{subheading}</p>
     </div>

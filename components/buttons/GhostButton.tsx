@@ -10,7 +10,7 @@ export const GhostButton = ({ children, className, ...rest }: Props) => {
   return (
     <button
       className={twMerge(
-        "rounded-md px-4 py-2 text-lg text-zinc-100 transition-all hover:scale-[1.02] hover:bg-zinc-800 hover:text-zinc-50 active:scale-[0.98]",
+        "rounded-md px-4 py-2 text-lg text-zinc-900 transition-all hover:scale-[1.02] hover:bg-gradient-to-r hover:from-my-blue/10 hover:to-my-lavender/10 hover:backdrop-blur-sm hover:text-zinc-900 active:scale-[0.98]",
         className
       )}
       {...rest}

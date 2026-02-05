@@ -21,12 +21,12 @@ export const LongCard = () => {
         <div className="relative z-20">
           <CalloutChip>Callout #4</CalloutChip>
           <p className="mb-1.5 text-2xl">Talk about integrations</p>
-          <p className="max-w-sm text-zinc-400">
+          <p className="max-w-sm text-zinc-600">
             If you connect with tools that people already know and use, show it
             off!
           </p>
         </div>
-        <div className="absolute bottom-0 right-0 top-0 z-10 w-48 bg-gradient-to-r from-zinc-950/0 to-zinc-950" />
+        <div className="absolute bottom-0 right-0 top-0 z-10 w-48 bg-gradient-to-r from-white/0 to-white" />
         <SpinningLogos />
       </Card>
     </div>
@@ -82,7 +82,7 @@ const SpinningLogos = () => {
           sizes.iconWrapperWidth +
           sizes.ringPadding,
       }}
-      className="absolute right-0 top-0 z-0 grid translate-x-1/3 place-content-center rounded-full bg-blue-900/50 shadow-inner"
+      className="absolute right-0 top-0 z-0 grid translate-x-1/3 place-content-center rounded-full bg-gradient-to-br from-my-blue/30 via-my-lavender/20 to-my-pink/30 backdrop-blur-md shadow-inner shadow-my-lavender/20"
     >
       <motion.div
         initial={{ rotate: 0 }}
@@ -118,7 +118,7 @@ const SpinningLogos = () => {
               initial={{ rotate: 0 }}
               animate={{ rotate: -360 }}
               transition={TRANSITION}
-              className="absolute grid place-content-center rounded-full bg-gradient-to-br from-blue-500 to-blue-800 text-blue-50 shadow-lg"
+              className="absolute grid place-content-center rounded-full bg-gradient-to-br from-my-blue via-my-lavender to-my-pink text-white shadow-lg shadow-my-lavender/40 backdrop-blur-sm border border-white/40"
             >
               <Image style={{
                 fontSize: sizes.logoFontSize,

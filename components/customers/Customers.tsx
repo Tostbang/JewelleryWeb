@@ -66,7 +66,7 @@ export const Customers = () => {
                 top: "0%",
               },
             }}
-            className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-zinc-950/0 to-zinc-950"
+            className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-white/0 to-white"
           />
         </motion.div>
         <BubbleButton
@@ -99,14 +99,14 @@ const ReviewsColumn = ({ reviews }: { reviews: typeof REVIEWS.left }) => {
                 className="size-8 rounded-full"
               />
               <div>
-                <span className="block font-medium text-zinc-300">
+                <span className="block font-medium text-zinc-800">
                   {r.name}
                 </span>
                 <span className="block text-zinc-500">{r.handle}</span>
               </div>
             </div>
 
-            <TwitterFilled className="text-sky-300" />
+            <TwitterFilled className="text-my-blue" />
           </div>
           <p>{r.review}</p>
         </Card>

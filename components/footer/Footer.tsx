@@ -91,7 +91,7 @@ const LogoColumn = () => {
   return (
     <div className="col-span-6 md:col-span-4">
       <NavLogo />
-      <span className="mt-3 inline-block text-xs text-zinc-400">
+      <span className="mt-3 inline-block text-xs text-zinc-600">
         © Hover.dev - All rights reserved.
       </span>
     </div>
@@ -107,12 +107,12 @@ const GenericColumn = ({
 }) => {
   return (
     <div className="col-span-6 space-y-2 text-sm md:col-span-2">
-      <span className="block text-zinc-50">{title}</span>
+      <span className="block text-zinc-900">{title}</span>
       {links.map((l) => (
         <Link
           key={l.title}
           href={l.href}
-          className="flex items-center gap-1.5 text-zinc-400 transition-colors hover:text-zinc-200 hover:underline"
+          className="flex items-center gap-1.5 text-zinc-600 transition-colors hover:text-zinc-900 hover:underline"
         >
           {l.Icon && <l.Icon />}
           {l.title}

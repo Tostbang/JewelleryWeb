@@ -2,8 +2,8 @@ import { motion } from "motion/react";
 
 export const Logos = () => {
   return (
-    <section className="relative mx-auto max-w-7xl overflow-hidden border-b border-zinc-700 py-6">
-      <span className="mx-auto mb-9 block w-fit bg-gradient-to-br from-zinc-200 to-zinc-500 bg-clip-text text-center text-lg text-transparent">
+    <section className="relative mx-auto max-w-7xl overflow-hidden border-b border-white/40 py-6 bg-gradient-to-r from-my-pink/5 via-white to-my-blue/5">
+      <span className="mx-auto mb-9 block w-fit bg-gradient-to-br from-my-blue to-my-lavender bg-clip-text text-center text-lg text-transparent">
         Trusted by companies of all sizes
       </span>
       <div className="flex overflow-hidden">
@@ -18,8 +18,8 @@ export const Logos = () => {
         </TranslateWrapper>
       </div>
 
-      <div className="absolute bottom-0 left-0 top-0 w-1/3 max-w-64 bg-gradient-to-r from-zinc-950 to-zinc-950/0" />
-      <div className="absolute bottom-0 right-0 top-0 w-1/3 max-w-64 bg-gradient-to-l from-zinc-950 to-zinc-950/0" />
+      <div className="absolute bottom-0 left-0 top-0 w-1/3 max-w-64 bg-gradient-to-r from-white to-white/0" />
+      <div className="absolute bottom-0 right-0 top-0 w-1/3 max-w-64 bg-gradient-to-l from-white to-white/0" />
     </section>
   );
 };

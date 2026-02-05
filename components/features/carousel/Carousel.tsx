@@ -54,7 +54,7 @@ const Carousel = () => {
 
   return (
     <section
-      className="relative overflow-hidden border-b border-zinc-700 bg-zinc-900/30 py-12"
+      className="relative overflow-hidden border-b border-white/40 bg-gradient-to-br from-my-lavender/15 via-my-pink/10 to-my-orange/15 backdrop-blur-md py-12"
       ref={ref}
     >
       <div className="relative z-20 overflow-hidden">
@@ -69,7 +69,7 @@ const Carousel = () => {
             </div>
             <div className="flex items-center gap-2">
               <button
-                className={`rounded-lg border-[1px] border-zinc-700 bg-zinc-900 p-1.5 text-2xl transition-opacity ${CAN_SHIFT_LEFT ? "" : "opacity-30"
+                className={`rounded-lg border-[1px] border-white/60 bg-gradient-to-br from-white/80 to-white/60 backdrop-blur-xl p-1.5 text-2xl transition-opacity shadow-md hover:shadow-lg hover:shadow-my-blue/20 ${CAN_SHIFT_LEFT ? "" : "opacity-30"
                   }`}
                 disabled={!CAN_SHIFT_LEFT}
                 onClick={shiftLeft}
@@ -77,7 +77,7 @@ const Carousel = () => {
                 <ArrowLeft01Sharp />
               </button>
               <button
-                className={`rounded-lg border-[1px] border-zinc-700 bg-zinc-900 p-1.5 text-2xl transition-opacity ${CAN_SHIFT_RIGHT ? "" : "opacity-30"
+                className={`rounded-lg border-[1px] border-white/60 bg-gradient-to-br from-white/80 to-white/60 backdrop-blur-xl p-1.5 text-2xl transition-opacity shadow-md hover:shadow-lg hover:shadow-my-blue/20 ${CAN_SHIFT_RIGHT ? "" : "opacity-30"
                   }`}
                 disabled={!CAN_SHIFT_RIGHT}
                 onClick={shiftRight}

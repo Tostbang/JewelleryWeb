@@ -13,7 +13,7 @@ export const MiniCard1 = () => {
           <CalloutChip>Callout #2</CalloutChip>
         </div>
         <p className="mb-1.5 text-center text-2xl">Highlight something cool</p>
-        <p className="mb-6 text-center text-zinc-400">Short and sweet.</p>
+        <p className="mb-6 text-center text-zinc-600">Short and sweet.</p>
         <BubbleButton className="mx-auto">Call to action</BubbleButton>
 
         <Ping />
@@ -27,7 +27,7 @@ const LOOP_DURATION = 6;
 const Ping = () => {
   return (
     <div className="absolute bottom-0 left-1/2 w-fit -translate-x-1/2 translate-y-1/2">
-      <Link04Filled className="relative z-10 text-7xl text-blue-200" />
+      <Link04Filled className="relative z-10 text-7xl text-my-lavender drop-shadow-lg" />
       <Band delay={0} />
       <Band delay={LOOP_DURATION * 0.25} />
       <Band delay={LOOP_DURATION * 0.5} />
@@ -59,7 +59,7 @@ const Band = ({ delay }: { delay: number }) => {
         ease: "linear",
         delay,
       }}
-      className="absolute left-[50%] top-[50%] z-0 size-80 rounded-full border border-blue-600 bg-gradient-to-br from-blue-600/50 to-blue-950/20"
+      className="absolute left-[50%] top-[50%] z-0 size-80 rounded-full border-2 border-my-lavender/40 bg-gradient-to-br from-my-lavender/60 via-my-pink/40 to-my-blue/30 backdrop-blur-sm shadow-xl shadow-my-lavender/20"
     />
   );
 };

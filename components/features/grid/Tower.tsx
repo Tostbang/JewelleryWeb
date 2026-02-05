@@ -15,7 +15,7 @@ export const Tower = () => {
 
         <CalloutChip>Callout #1</CalloutChip>
         <p className="mb-2 text-2xl">Show your product</p>
-        <p className="mb-8 text-zinc-400">
+        <p className="mb-8 text-zinc-600">
           These cards are a great place to give a high level break down of what
           your website is about. Try to talk about benefits instead of features.
         </p>
@@ -28,7 +28,7 @@ export const Tower = () => {
 };
 
 const Mockup = () => (
-  <div className="absolute -bottom-4 left-6 h-[340px] w-full overflow-hidden rounded-xl border border-zinc-700 bg-zinc-950/50 sm:h-[370px]">
+  <div className="absolute -bottom-4 left-6 h-[340px] w-full overflow-hidden rounded-xl border border-white/60 bg-gradient-to-br from-white/80 via-white/70 to-white/60 backdrop-blur-2xl shadow-xl shadow-my-lavender/10 sm:h-[370px]">
     <MockupTopBar />
     <div className="flex h-full w-full">
       <MockupSideBar />
@@ -38,29 +38,29 @@ const Mockup = () => (
 );
 
 const MockupSideBar = () => (
-  <div className="h-full w-24 border-r border-zinc-700 bg-zinc-900 p-2">
+  <div className="h-full w-24 border-r border-white/40 bg-gradient-to-b from-my-blue/10 to-white/80 backdrop-blur-sm p-2">
     <div className="mb-4 flex items-center justify-between ">
-      <Github01Filled className="text-zinc-700" />
-      <Notification03 className="text-blue-500" />
+      <Github01Filled className="text-zinc-400" />
+      <Notification03 className="text-my-blue" />
     </div>
     <div className="space-y-2">
-      <div className="flex items-center gap-1 rounded bg-zinc-700 px-1 py-0.5 text-xs text-zinc-200">
+      <div className="flex items-center gap-1 rounded bg-my-blue/30 px-1 py-0.5 text-xs text-zinc-800">
         <User02 />
         Users
       </div>
-      <div className="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-zinc-600">
+      <div className="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-zinc-400">
         <Mail01 />
         Campaigns
       </div>
-      <div className="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-zinc-600">
+      <div className="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-zinc-400">
         <Award02 />
         Goals
       </div>
-      <div className="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-zinc-600">
+      <div className="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-zinc-400">
         <GridView />
         Tools
       </div>
-      <div className="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-zinc-600">
+      <div className="flex items-center gap-1 rounded px-1 py-0.5 text-xs text-zinc-400">
         <Setting02 />
         Settings
       </div>
@@ -69,7 +69,7 @@ const MockupSideBar = () => (
 );
 
 const MockupTopBar = () => (
-  <div className="flex gap-1 border-b border-zinc-700 bg-zinc-950 p-2">
+  <div className="flex gap-1 border-b border-white/40 bg-gradient-to-r from-white via-my-lavender/5 to-white p-2">
     <div className="size-2 rounded-full bg-red-600"></div>
     <div className="size-2 rounded-full bg-yellow-600"></div>
     <div className="size-2 rounded-full bg-green-600"></div>
@@ -136,7 +136,7 @@ const MockupMain = () => {
   return (
     <div className="relative w-full">
       <div className="relative z-0 w-full p-4">
-        <div className="w-full border-b border-zinc-700 pb-2 text-xs font-semibold uppercase text-zinc-500">
+        <div className="w-full border-b border-zinc-200 pb-2 text-xs font-semibold uppercase text-zinc-500">
           <span>User</span>
         </div>
         {users.map((u, i) => (
@@ -164,13 +164,13 @@ const MockupMain = () => {
               alt={`Placeholder image for faux user ${u.name}`}
               className="size-5 rounded-full"
             />
-            <span className={i === 0 ? "text-zinc-200" : "text-zinc-500"}>
+            <span className={i === 0 ? "text-zinc-900" : "text-zinc-500"}>
               {u.name}
             </span>
           </motion.div>
         ))}
       </div>
-      <div className="absolute bottom-0 left-0 right-0 top-1/4 z-10 bg-gradient-to-b from-zinc-950/0 via-zinc-950/90 to-zinc-950" />
+      <div className="absolute bottom-0 left-0 right-0 top-1/4 z-10 bg-gradient-to-b from-white/0 via-white/90 to-white" />
     </div>
   );
 };

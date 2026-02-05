@@ -47,10 +47,10 @@ const Item = ({
   return (
     <div>
       <h4 className="mb-1.5 flex items-start text-lg font-medium md:text-xl">
-        <Icon className="mr-1.5 h-[26px] text-blue-300" />
+        <Icon className="mr-1.5 h-[26px] text-my-blue" />
         {title}
       </h4>
-      <p className="text-sm text-zinc-400 md:text-base">{subtitle}</p>
+      <p className="text-sm text-zinc-600 md:text-base">{subtitle}</p>
     </div>
   );
 };

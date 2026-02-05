@@ -10,12 +10,12 @@ export const MiniCard2 = () => {
       <Card>
         <CalloutChip>Callout #3</CalloutChip>
         <p className="mb-1.5 text-2xl">Let customers talk for you</p>
-        <p className="text-zinc-400">
+        <p className="text-zinc-600">
           Someone else saying that they love you is a lot more powerful than
           saying you love yourself.
         </p>
 
-        <div className="absolute -bottom-2 left-2 right-2 z-10 h-44 rounded-xl border border-zinc-700 bg-zinc-800/50 p-4">
+        <div className="absolute -bottom-2 left-2 right-2 z-10 h-44 rounded-xl border border-white/60 bg-gradient-to-br from-white/70 via-white/60 to-white/50 backdrop-blur-2xl p-4 shadow-xl shadow-my-blue/10">
           <div className="mb-3 flex gap-3">
             <img
               src="https://api.dicebear.com/7.x/avataaars/svg?seed=Don"
@@ -23,14 +23,14 @@ export const MiniCard2 = () => {
               className="size-10 shrink-0 rounded-full"
             />
             <div>
-              <p className="text-sm font-semibold text-zinc-50">
+              <p className="text-sm font-semibold text-zinc-900">
                 Don Donaldson
               </p>
-              <p className="text-xs text-zinc-400">@donnydiesel</p>
+              <p className="text-xs text-zinc-500">@donnydiesel</p>
             </div>
           </div>
           <p>
-            <span className="font-semibold text-blue-300">@your_company</span>
+            <span className="font-semibold text-my-blue">@your_company</span>
             &apos;s automation tools are the best in the industry! Not sure how
             we ever lived without them ❤️
           </p>

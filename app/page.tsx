@@ -14,7 +14,7 @@ import { Pricing } from "@/components/pricing/Pricing";
 
 export default function Home() {
   return (
-    <main className={`bg-zinc-950 text-zinc-200 selection:bg-zinc-600 `}>
+    <main className={`min-h-screen bg-gradient-to-br from-my-orange/20 via-white to-my-lavender/30 text-zinc-900 selection:bg-my-blue/30 `}>
       <NavBar />
       <Hero />
       <Logos />
