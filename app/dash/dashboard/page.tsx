@@ -12,6 +12,7 @@ import { AlignBoxBottomCenter, User02, TradeMark, UserLock01, Bitcoin, BitcoinCi
 import { UserMinus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MyCard from "@/components/MyCard"
+import PriceCalculatorForm from "./components/PriceCalculatorForm"
 
 const statsCards = [
   {
@@ -166,26 +167,7 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-6">
         <MyCard title="Quick Price Calculator" Icon={Calculator01Filled}>
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm text-muted-foreground">Weight (grams)</label>
-                <input type="number" placeholder="10" className="w-full mt-1 px-3 py-2 border rounded-md" />
-              </div>
-              <div>
-                <label className="text-sm text-muted-foreground">Purity</label>
-                <select className="w-full mt-1 px-3 py-2 border rounded-md">
-                  <option>24K</option>
-                  <option>22K</option>
-                  <option>18K</option>
-                  <option>14K</option>
-                </select>
-              </div>
-            </div>
-            <button className="w-full bg-primary text-primary-foreground py-2 rounded-md hover:opacity-90">
-              Calculate Price
-            </button>
-          </div>
+          <PriceCalculatorForm />
         </MyCard>
 
         <MyCard title="Recent Activity" Icon={TimeQuarterPassFilled}>

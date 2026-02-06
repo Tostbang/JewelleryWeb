@@ -1,13 +1,13 @@
+"use client"
 import React from "react";
 import { CornerGrid } from "../utils/CornerGrid";
 import { NavLogo } from "../navbar/NavLogo";
 import Link from "next/link";
 import { BubbleButton } from "../buttons/BubbleButton";
-import { SiGithub, SiX } from "react-icons/si";
+import { Github01Filled, TwitterFilled, ArrowLeft01Sharp } from "asem-icons";
 import { SplashButton } from "../buttons/SplashButton";
-import { FiArrowLeft } from "react-icons/fi";
-import { useRouter } from "next/router";
-import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { motion } from "motion/react";
 
 export const SignIn = () => {
   const router = useRouter();
@@ -20,7 +20,7 @@ export const SignIn = () => {
         }}
         className="absolute left-4 top-6 text-sm"
       >
-        <FiArrowLeft />
+        <ArrowLeft01Sharp />
         Go back
       </BubbleButton>
 
@@ -71,10 +71,10 @@ const SocialOptions = () => (
   <div>
     <div className="mb-3 flex gap-3">
       <BubbleButton className="flex w-full justify-center py-3">
-        <SiX />
+        <TwitterFilled />
       </BubbleButton>
       <BubbleButton className="flex w-full justify-center py-3">
-        <SiGithub />
+        <Github01Filled />
       </BubbleButton>
     </div>
     <BubbleButton className="flex w-full justify-center py-3">

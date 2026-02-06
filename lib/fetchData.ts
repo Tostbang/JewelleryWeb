@@ -1,4 +1,3 @@
-import Cookies from "js-cookie"
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { deleteToken, getToken } from "./helpers";
 import { getErrorMessage } from "./errorMessage";

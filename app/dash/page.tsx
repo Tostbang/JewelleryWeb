@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import { DollarSign, TrendingUp, Package, Users, ShoppingCart, } from 'lucide-react'
+import { DollarSign, TrendingUp, Package, Users, ShoppingCart, TrendingDown } from 'lucide-react'
 import { Bar, BarChart, Line, LineChart, Pie, PieChart, CartesianGrid, XAxis, YAxis, Cell } from "recharts"
 import {
   ChartContainer,
@@ -63,7 +63,7 @@ const statsCards = [
     value: "₹82.5/g",
     change: "-0.3%",
     trend: "down",
-    icon: ArrowDown01Round,
+    icon: TrendingDown,
     bgColor: "bg-gray-50",
     iconColor: "text-gray-600",
   },
@@ -114,9 +114,6 @@ export default function DashboardPage() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <div className='bg-red-300'>
-            <ArrowDown01Round className="size-8 bg-black" />
-          </div>
           <h1 className="text-3xl font-bold">Jewellery Dashboard</h1>
           <p className="text-muted-foreground mt-1">Overview of your business metrics</p>
         </div>
