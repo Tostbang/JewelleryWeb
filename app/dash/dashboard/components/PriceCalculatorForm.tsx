@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
 import FormInput from "@/components/FormInput"
 import { Button } from "@/components/ui/button"
 import {
@@ -14,19 +16,26 @@ import {
 import { useCalculateLaborCost, LaborCostResponse } from "../_services/mutations"
 import { SelectItem } from "@/components/ui/select"
 
-type FormValues = {
-  karat: number
-  cost: number
-}
+const formSchema = z.object({
+  karat: z.string({
+    message: "Karat is required",
+  }).min(1, "Karat must be at least 1"),
+  cost: z.string({
+    message: "Cost is required",
+  }).min(1, "Cost must be greater than 0"),
+})
+
+type FormValues = z.infer<typeof formSchema>
 
 export default function PriceCalculatorForm() {
   const [open, setOpen] = useState(false)
   const [result, setResult] = useState<LaborCostResponse | null>(null)
 
   const { control, handleSubmit, reset } = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      karat: 14,
-      cost: 0,
+      karat: "14",
+      cost: "0",
     },
   })
 
@@ -47,7 +56,7 @@ export default function PriceCalculatorForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <FormInput
-            type="number"
+            type="text"
             name="cost"
             label="Cost"
             control={control}

@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import { ArrowRight01Sharp } from "asem-icons"
 
 import {
   Collapsible,
@@ -25,21 +25,22 @@ import { useLinks } from "@/hooks/use-links"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { Fragment } from "react"
 import { useRouter } from "@bprogress/next/app"
+import { IconType } from "@/lib/types"
 // import { InviteSupplierCard } from "@/app/dash/dashboard/_components/InviteSupplierCard"
 
 
 export type ItemLink = {
   title: string;
   url: string;
-  icon: LucideIcon
+  icon: IconType
   subLinks: null;
 } | {
   title: string;
   url: null;
-  icon: LucideIcon
+  icon: IconType
   subLinks: {
     title: string;
-    icon: LucideIcon;
+    icon: IconType;
     url: string;
   }[];
 }

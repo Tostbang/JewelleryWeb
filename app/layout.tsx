@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Figtree, Lexend_Deca, Barlow } from "next/font/google";
+import { Geist, Geist_Mono, Figtree, Lexend_Deca, Barlow, Outfit } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import { Toaster } from "@/components/ui/sonner";
 import { NavBar } from "@/components/navbar/NavBar";
+import { cn } from "@/lib/utils";
 
-const figtree = Figtree({ subsets: ['latin'], variable: '--font-sans' });
+const outfit = Outfit({subsets:['latin'],variable:'--font-sans'});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={lexendDeca.className}>
+    <html lang="en" className={cn(lexendDeca.className, outfit.variable)}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >

@@ -2,10 +2,8 @@
 
 import * as React from "react"
 import {
-  Download,
-  Medal,
   Sparkles,
-} from "lucide-react"
+} from "asem-icons"
 
 import { AnimatePresence, motion as m } from "motion/react"
 import {

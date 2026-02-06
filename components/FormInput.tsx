@@ -4,13 +4,13 @@ import { Input } from './ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { format } from 'date-fns';
 import { Button } from './ui/button';
-import { CalendarIcon, Eye, EyeOff } from 'lucide-react';
 import { Calendar } from './ui/calendar';
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from './ui/input-otp';
 import { Select, SelectContent, SelectTrigger, SelectValue } from './ui/select';
 import { Control, Controller, FieldValues } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 import { Field, FieldContent, FieldError, FieldLabel } from './ui/field';
+import { Calendar04, View, ViewOff } from 'asem-icons';
 
 export type Type =
   | 'text'
@@ -86,66 +86,55 @@ export default function FormInput({
       break;
     case "hidden":
       return (
-        <FormField
-          control={control as Control<FieldValues> | undefined}
+        <Controller
           name={name}
-          render={({ field }) => (
-            <FormItem>
-              {/* {labelState && (
-                <FormLabel className="w-full text-left font-semibold capitalize text-base">
-                  {label ? label : name}
-                </FormLabel>
-              )} */}
-              <FormControl>
-                <Input
-                  type={type}
-                  placeholder={!labelState ? (label ? label : name) : props.placeholder}
-                  {...field}
-                  {...props}
-                  className={`block w-full border-2  !focus:shadow-sm focus:border-mainColor placeholder:text-sm ${className}`}
-                />
-              </FormControl>
-              {/* <FormDescription>This is your public display name.</FormDescription> */}
-              <FormMessage />
-            </FormItem>
+          control={control as Control<FieldValues> | undefined}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <Input
+                type="hidden"
+                {...field}
+                {...props}
+                className={`${className}`}
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
           )}
         />
       );
       break;
     case 'password':
       return (
-        <FormField
-          control={control as Control<FieldValues>}
+        <Controller
           name={name}
-          render={({ field }) => (
-            <FormItem>
+          control={control as Control<FieldValues> | undefined}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
               {labelState && (
-                <FormLabel className="w-full text-left capitalize text-sm mt-3 -mb-2">
+                <FieldLabel htmlFor={field.name} className="w-full text-left capitalize text-sm mt-3 -mb-1">
                   {label ? label : name}
-                </FormLabel>
+                </FieldLabel>
               )}
-              <FormControl>
-                <div className="mt-1 relative parent">
-                  <Input
-                    placeholder={!labelState ? (label ? label : name) : props.placeholder}
-                    {...field}
-                    {...props}
-                    type={show}
-                    autoComplete="off"
-                    ref={ref}
-                    className={`block w-full border-2  !focus:shadow-sm focus:border-mainColor placeholder:text-sm ${className}`}
-                  />
-                  <span
-                    className="absolute right-[14px] top-1/2 -translate-y-1/2  hover:opacity-100 pass-show transition-all duration-200 cursor-pointer sibling-element"
-                    onClick={showHandle}
-                  >
-                    {show === 'text' ? <EyeOff className='w-5' /> : <Eye className='w-5' />}
-                  </span>
-                </div>
-              </FormControl>
-              {/* <FormDescription>This is your public display name.</FormDescription> */}
-              <FormMessage />
-            </FormItem>
+              <div className="relative">
+                <Input
+                  {...field}
+                  id={field.name}
+                  type={show}
+                  autoComplete="off"
+                  aria-invalid={fieldState.invalid}
+                  placeholder={!labelState ? (label ? label : name) : props.placeholder}
+                  {...props}
+                  className={`block w-full border-2 !focus:shadow-sm focus:border-mainColor placeholder:text-sm ${className}`}
+                />
+                <span
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 hover:opacity-100 transition-all duration-200 cursor-pointer"
+                  onClick={showHandle}
+                >
+                  {show === 'text' ? <ViewOff className='w-5' /> : <View className='w-5' />}
+                </span>
+              </div>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
           )}
         />
       );
@@ -280,28 +269,30 @@ export default function FormInput({
       break;
     case 'date':
       return (
-        <FormField
-          control={control as Control<FieldValues>}
+        <Controller
           name={name}
-          render={({ field }) => (
-            <FormItem className="flex flex-col ">
-              <input type="hidden" name="eventDate" value={field.value} />
+          control={control as Control<FieldValues> | undefined}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
               {labelState && (
-                <FormLabel className="w-full text-left capitalize text-sm -mb-1">
+                <FieldLabel htmlFor={field.name} className="w-full text-left capitalize text-sm -mb-1">
                   {label ? label : name}
-                </FormLabel>
+                </FieldLabel>
               )}
               <Popover open={open} onOpenChange={setOpen}>
-                <PopoverTrigger asChild className="">
-                  <FormControl className="py-4! mb-2! h-[42px] rounded-lg">
-                    <Button
-                      variant={'outline'}
-                      className={`${cn('w-full pl-3  text-left font-normal', !field.value && 'text-muted-foreground')}  `}
-                    >
-                      {field.value ? field.value : <span>Bir tarih seçin</span>}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={'outline'}
+                    id={field.name}
+                    aria-invalid={fieldState.invalid}
+                    className={cn(
+                      'w-full pl-3 text-left font-normal h-10.5 rounded-lg',
+                      !field.value && 'text-muted-foreground'
+                    )}
+                  >
+                    {field.value ? field.value : <span>Bir tarih seçin</span>}
+                    <Calendar04 className="ml-auto h-4 w-4 opacity-50" />
+                  </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
@@ -313,81 +304,77 @@ export default function FormInput({
                       field.onChange(formattedDate);
                       setOpen(false);
                     }}
-                    // disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
                     initialFocus
                   />
                 </PopoverContent>
               </Popover>
-              {/* <FormDescription>Your date of birth is used to calculate your age.</FormDescription> */}
-              <FormMessage />
-            </FormItem>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
           )}
         />
       );
+      break;
     case 'pin':
       return (
-        <FormField
-          control={control as Control<FieldValues>}
+        <Controller
           name={name}
-          render={({ field }) => (
-            <FormItem>
+          control={control as Control<FieldValues> | undefined}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
               {labelState && (
-                <FormLabel className="w-full text-left capitalize text-sm -mb-1">
+                <FieldLabel htmlFor={field.name} className="w-full text-left capitalize text-sm -mb-1">
                   {label ? label : name}
-                </FormLabel>
+                </FieldLabel>
               )}
-              <FormControl className=''>
-                <InputOTP maxLength={6} {...field} className="w-full">
-                  <InputOTPGroup className="">
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                  </InputOTPGroup>
-                  <InputOTPSeparator />
-                  <InputOTPGroup className="">
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
-                  </InputOTPGroup>
-                </InputOTP>
-              </FormControl>
-              {/* <FormDescription>
-                Emailinize gönderilen tek kullanımlık şifreyi giriniz lütfen.
-              </FormDescription> */}
-              <FormMessage />
-            </FormItem>
+              <InputOTP maxLength={6} {...field} className="w-full">
+                <InputOTPGroup>
+                  <InputOTPSlot index={0} />
+                  <InputOTPSlot index={1} />
+                  <InputOTPSlot index={2} />
+                </InputOTPGroup>
+                <InputOTPSeparator />
+                <InputOTPGroup>
+                  <InputOTPSlot index={3} />
+                  <InputOTPSlot index={4} />
+                  <InputOTPSlot index={5} />
+                </InputOTPGroup>
+              </InputOTP>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
           )}
         />
       );
+      break;
     case 'time':
       return (
-        <FormField
-          control={control as Control<FieldValues>}
+        <Controller
           name={name}
-          render={({ field }) => (
-            <FormItem>
+          control={control as Control<FieldValues> | undefined}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
               {labelState && (
-                <FormLabel className="w-full text-left capitalize text-sm mt-3 -mb-1">
+                <FieldLabel htmlFor={field.name} className="w-full text-left capitalize text-sm mt-3 -mb-1">
                   {label ? label : name}
-                </FormLabel>
+                </FieldLabel>
               )}
-              <FormControl>
-                <Input
-                  type="time"
-                  {...field}
-                  onChangeCapture={(e) => {
-                    field.onChange(e.currentTarget.value);
-                    e.currentTarget.blur()
-                  }}
-                  className={`block w-full border-2  !focus:shadow-sm focus:border-mainColor placeholder:text-sm ${className}`}
-                />
-              </FormControl>
-              {/* <FormDescription>This is your public display name.</FormDescription> */}
-              <FormMessage />
-            </FormItem>
+              <Input
+                type="time"
+                {...field}
+                id={field.name}
+                aria-invalid={fieldState.invalid}
+                onChangeCapture={(e) => {
+                  field.onChange(e.currentTarget.value);
+                  e.currentTarget.blur();
+                }}
+                {...props}
+                className={`block w-full border-2 !focus:shadow-sm focus:border-mainColor placeholder:text-sm ${className}`}
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
           )}
         />
       );
+      break;
     default:
       break;
   }

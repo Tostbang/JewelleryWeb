@@ -13,6 +13,9 @@ import { UserMinus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MyCard from "@/components/MyCard"
 import PriceCalculatorForm from "./components/PriceCalculatorForm"
+import { useGetHistory } from "./_services/queries"
+import { formatDistanceToNow } from "date-fns"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 const statsCards = [
   {
@@ -112,6 +115,8 @@ const chartConfig = {
 }
 
 export default function DashboardPage() {
+  const { data: historyData, isLoading } = useGetHistory()
+
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
@@ -171,24 +176,34 @@ export default function DashboardPage() {
         </MyCard>
 
         <MyCard title="Recent Activity" Icon={TimeQuarterPassFilled}>
-          <div className="space-y-3">
-            {[
-              { action: "New sale", item: "Gold necklace", amount: "₹45,000", time: "5 min ago" },
-              { action: "Repair completed", item: "Silver ring", amount: "₹1,200", time: "23 min ago" },
-              { action: "Custom order", item: "Diamond earrings", amount: "₹125,000", time: "1 hr ago" },
-            ].map((activity, i) => (
-              <div key={i} className="flex items-center justify-between py-2 border-b last:border-0">
-                <div>
-                  <p className="text-sm font-medium">{activity.action}</p>
-                  <p className="text-xs text-muted-foreground">{activity.item}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm font-semibold">{activity.amount}</p>
-                  <p className="text-xs text-muted-foreground">{activity.time}</p>
-                </div>
+          <ScrollArea className="space-y-3 h-50 pr-3">
+            {isLoading ? (
+              <div className="text-center py-4 text-sm text-muted-foreground">
+                Loading history...
               </div>
-            ))}
-          </div>
+            ) : historyData && historyData.items && historyData.items.length > 0 ? (
+              historyData.items.slice(0, 5).map((history) => (
+                <div key={history.historyId} className="flex items-center justify-between py-2 border-b last:border-0">
+                  <div>
+                    <p className="text-sm font-medium">{history.karat}K Calculation</p>
+                    <p className="text-xs text-muted-foreground">
+                      Cost: ₹{history.cost.toLocaleString()} • Labor: ₹{history.laborCost.toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm font-semibold">₹{history.totalCost.toLocaleString()}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {formatDistanceToNow(new Date(history.createdDate), { addSuffix: true })}
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="text-center py-4 text-sm text-muted-foreground">
+                No history available
+              </div>
+            )}
+          </ScrollArea>
         </MyCard>
 
       </div>

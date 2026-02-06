@@ -1,4 +1,4 @@
-import { CustomerSupportFilled, DashboardSquare03Filled, LaptopPhoneSync1Filled, User02Filled } from "asem-icons";
+import { CustomerSupportFilled, DashboardSquare03Filled, LaptopPhoneSync1Filled, Package, PackageFilled, User02Filled } from "asem-icons";
 import { CircleQuestionMark, Factory, Headset, LayoutDashboard, Star, User } from "lucide-react";
 
 export const sidebarLinks = [
@@ -66,6 +66,12 @@ export const sidebarLinks = [
     url: "/dash/devices",
     icon: LaptopPhoneSync1Filled,
     subLinks: null
+  },
+  {
+    title: "paketler",
+    url: "/dash/packages",
+    icon: PackageFilled,
+    subLinks: null,
   },
   {
     title: "profil",

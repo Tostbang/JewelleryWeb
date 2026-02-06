@@ -1,17 +1,6 @@
 "use client"
 
 import {
-  Building2,
-  ChevronsUpDown,
-  HandshakeIcon,
-  Laptop,
-  LogOutIcon,
-  ShoppingBag,
-  Star,
-  User,
-} from "lucide-react"
-
-import {
   Avatar,
   AvatarFallback,
   AvatarImage,
@@ -29,6 +18,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { deleteToken } from "@/lib/helpers"
+import { Computer, Laptop, Logout04, UnfoldMoreSharp, User02 } from "asem-icons"
 import { useRouter } from "next/navigation"
 // import { useProfileStore } from "@/lib/stores/profile-store"
 
@@ -69,7 +59,7 @@ export function NavUser() {
               <span className="truncate text-xs text-gray-500">{profile?.email}</span> */}
             </div>
 
-            <ChevronsUpDown className="ml-auto size-4 text-gray-500" />
+            <UnfoldMoreSharp className="ml-auto size-4 text-gray-500" />
           </SidebarMenuButton>
         </DropdownMenuTrigger>
         <DropdownMenuContent
@@ -98,7 +88,7 @@ export function NavUser() {
 
           {/* Profile - All roles */}
           <DropdownMenuItem onClick={() => router.push(profileUrl)}>
-            <User />
+            <User02 />
             Profil
           </DropdownMenuItem>
 
@@ -139,7 +129,7 @@ export function NavUser() {
 
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => LogOut()}>
-            <LogOutIcon />
+            <Logout04 />
             Çıkış Yap
           </DropdownMenuItem>
         </DropdownMenuContent>

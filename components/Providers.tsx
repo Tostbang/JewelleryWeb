@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 // import AlertDialogProvider from './AlertDialog';
 // import SheetProvider from './CustomSheet';
 import { ProgressProvider } from '@bprogress/next/app';
+import { TooltipProvider } from './ui/tooltip';
 
 
 export default function Providers({ children }: { children: React.ReactNode | React.ReactNode[] }) {
@@ -32,9 +33,11 @@ export default function Providers({ children }: { children: React.ReactNode | Re
   });
   return (
     <QueryClientProvider client={queryClient}>
-      <ProgressProvider height='3px' color="#025864" shallowRouting={false} options={{ showSpinner: false, easing: "ease-in", positionUsing: "translate" }}  >
-        {children}
-      </ProgressProvider>
+      <TooltipProvider>
+        <ProgressProvider height='3px' color="#025864" shallowRouting={false} options={{ showSpinner: false, easing: "ease-in", positionUsing: "translate" }}  >
+          {children}
+        </ProgressProvider>
+      </TooltipProvider>
       {/* <AlertDialogProvider /> */}
       {/* <SheetProvider /> */}
     </QueryClientProvider>

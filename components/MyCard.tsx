@@ -2,10 +2,10 @@ import { IconType } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import React, { ReactNode } from 'react'
 
-export default function MyCard({ children, Icon, title, actions }: { children: ReactNode, Icon: IconType, title: string, actions?: ReactNode }) {
+export default function MyCard({ children, Icon, title, actions, className }: { children: ReactNode, Icon: IconType, title: string, actions?: ReactNode, className?: string }) {
   return (
     <div
-      className={cn("relative overflow-hidden rounded-[60px] squircle border border-white p-4 pb-6 bg-white/40 backdrop-blur-2xl")}
+      className={cn("relative overflow-hidden rounded-[60px] squircle border border-white p-4 pb-6 bg-white/40 backdrop-blur-2xl", className)}
     >
       <div className="">
         <div className="w-full flex items-center justify-between">
