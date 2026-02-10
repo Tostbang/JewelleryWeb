@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { CalloutChip } from "../../utils/CalloutChip";
 import { Card } from "../../utils/Card";
-import { animations, motion } from "motion/react";
+import { animations, motion, Transition } from "motion/react";
 import auth0 from "@/public/logos/auth0.svg"
 import buildkite from "@/public/logos/buildkite.svg"
 import github from "@/public/logos/github.svg"
@@ -12,21 +12,22 @@ import supabase from "@/public/logos/supabase.svg"
 import twilio from "@/public/logos/twinmotion.svg"
 import zapier from "@/public/logos/zapier.svg"
 import Image from "next/image";
+import { IconType } from "@/lib/types";
 
 
 export const LongCard = () => {
   return (
     <div className="col-span-2 h-fit sm:h-[209px]">
-      <Card>
+      <Card className="bg-my-orange2">
         <div className="relative z-20">
           <CalloutChip>Callout #4</CalloutChip>
           <p className="mb-1.5 text-2xl">Talk about integrations</p>
-          <p className="max-w-sm text-zinc-600">
+          <p className="max-w-sm text-zinc-600 dark:text-zinc-400">
             If you connect with tools that people already know and use, show it
             off!
           </p>
         </div>
-        <div className="absolute bottom-0 right-0 top-0 z-10 w-48 bg-gradient-to-r from-white/0 to-white" />
+        <div className="absolute bottom-0 right-0 top-0 z-10 w-48 bg-gradient-to-r from-my-orange/0 to-my-orange/50 dark:from-my-orange/0 dark:to-my-orange/25" />
         <SpinningLogos />
       </Card>
     </div>
@@ -82,7 +83,7 @@ const SpinningLogos = () => {
           sizes.iconWrapperWidth +
           sizes.ringPadding,
       }}
-      className="absolute right-0 top-0 z-0 grid translate-x-1/3 place-content-center rounded-full bg-gradient-to-br from-my-blue/30 via-my-lavender/20 to-my-pink/30 backdrop-blur-md shadow-inner shadow-my-lavender/20"
+      className="absolute right-0 top-0 z-0 grid translate-x-1/3 place-content-center rounded-full bg-white/50 backdrop-blur-md shadow-inner shadow-my-orange/20 dark:shadow-my-orange/10"
     >
       <motion.div
         initial={{ rotate: 0 }}
@@ -100,7 +101,7 @@ const SpinningLogos = () => {
         }}
         className="relative grid place-items-center rounded-full shadow"
       >
-        {ICON_DATA.map((icon, idx) => {
+        {ICON_DATA.map(({ Icon }, idx) => {
           const degrees = (360 / ICON_DATA.length) * idx;
           return (
             <motion.div
@@ -118,12 +119,12 @@ const SpinningLogos = () => {
               initial={{ rotate: 0 }}
               animate={{ rotate: -360 }}
               transition={TRANSITION}
-              className="absolute grid place-content-center rounded-full bg-gradient-to-br from-my-blue via-my-lavender to-my-pink text-white shadow-lg shadow-my-lavender/40 backdrop-blur-sm border border-white/40"
+              className="absolute grid place-content-center rounded-full bg-gradient-to-br from-my-orange via-my-lavender to-my-pink text-white shadow-lg shadow-my-lavender/40 dark:shadow-my-lavender/20 backdrop-blur-sm border border-white/40 dark:border-white/20"
             >
               <Image style={{
-                fontSize: sizes.logoFontSize,
-              }} src={icon.Icon} alt={`logo-${idx}`} width={100} height={100} />
-              {/* <icon.Icon
+                width: sizes.logoFontSize,
+              }} src={Icon} alt={`logo-${idx}`} width={100} height={100} />
+              {/* <Icon
                 style={{
                   fontSize: sizes.logoFontSize,
                 }}
@@ -168,7 +169,7 @@ const degreesToRadians = (degrees: number) => {
   return degrees * (Math.PI / 180);
 };
 
-const ICON_DATA = [
+const ICON_DATA: { Icon: string }[] = [
   {
     Icon: github,
   },
@@ -204,9 +205,9 @@ const RADIUS_TO_CENTER_OF_ICONS = {
 };
 // Defines the width of the icon circles
 const ICON_WRAPPER_WIDTH = {
-  sm: 40,
-  md: 65,
-  lg: 80,
+  sm: 20,
+  md: 45,
+  lg: 60,
 };
 // Defines the padding between the icon circles and the inner and outer rings
 const RING_PADDING = {
@@ -226,7 +227,7 @@ const BREAKPOINTS = {
   md: 768,
 };
 
-const TRANSITION = {
+const TRANSITION: Transition = {
   repeat: Infinity,
   repeatType: "loop",
   duration: 50,

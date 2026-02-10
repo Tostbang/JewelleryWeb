@@ -1,17 +1,15 @@
-import { Footer } from "@/components/footer/Footer";
-import { SignIn } from "@/components/signin/SignIn";
-import { Barlow } from "next/font/google";
+"use client"
 
-const barlowFont = Barlow({
-  subsets: ["latin"],
-  style: ["italic", "normal"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
+import { LoginForm } from "@/components/signin/LoginForm";
+import { CornerBlur } from "@/components/utils/CornerBlur";
+import { CornerGrid } from "@/components/utils/CornerGrid";
 
-export default function signIn() {
+export default function LoginPage() {
   return (
-    <main className={barlowFont.className}>
-      <SignIn />
+    <main className="min-h-screen bg-background relative overflow-hidden flex items-center justify-center py-12 px-4">
+      <LoginForm />
+      <CornerBlur />
+      <CornerGrid />
     </main>
   );
 }

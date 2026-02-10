@@ -1,9 +1,8 @@
 "use client"
 import React from "react";
 import { MaxWidthWrapper } from "../utils/MaxWidthWrapper";
-import { SplashButton } from "../buttons/SplashButton";
+import { MyButton } from "../buttons/SplashButton";
 import { ArrowRight01Sharp } from "asem-icons";
-import { GhostButton } from "../buttons/GhostButton";
 import { motion } from "motion/react";
 import { GlowingChip } from "../utils/GlowingChip";
 import { useRouter } from "next/navigation";
@@ -64,19 +63,20 @@ export const CTA = () => {
           }}
           className="flex flex-col items-center gap-4 sm:flex-row"
         >
-          <SplashButton
-            onClick={() => router.push("/signin")}
+          <MyButton
+            onClick={() => router.push("/login")}
             className="flex items-center gap-2"
           >
             Try it free
             <ArrowRight01Sharp />
-          </SplashButton>
-          <GhostButton
+          </MyButton>
+          <MyButton
+            ghost
             onClick={() => router.push("/#features")}
             className="rounded-md px-4 py-2 text-lg text-zinc-900"
           >
             Learn more
-          </GhostButton>
+          </MyButton>
         </motion.div>
       </MaxWidthWrapper>
       <div className="absolute inset-0 z-0 bg-grid text-my-lavender/30 opacity-40" />

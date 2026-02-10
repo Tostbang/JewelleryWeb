@@ -9,9 +9,9 @@ import { SectionHeading } from "@/components/utils/SectionHeading";
 import { SectionSubheading } from "@/components/utils/SectionSubheading";
 import { SectionHeadingSpacing } from "@/components/utils/SectionHeadingSpacing";
 
-export const Content = () => {
-  return (
-    <section>
+export const Content = () => (
+  <>
+    <section className="bg-my-gradient">
       <MaxWidthWrapper className="relative z-20 pb-20 pt-20 md:pb-28 md:pt-40">
         <SectionHeadingSpacing>
           <SectionHeading>
@@ -28,15 +28,17 @@ export const Content = () => {
         </SectionHeadingSpacing>
 
         <Grid />
-        <div className="my-12 h-[1px] w-full bg-gradient-to-r from-my-blue/0 via-my-lavender/50 to-my-blue/0 md:my-20" />
-        <SimpleGrid />
       </MaxWidthWrapper>
     </section>
-  );
-};
+    <MaxWidthWrapper>
+      <div className="h-[1px] w-full bg-gradient-to-r from-my-blue/0 via-my-lavender/50 dark:via-my-lavender/30 to-my-blue/0 md:mb-20 md:mt-8" />
+      <SimpleGrid />
+    </MaxWidthWrapper>
+  </>
+);
 
 const Grid = () => (
-  <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+  <div className="grid grid-cols-1 gap-4 lg:grid-cols-12 ">
     <Tower />
     <div className="col-span-1 grid grid-cols-2 gap-4 lg:col-span-8 lg:grid-cols-2">
       <MiniCard1 />

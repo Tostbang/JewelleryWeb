@@ -1,7 +1,8 @@
+import { IconType } from "@/lib/types";
 import { Calendar01, Cloud, Dollar02, Moon02, Tick02, Watch01 } from "asem-icons";
 
 export const SimpleGrid = () => (
-  <div className="relative z-10 grid grid-cols-2 gap-9 px-3 md:grid-cols-3 md:gap-12 md:px-6">
+  <div className="relative z-10 bg-white grid grid-cols-2 gap-9 px-3 md:grid-cols-3 md:gap-12 md:px-6">
     <Item
       Icon={Calendar01}
       title="Clear your calendar"
@@ -47,10 +48,10 @@ const Item = ({
   return (
     <div>
       <h4 className="mb-1.5 flex items-start text-lg font-medium md:text-xl">
-        <Icon className="mr-1.5 h-[26px] text-my-blue" />
+        <Icon className="mr-1.5 size-8 text-black" />
         {title}
       </h4>
-      <p className="text-sm text-zinc-600 md:text-base">{subtitle}</p>
+      <p className="text-sm text-zinc-600 dark:text-zinc-400 md:text-base">{subtitle}</p>
     </div>
   );
 };

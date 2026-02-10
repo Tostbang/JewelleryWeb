@@ -5,7 +5,7 @@ import { NavLogo } from "../navbar/NavLogo";
 import Link from "next/link";
 import { BubbleButton } from "../buttons/BubbleButton";
 import { Github01Filled, TwitterFilled, ArrowLeft01Sharp } from "asem-icons";
-import { SplashButton } from "../buttons/SplashButton";
+import { MyButton } from "../buttons/SplashButton";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 
@@ -123,9 +123,9 @@ const Email = () => {
           className="w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 placeholder-zinc-500 ring-1 ring-transparent transition-shadow focus:outline-0 focus:ring-blue-700"
         />
       </div>
-      <SplashButton type="submit" className="w-full">
+      <MyButton type="submit" className="w-full">
         Sign in
-      </SplashButton>
+      </MyButton>
     </form>
   );
 };

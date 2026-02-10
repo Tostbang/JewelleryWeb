@@ -4,10 +4,12 @@ import { NavLogo } from "../navbar/NavLogo";
 // import { SiInstagram, SiX, SiYoutube } from "react-icons/si";
 import Link from "next/link";
 import { Facebook01, Instagram, YoutubeFilled } from "asem-icons";
+import { SimpleGrid } from "../features/grid/SimpleGrid";
 
 export const Footer = () => {
   return (
     <footer className="relative overflow-hidden py-12">
+
       <MaxWidthWrapper className="relative z-20 grid grid-cols-12 gap-x-1.5 gap-y-6">
         <LogoColumn />
         <GenericColumn

@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { NavBar } from "@/components/navbar/NavBar";
 import { cn } from "@/lib/utils";
 
-const outfit = Outfit({subsets:['latin'],variable:'--font-sans'});
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-sans' });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +44,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <Providers>
+          <NavBar />
           {children}
           <Toaster />
         </Providers>

@@ -1,24 +1,24 @@
 import React from "react";
-import { SplashButton } from "../buttons/SplashButton";
-import { GhostButton } from "../buttons/GhostButton";
+import { MyButton } from "../buttons/SplashButton";
 import { useRouter } from "next/navigation";
 
 export const NavCTAs = () => {
   const router = useRouter();
   return (
     <div className="flex items-center gap-2">
-      <GhostButton
-        onClick={() => router.push("/signin")}
+      <MyButton
+        ghost
+        onClick={() => router.push("/login")}
         className="rounded-md px-4 py-1 text-base"
       >
         Sign up
-      </GhostButton>
-      <SplashButton
-        onClick={() => router.push("/signin")}
+      </MyButton>
+      <MyButton
+        onClick={() => router.push("/login")}
         className="px-4 py-1 text-base text-zinc-900"
       >
         Sign in
-      </SplashButton>
+      </MyButton>
     </div>
   );
 };

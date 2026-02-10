@@ -8,14 +8,13 @@ import { BubbleButton } from "@/components/buttons/BubbleButton";
 export const MiniCard1 = () => {
   return (
     <div className="col-span-2 h-[375px] md:col-span-1">
-      <Card>
+      <Card className="bg-my-lavender dark:bg-my-lavender/20">
         <div className="mx-auto w-fit">
           <CalloutChip>Callout #2</CalloutChip>
         </div>
         <p className="mb-1.5 text-center text-2xl">Highlight something cool</p>
-        <p className="mb-6 text-center text-zinc-600">Short and sweet.</p>
+        <p className="mb-6 text-center text-zinc-600 dark:text-zinc-400">Short and sweet.</p>
         <BubbleButton className="mx-auto">Call to action</BubbleButton>
-
         <Ping />
       </Card>
     </div>
@@ -26,8 +25,8 @@ const LOOP_DURATION = 6;
 
 const Ping = () => {
   return (
-    <div className="absolute bottom-0 left-1/2 w-fit -translate-x-1/2 translate-y-1/2">
-      <Link04Filled className="relative z-10 text-7xl text-my-lavender drop-shadow-lg" />
+    <div className="absolute bottom-2 left-1/2 w-fit -translate-x-1/2 translate-y-1/2">
+      <Link04Filled className="relative z-10 size-20 text-black/60 drop-shadow-lg" />
       <Band delay={0} />
       <Band delay={LOOP_DURATION * 0.25} />
       <Band delay={LOOP_DURATION * 0.5} />
@@ -59,7 +58,7 @@ const Band = ({ delay }: { delay: number }) => {
         ease: "linear",
         delay,
       }}
-      className="absolute left-[50%] top-[50%] z-0 size-80 rounded-full border-2 border-my-lavender/40 bg-gradient-to-br from-my-lavender/60 via-my-pink/40 to-my-blue/30 backdrop-blur-sm shadow-xl shadow-my-lavender/20"
+      className="absolute left-[50%] top-[50%] z-0 size-80 rounded-full border-2 border-my-orange bg-linear-to-br from-my-lavender/90 via-my-pink/80 to-my-orange/40 backdrop-blur-sm shadow-xl shadow-my-lavender/20"
     />
   );
 };

@@ -141,6 +141,9 @@
     @apply bg-background text-foreground;
     @apply bg-background text-foreground;
   }
+  button {
+    cursor: pointer;
+  }
 }
 
 @layer utilities {
@@ -157,6 +160,9 @@
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M0 .5H31.5V32' stroke='black' stroke-width='2' fill='none'/%3E%3C/svg%3E");
     -webkit-mask-size: var(--grid-size) var(--grid-size);
     -webkit-mask-repeat: repeat;
+  }
+  .bg-my-gradient {
+    @apply bg-linear-to-r from-[#f0ece8] via-[#efead5] to-[#f2e7c6]
   }
 }
 

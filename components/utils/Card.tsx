@@ -26,7 +26,7 @@ export const Card = ({
       }}
       style={style}
       className={twMerge(
-        "relative h-full w-full overflow-hidden rounded-[60px] squircle border border-white/60 bg-gradient-to-br from-white/50 via-white/40 to-white/30 backdrop-blur-3xl p-6 shadow-xl shadow-my-blue/10",
+        "relative h-full w-full overflow-hidden rounded-[60px] squircle border border-white/60 dark:border-zinc-700/60 bg-gradient-to-br from-white/50 via-white/40 to-white/30 dark:from-zinc-900/50 dark:via-zinc-900/40 dark:to-zinc-900/30 backdrop-blur-3xl p-6 shadow-xl shadow-my-blue/10 dark:shadow-my-blue/5",
         className
       )}
     >

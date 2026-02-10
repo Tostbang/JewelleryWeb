@@ -4,8 +4,8 @@ import { SectionHeadingSpacing } from "../utils/SectionHeadingSpacing";
 import { SectionHeading } from "../utils/SectionHeading";
 import { SectionSubheading } from "../utils/SectionSubheading";
 import { Card } from "../utils/Card";
-import { GhostButton } from "../buttons/GhostButton";
 import { RemoveFilled, Tick02 } from "asem-icons";
+import { MyButton } from "../buttons/SplashButton";
 
 export const Pricing = () => {
   return (
@@ -31,7 +31,7 @@ export const Pricing = () => {
             tier="Free"
             price="$0/mo"
             bestFor="Best for 1-5 users"
-            CTA={<GhostButton className="w-full">Get started free</GhostButton>}
+            CTA={<MyButton ghost className="w-full">Get started free</MyButton>}
             benefits={[
               { text: "One workspace", checked: true },
               { text: "Email support", checked: true },
@@ -46,9 +46,9 @@ export const Pricing = () => {
             price="$79/mo"
             bestFor="Best for 5-50 users"
             CTA={
-              <GhostButton className="w-full bg-gradient-to-br from-my-blue to-my-lavender text-white hover:shadow-lg hover:shadow-my-lavender/30 backdrop-blur-sm">
+              <MyButton ghost className="w-full bg-gradient-to-br from-my-blue to-my-lavender text-white hover:shadow-lg hover:shadow-my-lavender/30 backdrop-blur-sm">
                 14-day free trial
-              </GhostButton>
+              </MyButton>
             }
             benefits={[
               { text: "Five workspaces", checked: true },
@@ -63,7 +63,7 @@ export const Pricing = () => {
             tier="Enterprise"
             price="Contact us"
             bestFor="Best for 50+ users"
-            CTA={<GhostButton className="w-full">Contact us</GhostButton>}
+            CTA={<MyButton ghost className="w-full">Contact us</MyButton>}
             benefits={[
               { text: "Unlimited workspaces", checked: true },
               { text: "Email support", checked: true },
