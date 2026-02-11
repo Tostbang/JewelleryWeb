@@ -94,7 +94,7 @@ function SidebarMenuCollapsible({ item }: {
   const openState = open || openMobile
   const pathname = usePathname()
   // const router = useTransitionRouter()
-  const router = wseRouter({ customRouter: useTransitionRouter })
+  const router = useRouter({ customRouter: useTransitionRouter })
   return (
     <Collapsible
       asChild

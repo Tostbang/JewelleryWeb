@@ -11,23 +11,25 @@ import { SectionHeadingSpacing } from "@/components/utils/SectionHeadingSpacing"
 
 export const Content = () => (
   <>
-    <section className="bg-my-gradient">
+    <section className="">
       <MaxWidthWrapper className="relative z-20 pb-20 pt-20 md:pb-28 md:pt-40">
-        <SectionHeadingSpacing>
-          <SectionHeading>
-            Show the people
-            <br />
-            <span className="bg-gradient-to-br from-my-blue to-my-lavender bg-clip-text text-transparent">
-              what makes you great
-            </span>
-          </SectionHeading>
-          <SectionSubheading>
-            Here's a good way to show some high levels pros as to what your
-            product does and for who.
-          </SectionSubheading>
-        </SectionHeadingSpacing>
+        <div className="bg-[#f0ece8] p-8 rounded-2xl">
+          <SectionHeadingSpacing>
+            <SectionHeading>
+              Show the people
+              <br />
+              <span className="bg-gradient-to-br from-my-blue to-my-lavender bg-clip-text text-transparent">
+                what makes you great
+              </span>
+            </SectionHeading>
+            <SectionSubheading>
+              Here's a good way to show some high levels pros as to what your
+              product does and for who.
+            </SectionSubheading>
+          </SectionHeadingSpacing>
 
-        <Grid />
+          <Grid />
+        </div>
       </MaxWidthWrapper>
     </section>
     <MaxWidthWrapper>

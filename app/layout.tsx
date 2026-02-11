@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Figtree, Lexend_Deca, Barlow, Outfit } from "next/font/google";
 import "./globals.css";
-import Providers from "@/components/Providers";
 import { Toaster } from "@/components/ui/sonner";
 import { NavBar } from "@/components/navbar/NavBar";
 import { cn } from "@/lib/utils";
+import Providers from "@/components/Providers";
 
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -44,11 +44,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <Providers>
-          <NavBar />
           {children}
           <Toaster />
         </Providers>
       </body>
-    </html>
+    </html >
   );
 }

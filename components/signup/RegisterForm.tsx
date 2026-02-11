@@ -5,37 +5,44 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import FormInput from "@/components/FormInput"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/utils/Card"
+import MyCard from "../MyCard"
+import { MyButton } from "../buttons/MyButton"
 import { NavLogo } from "@/components/navbar/NavLogo"
 import { useRouter } from "next/navigation"
 import { BubbleButton } from "@/components/buttons/BubbleButton"
 import { ArrowLeft01Sharp } from "asem-icons"
-import { useLogin } from "./_services/mutations"
+import { useRegister } from "./_services/mutations"
 import { toast } from "sonner"
-import MyCard from "../MyCard"
-import { MyButton } from "../buttons/MyButton"
 
-const loginSchema = z.object({
+const registerSchema = z.object({
+  firstName: z.string().min(2, "Ad en az 2 karakter olmalıdır"),
+  lastName: z.string().min(2, "Soyad en az 2 karakter olmalıdır"),
   email: z.string().email("Lütfen geçerli bir e-posta adresi girin"),
   password: z.string().min(6, "Şifre en az 6 karakter olmalıdır"),
+  confirmPassword: z.string().min(6, "Şifre en az 6 karakter olmalıdır"),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "Şifreler eşleşmiyor",
+  path: ["confirmPassword"],
 })
 
-type LoginFormValues = z.infer<typeof loginSchema>
+type RegisterFormValues = z.infer<typeof registerSchema>
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   const router = useRouter()
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null)
 
-  const { control, handleSubmit } = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  const { control, handleSubmit } = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
   })
 
-  const loginMutation = useLogin()
+  const registerMutation = useRegister()
 
   // Get user location on component mount
   useEffect(() => {
@@ -59,22 +66,24 @@ export const LoginForm = () => {
     }
   }, [])
 
-  const onSubmit = async (data: LoginFormValues) => {
+  const onSubmit = async (data: RegisterFormValues) => {
     try {
-      const response = await loginMutation.mutateAsync({
+      const response = await registerMutation.mutateAsync({
+        firstName: data.firstName,
+        lastName: data.lastName,
         email: data.email,
         password: data.password,
         lat: location?.lat || 0,
         lng: location?.lng || 0,
       })
 
-      toast.success("Giriş başarılı!")
+      toast.success("Kayıt başarılı! Giriş yapabilirsiniz.")
 
-      // Redirect to dashboard
-      router.push("/dash/dashboard")
+      // Redirect to login page
+      router.push("/login")
     } catch (error) {
-      console.error("Login error:", error)
-      toast.error(error instanceof Error ? error.message : "Giriş başarısız. Lütfen tekrar deneyin.")
+      console.error("Register error:", error)
+      toast.error(error instanceof Error ? error.message : "Kayıt başarısız. Lütfen tekrar deneyin.")
     }
   }
 
@@ -82,7 +91,7 @@ export const LoginForm = () => {
     <div className="relative z-10 w-full max-w-md animate-in fade-in slide-in-from-bottom-4 duration-700">
       <BubbleButton
         onClick={() => router.push("/")}
-        className="mb-8 "
+        className="mb-8 text-sm hover:scale-105 transition-transform"
       >
         <ArrowLeft01Sharp className="size-4" />
         Geri dön
@@ -95,15 +104,35 @@ export const LoginForm = () => {
           </div>
           <div className="mt-8 space-y-2 text-center">
             <h1 className="text-3xl font-bold ">
-              Tekrar Hoş Geldiniz
+              Hoş Geldiniz
             </h1>
             <p className="text-muted-foreground text-sm">
-              Kuyumculuk hesabınıza giriş yapın
+              Yeni hesap oluşturun
             </p>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+          <div className="grid grid-cols-2 gap-4">
+            <FormInput
+              type="text"
+              name="firstName"
+              label="Ad"
+              control={control}
+              placeholder="Adınız"
+              autoComplete="given-name"
+            />
+
+            <FormInput
+              type="text"
+              name="lastName"
+              label="Soyad"
+              control={control}
+              placeholder="Soyadınız"
+              autoComplete="family-name"
+            />
+          </div>
+
           <FormInput
             type="text"
             name="email"
@@ -111,7 +140,6 @@ export const LoginForm = () => {
             control={control}
             placeholder="ornek@eposta.com"
             autoComplete="email"
-            className="bg-white/40 h-10"
           />
 
           <FormInput
@@ -120,33 +148,41 @@ export const LoginForm = () => {
             label="Şifre"
             control={control}
             placeholder="Şifrenizi girin"
-            autoComplete="current-password"
-            className="bg-white/40 h-10"
+            autoComplete="new-password"
+          />
+
+          <FormInput
+            type="password"
+            name="confirmPassword"
+            label="Şifre Tekrar"
+            control={control}
+            placeholder="Şifrenizi tekrar girin"
+            autoComplete="new-password"
           />
 
           <MyButton
             type="submit"
             className="w-full h-11 mt-8 shadow-lg shadow-my-blue/20 hover:shadow-xl hover:shadow-my-blue/30 transition-all duration-300"
-            disabled={loginMutation.isPending || !location}
+            disabled={registerMutation.isPending || !location}
           >
-            {loginMutation.isPending ? "Giriş yapılıyor..." : "Giriş Yap"}
+            {registerMutation.isPending ? "Kayıt yapılıyor..." : "Kayıt Ol"}
           </MyButton>
         </form>
 
-        <div className="mt-6 text-center">
+        <div className="mt-3 text-center">
           <p className="text-sm text-muted-foreground">
-            Hesabınız yok mu?{" "}
+            Zaten hesabınız var mı?{" "}
             <button
-              onClick={() => router.push("/register")}
+              onClick={() => router.push("/login")}
               className="text-my-blue font-medium hover:underline transition-all"
             >
-              Kayıt Ol
+              Giriş Yap
             </button>
           </p>
         </div>
 
-        <p className="mt-4 text-xs text-muted-foreground text-center leading-relaxed px-2">
-          Giriş yaparak{" "}
+        <p className="mt-2 text-xs text-muted-foreground text-center leading-relaxed px-2">
+          Kayıt olarak{" "}
           <span className="text-my-blue font-medium cursor-pointer hover:underline">
             Şartlar ve Koşullarımızı
           </span>

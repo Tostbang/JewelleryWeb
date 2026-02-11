@@ -21,20 +21,15 @@ import Image from "next/image"
 import { Link } from "next-view-transitions"
 import { ScrollArea } from "./ui/scroll-area"
 import { NavUser } from "./nav-user"
+import { useProfileStore } from "@/lib/store/profile-store"
 // import { useProfileStore } from "@/lib/stores/profile-store"
 
 // This is sample data.
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { open } = useSidebar()
-  // const { profile } = useProfileStore()
+  const { profile } = useProfileStore()
 
-  const profile = {
-    roleId: "Manager"
-  }
-  const isSupplier = profile?.roleId === "Supplier" ? true : false;
-  const isManager = profile?.roleId === "Manager"
-  const isPurchaser = profile?.roleId === "Purchaser"
 
   return (
     <Sidebar collapsible="icon" variant="floating" className="bg-transparent" {...props}>
@@ -45,7 +40,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           className={`data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground hover:bg-white`}
           asChild
         >
-          <Link href={`/dash/dashboard/${isSupplier ? "supplier" : isManager ? "manager" : isPurchaser ? "purchaser" : "manager"}`}>
+          <Link href={`/dash/dashboard/`}>
             <div className={`text-sidebar-primary-foreground flex aspect-square size-10 items-center justify-center rounded-lg ${!open && "ml-2"} `}>
               {/* <activeTeam.logo className="size-4" /> */}
               {/* <Image alt="logo" src={logo} width={200} height={200} className="w-full h-full" /> */}
@@ -78,7 +73,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter className="overflow-hidden ">
-        <NavUser profile={profile} />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

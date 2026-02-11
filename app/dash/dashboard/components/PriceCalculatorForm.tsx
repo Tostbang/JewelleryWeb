@@ -10,6 +10,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
@@ -53,7 +54,7 @@ export default function PriceCalculatorForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-between w-full h-full  ">
         <div className="grid grid-cols-2 gap-4">
           <FormInput
             type="text"
@@ -74,7 +75,7 @@ export default function PriceCalculatorForm() {
             <SelectItem value="14">14K</SelectItem>
           </FormInput>
         </div>
-        <Button type="submit" className="w-full" disabled={mutation.isPending}>
+        <Button type="submit" className="w-full h-11" disabled={mutation.isPending}>
           {mutation.isPending ? "Calculating..." : "Calculate Price"}
         </Button>
       </form>
@@ -82,7 +83,7 @@ export default function PriceCalculatorForm() {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Calculation Result</DialogTitle>
+            <DialogTitle>Hesaplama Sonucu</DialogTitle>
             <DialogDescription>
               {result?.message}
             </DialogDescription>
@@ -90,15 +91,27 @@ export default function PriceCalculatorForm() {
           {result && (
             <div className="space-y-3">
               <div className="flex justify-between items-center p-3 bg-muted rounded-md">
-                <span className="font-medium">Labor Cost:</span>
-                <span className="text-lg font-bold">₹{result.laborCost}</span>
+                <span className="font-medium">Gram:</span>
+                <span className="text-lg font-bold">{result.gram.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}g</span>
               </div>
               <div className="flex justify-between items-center p-3 bg-muted rounded-md">
-                <span className="font-medium">Total Cost:</span>
-                <span className="text-lg font-bold">₹{result.totalCost}</span>
+                <span className="font-medium">İşçilik Maliyeti:</span>
+                <span className="text-lg font-bold">₺{result.laborCost.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+              </div>
+              <div className="flex justify-between items-center p-3 bg-primary/10 rounded-md border-2 border-primary">
+                <span className="font-medium">Toplam Maliyet:</span>
+                <span className="text-xl font-bold text-primary">₺{result.totalCost.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
               </div>
             </div>
           )}
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => setOpen(false)}>
+              İptal
+            </Button>
+            <Button onClick={() => setOpen(false)}>
+              Tamam
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </>

@@ -5,7 +5,7 @@ import { NavLogo } from "../navbar/NavLogo";
 import Link from "next/link";
 import { BubbleButton } from "../buttons/BubbleButton";
 import { Github01Filled, TwitterFilled, ArrowLeft01Sharp } from "asem-icons";
-import { MyButton } from "../buttons/SplashButton";
+import { MyButton } from "../buttons/MyButton";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 

@@ -5,7 +5,7 @@ import { SectionHeading } from "../utils/SectionHeading";
 import { SectionSubheading } from "../utils/SectionSubheading";
 import { Card } from "../utils/Card";
 import { RemoveFilled, Tick02 } from "asem-icons";
-import { MyButton } from "../buttons/SplashButton";
+import { MyButton } from "../buttons/MyButton";
 
 export const Pricing = () => {
   return (

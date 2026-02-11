@@ -2,7 +2,7 @@ import { ItemLink } from "@/components/my-nav";
 import { AdminLinks, DepartmentUser, ManagerLinks, PurchaserLinks, SupplierLinks } from "@/lib/static";
 // import { useProfileStore } from "@/lib/stores/profile-store"
 import { useMemo } from "react";
-import { sidebarLinks } from "../app/lib/static";
+import { sidebarLinks } from "./static";
 
 export function useLinks() {
   // const roleId = useProfileStore(s => s.profile?.roleId)

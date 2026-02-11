@@ -26,7 +26,7 @@ const LOOP_DURATION = 6;
 const Ping = () => {
   return (
     <div className="absolute bottom-2 left-1/2 w-fit -translate-x-1/2 translate-y-1/2">
-      <Link04Filled className="relative z-10 size-20 text-black/60 drop-shadow-lg" />
+      <Link04Filled className="relative z-10 size-20 text-black drop-shadow-lg" />
       <Band delay={0} />
       <Band delay={LOOP_DURATION * 0.25} />
       <Band delay={LOOP_DURATION * 0.5} />
@@ -58,7 +58,7 @@ const Band = ({ delay }: { delay: number }) => {
         ease: "linear",
         delay,
       }}
-      className="absolute left-[50%] top-[50%] z-0 size-80 rounded-full border-2 border-my-orange bg-linear-to-br from-my-lavender/90 via-my-pink/80 to-my-orange/40 backdrop-blur-sm shadow-xl shadow-my-lavender/20"
+      className="absolute left-[50%] top-[50%] z-0 size-80 rounded-full border-2 border-white/30 bg-white/15  backdrop-blur-sm shadow-xl shadow-my-lavender/30"
     />
   );
 };

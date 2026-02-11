@@ -1,7 +1,7 @@
 "use client"
 import React from "react";
 import { MaxWidthWrapper } from "../utils/MaxWidthWrapper";
-import { MyButton } from "../buttons/SplashButton";
+import { MyButton } from "../buttons/MyButton";
 import { ArrowRight01Sharp } from "asem-icons";
 import { motion } from "motion/react";
 import { GlowingChip } from "../utils/GlowingChip";

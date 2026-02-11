@@ -162,7 +162,8 @@
     -webkit-mask-repeat: repeat;
   }
   .bg-my-gradient {
-    @apply bg-linear-to-r from-[#f0ece8] via-[#efead5] to-[#f2e7c6]
+    /* @apply bg-linear-to-r from-[#f0ece8] from-50% via-75% to-90% via-[#efead5] to-[#f2e7c6] */
+        @apply bg-linear-to-br from-[#efedec] from-25% via-50% to-95% via-[#f2e9d1] to-[#f2ead6]
   }
 }
 

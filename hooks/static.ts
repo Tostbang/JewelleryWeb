@@ -1,4 +1,4 @@
-import { CustomerSupportFilled, DashboardSquare03Filled, LaptopPhoneSync1Filled, Package, PackageFilled, User02Filled } from "asem-icons";
+import { Calculator01Filled, CustomerSupportFilled, DashboardSquare03Filled, LaptopPhoneSync1Filled, Package, PackageFilled, User02Filled } from "asem-icons";
 import { CircleQuestionMark, Factory, Headset, LayoutDashboard, Star, User } from "lucide-react";
 
 export const sidebarLinks = [
@@ -6,6 +6,12 @@ export const sidebarLinks = [
     title: "Kontrol Paneli",
     url: "/dash/dashboard",
     icon: DashboardSquare03Filled,
+    subLinks: null,
+  },
+  {
+    title: "hesaplama",
+    url: "/dash/calculate",
+    icon: Calculator01Filled,
     subLinks: null,
   },
   {

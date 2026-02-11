@@ -2,7 +2,7 @@
 import { ArrowRight01Sharp } from "asem-icons";
 import { MaxWidthWrapper } from "../utils/MaxWidthWrapper";
 import { motion } from "motion/react";
-import { MyButton } from "../buttons/SplashButton";
+import { MyButton } from "../buttons/MyButton";
 import { GlowingChip } from "../utils/GlowingChip";
 import { useRouter } from "next/navigation";
 
@@ -90,7 +90,6 @@ export const Content = () => {
         <MyButton
           ghost
           onClick={() => router.push("/#features")}
-          className="rounded-md px-4 py-2 text-lg text-zinc-900"
         >
           Learn more
         </MyButton>

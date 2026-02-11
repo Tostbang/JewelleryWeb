@@ -1,5 +1,5 @@
 import React from "react";
-import { MyButton } from "../buttons/SplashButton";
+import { MyButton } from "../buttons/MyButton";
 import { useRouter } from "next/navigation";
 
 export const NavCTAs = () => {
@@ -8,14 +8,12 @@ export const NavCTAs = () => {
     <div className="flex items-center gap-2">
       <MyButton
         ghost
-        onClick={() => router.push("/login")}
-        className="rounded-md px-4 py-1 text-base"
+        onClick={() => router.push("/register")}
       >
         Sign up
       </MyButton>
       <MyButton
         onClick={() => router.push("/login")}
-        className="px-4 py-1 text-base text-zinc-900"
       >
         Sign in
       </MyButton>

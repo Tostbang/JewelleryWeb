@@ -18,6 +18,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { deleteToken } from "@/lib/helpers"
+import { useProfileStore } from "@/lib/store/profile-store"
 import { Computer, Laptop, Logout04, UnfoldMoreSharp, User02 } from "asem-icons"
 import { useRouter } from "next/navigation"
 // import { useProfileStore } from "@/lib/stores/profile-store"
@@ -25,7 +26,7 @@ import { useRouter } from "next/navigation"
 export function NavUser() {
   const { isMobile: small } = useSidebar()
   const router = useRouter()
-  // const { profile } = useProfileStore()
+  const { profile } = useProfileStore()
 
   // const isPurchaser = profile?.roleId === "Purchaser"
   // const isManager = profile?.roleId === "Manager"
@@ -51,14 +52,13 @@ export function NavUser() {
             className={`bg-white w-56 outline-0 ring-0 select-none focus:ring-0 focus-visible:ring-0 border h-11 ${small ? "size-10 rounded-full p-0 mr-3 border" : "rounded-xl px-2"}`}
           >
             <Avatar className={`rounded-lg ${small ? "size-10" : "size-8"}`}>
-              {/* <AvatarImage alt={profile?.name} src={profile?.profileImageUrl} /> */}
-              {/* <AvatarFallback className="rounded-lg  text-lg">{profile?.name.slice(0, 2)}</AvatarFallback> */}
+              {/* <AvatarImage alt={profile?.firstName} src={profile?.profileImageUrl} /> */}
+              <AvatarFallback className="rounded-lg  text-lg">{profile?.firstName?.slice(0, 2)}</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
-              {/* <span className="truncate font-medium">{profile?.name} {profile?.surname}</span>
-              <span className="truncate text-xs text-gray-500">{profile?.email}</span> */}
+              <span className="truncate font-medium">{profile?.firstName} {profile?.lastName}</span>
+              <span className="truncate text-xs text-gray-500">{profile?.email}</span>
             </div>
-
             <UnfoldMoreSharp className="ml-auto size-4 text-gray-500" />
           </SidebarMenuButton>
         </DropdownMenuTrigger>
@@ -71,11 +71,11 @@ export function NavUser() {
             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
               <Avatar className="h-8 w-8 rounded-lg">
                 {/* <AvatarImage alt={profile?.name} src={profile?.profileImageUrl} /> */}
-                {/* <AvatarFallback className="rounded-lg">{profile?.name.slice(0, 2)}</AvatarFallback> */}
+                <AvatarFallback className="rounded-lg">{profile?.firstName?.slice(0, 2)}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                {/* <span className="truncate font-medium">{profile?.name} {profile?.surname}</span> */}
-                {/* <span className="truncate text-xs">{profile?.email} . {profile?.roleId}</span> */}
+                <span className="truncate font-medium">{profile?.firstName} {profile?.lastName}</span>
+                <span className="truncate text-xs">{profile?.email} . {profile?.roleId}</span>
               </div>
             </div>
             {/* <div className="flex items-center gap-x-1 px-4">
