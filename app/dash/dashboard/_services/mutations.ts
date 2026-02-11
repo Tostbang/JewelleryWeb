@@ -12,6 +12,7 @@ export interface LaborCostRequest {
 export interface LaborCostResponse {
   laborCost: number
   totalCost: number
+  gram: number
   code: string
   message: string
   errors: string[]

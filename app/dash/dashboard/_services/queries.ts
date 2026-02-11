@@ -10,6 +10,7 @@ export interface HistoryItem {
   gramPrice: number
   laborCost: number
   totalCost: number
+  gram?: number
   createdDate: string
 }
 
