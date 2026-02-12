@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { Check, Smartphone, Monitor, MapPin } from "lucide-react"
 import { useGetAllPackages, useGetActivePackage } from "./_services/queries"
 import { useBuyPackage } from "./_services/mutations"
@@ -8,16 +7,9 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import MyCard from "@/components/MyCard"
 import { PackageFilled } from "asem-icons"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Alert } from "@/lib/useGlobalStore"
 
 function PackagesSkeleton() {
   return (
@@ -47,26 +39,6 @@ export default function PackagesPage() {
   const { data: packagesData, isLoading } = useGetAllPackages()
   const { data: activePackage } = useGetActivePackage()
   const buyPackageMutation = useBuyPackage()
-
-  const [selectedPackage, setSelectedPackage] = useState<number | null>(null)
-  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false)
-
-  const handleBuyPackage = (packageId: number) => {
-    setSelectedPackage(packageId)
-    setConfirmDialogOpen(true)
-  }
-
-  const confirmPurchase = async () => {
-    if (selectedPackage) {
-      try {
-        await buyPackageMutation.mutateAsync({ packageId: selectedPackage })
-        setConfirmDialogOpen(false)
-        setSelectedPackage(null)
-      } catch (error) {
-        console.error("Error buying package:", error)
-      }
-    }
-  }
 
   return (
     <div className="p-6 space-y-6">
@@ -172,7 +144,19 @@ export default function PackagesPage() {
                       className="w-full"
                       variant={isActive ? "outline" : "default"}
                       disabled={isActive || buyPackageMutation.isPending}
-                      onClick={() => handleBuyPackage(pkg.packageId)}
+                      onClick={() => Alert({
+                        AlertTitle: "Paketi Satın Al",
+                        AlertDescription: `${pkg.name} paketini ₺${pkg.price}/ay fiyatla satın almak istediğinizden emin misiniz? Mevcut paketiniz varsa değiştirilecektir.`,
+                        CancelLabel: "Vazgeç",
+                        ConfirmLabel: "Satın Al",
+                        onConfirm: async () => {
+                          try {
+                            await buyPackageMutation.mutateAsync({ packageId: pkg.packageId })
+                          } catch (error) {
+                            console.error("Error buying package:", error)
+                          }
+                        }
+                      })}
                     >
                       {isActive ? "Current Package" : "Buy Package"}
                     </Button>
@@ -187,46 +171,6 @@ export default function PackagesPage() {
           </div>
         )}
       </MyCard>
-
-      {/* Confirmation Dialog */}
-      <Dialog open={confirmDialogOpen} onOpenChange={setConfirmDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Confirm Purchase</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to purchase this package? This will replace your current package if you have one.
-            </DialogDescription>
-          </DialogHeader>
-          {selectedPackage && packagesData && (
-            <div className="py-4">
-              {packagesData.packages
-                .filter((pkg) => pkg.packageId === selectedPackage)
-                .map((pkg) => (
-                  <div key={pkg.packageId} className="space-y-2">
-                    <p className="font-semibold text-lg">{pkg.name}</p>
-                    <p className="text-2xl font-bold text-blue-600">₹{pkg.price}/month</p>
-                    <ul className="space-y-1 text-sm text-muted-foreground">
-                      <li>• {pkg.maxDeviceCount} device(s)</li>
-                      <li>• Mobile: {pkg.allowMobile ? "Enabled" : "Disabled"}</li>
-                      <li>• {pkg.allowedRadiusKm} km radius</li>
-                    </ul>
-                  </div>
-                ))}
-            </div>
-          )}
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setConfirmDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button
-              onClick={confirmPurchase}
-              disabled={buyPackageMutation.isPending}
-            >
-              {buyPackageMutation.isPending ? "Processing..." : "Confirm Purchase"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }

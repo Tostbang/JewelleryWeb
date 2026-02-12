@@ -2,27 +2,20 @@ import { ItemLink } from "@/components/my-nav";
 import { AdminLinks, DepartmentUser, ManagerLinks, PurchaserLinks, SupplierLinks } from "@/lib/static";
 // import { useProfileStore } from "@/lib/stores/profile-store"
 import { useMemo } from "react";
-import { sidebarLinks } from "./static";
+import { adminLinks, userLinks } from "./static";
+import { useProfileStore } from "@/lib/store/profile-store";
+import { Role } from "@/lib/types";
 
-export function useLinks() {
-  // const roleId = useProfileStore(s => s.profile?.roleId)
+export function useLinks(layout: "dash" | "admin") {
 
   return useMemo(() => {
-    // if (roleId === "Supplier") {
-    //   return SupplierLinks;
-    // }
-    // else if (roleId === "Purchaser") {
-    //   return PurchaserLinks;
-    // }
-    // else if (roleId === "Manager") {
-    //   return ManagerLinks;
-    // } else if (roleId === "Admin") {
-    //   return AdminLinks
-    // } else if (roleId === "DepartmentUser") {
-    //   return DepartmentUser
-    // }
-    // return []
-    return sidebarLinks;
-    // }, [roleId]) as ItemLink[]
+    if (layout = "dash") {
+      return userLinks;
+    }
+    else if (layout = "admin") {
+      return adminLinks;
+    } else {
+      return []
+    }
   }, []) as ItemLink[]
 }

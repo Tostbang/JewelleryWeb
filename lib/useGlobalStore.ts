@@ -17,7 +17,6 @@ export type SheetConfig = {
   SheetContent?: JSX.Element
 }
 
-
 type State = {
   alertOpen: boolean;
   sheetOpen: boolean;

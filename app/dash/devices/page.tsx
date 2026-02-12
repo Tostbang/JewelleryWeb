@@ -7,25 +7,25 @@ import { useGetSessions, useLogoutSession } from "./_services/query"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Alert } from "@/lib/useGlobalStore"
 
 function DevicesSkeleton() {
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <div className="space-y-2">
-          <Skeleton className="h-9 w-48" />
-          <Skeleton className="h-5 w-64" />
+        <div>
+          <h1 className="text-3xl font-bold">Cihazlarım</h1>
+          <p className="text-muted-foreground mt-1">Aktif ve geçmiş oturumlarınız</p>
         </div>
       </div>
 
-      <div className="space-y-4">
-        <Skeleton className="h-8 w-40" />
+      <MyCard title="Aktif Oturumlar" Icon={TimeQuarterPass}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Array.from({ length: 3 }).map((_, i) => (
             <Skeleton key={i} className="h-[280px] rounded-[60px]" />
           ))}
         </div>
-      </div>
+      </MyCard>
     </div>
   )
 }
@@ -35,17 +35,25 @@ export default function DevicesPage() {
   const logoutMutation = useLogoutSession()
 
   const handleLogout = (sessionId: number) => {
-    logoutMutation.mutate(
-      { sessionId },
-      {
-        onSuccess: () => {
-          toast.success("Oturum kapatıldı")
-        },
-        onError: (error) => {
-          toast.error(error.message || "Bir hata oluştu")
-        },
-      }
-    )
+    Alert({
+      AlertTitle: "Oturumu Kapat",
+      AlertDescription: "Bu cihazdan çıkış yapmak istediğinizden emin misiniz?",
+      CancelLabel: "Vazgeç",
+      ConfirmLabel: "Çıkış Yap",
+      onConfirm: () => {
+        logoutMutation.mutate(
+          { sessionId },
+          {
+            onSuccess: () => {
+              toast.success("Oturum kapatıldı")
+            },
+            onError: (error) => {
+              toast.error(error.message || "Bir hata oluştu")
+            },
+          }
+        )
+      },
+    })
   }
 
   if (isLoading) {

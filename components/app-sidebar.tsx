@@ -26,7 +26,7 @@ import { useProfileStore } from "@/lib/store/profile-store"
 
 // This is sample data.
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ layout, ...props }: { layout: "admin" | "dash" } & React.ComponentProps<typeof Sidebar>) {
   const { open } = useSidebar()
   const { profile } = useProfileStore()
 

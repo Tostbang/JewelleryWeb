@@ -3,6 +3,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { FetchData } from "@/lib/fetchData"
 import { useProfileStore } from "@/lib/store/profile-store"
+import { deleteToken } from "@/lib/helpers"
 
 export interface UpdateProfileRequest {
   // userId: number
@@ -21,9 +22,9 @@ export interface UpdateProfileResponse {
 }
 
 export interface ResetPasswordRequest {
-  email: string
-  resetCode: string
-  newPassword: string
+  currentPassword: string,
+  newPassword: string,
+  newPasswordConfirm: string
 }
 
 export interface ResetPasswordResponse {
@@ -62,10 +63,27 @@ export const useUpdateProfile = () => {
 export const useResetPassword = () => {
   return useMutation<ResetPasswordResponse, Error, ResetPasswordRequest>({
     mutationFn: (data: ResetPasswordRequest) =>
-      FetchData("Auth/ResetPassword", {
+      FetchData("Auth/ChangeMyPassword", {
         method: "POST",
         secure: true,
         body: data,
       }),
+  })
+}
+
+
+export const useDeleteAccount = () => {
+  return useMutation<ResetPasswordResponse, Error>({
+    mutationFn: () =>
+      FetchData("Auth/DeleteMyAccount", {
+        method: "DELETE",
+        secure: true,
+      }),
+    onSuccess: () => {
+      deleteToken()
+      if (window) {
+        window.location.href = "/login"
+      }
+    }
   })
 }

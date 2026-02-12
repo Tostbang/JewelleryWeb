@@ -1,0 +1,10 @@
+- [ ] I would add some calculation cards to the hesaplama page
+- [x] add delete profile action on the profile page 
+- [x] add change password action on the profile page
+- [ ] add the admin layout
+- [x] add the proxy for the admin and the user
+- [ ] add dashboard page for admin
+- [ ] add support page for admin
+- [ ] add package page for admin
+- [ ] add profile page for admin
+- [ ] add users page for admin

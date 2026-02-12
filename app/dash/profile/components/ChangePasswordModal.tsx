@@ -18,8 +18,7 @@ import { useResetPassword } from "../_services/mutations"
 import { toast } from "sonner"
 
 const formSchema = z.object({
-  email: z.string().email("Geçerli bir email adresi giriniz"),
-  resetCode: z.string().min(1, "Sıfırlama kodu gereklidir"),
+  currentPassword: z.string().min(6, "Şifre en az 6 karakter olmalıdır"),
   newPassword: z.string().min(6, "Şifre en az 6 karakter olmalıdır"),
   confirmPassword: z.string().min(6, "Şifre en az 6 karakter olmalıdır"),
 }).refine((data) => data.newPassword === data.confirmPassword, {
@@ -35,14 +34,13 @@ interface ResetPasswordModalProps {
   email?: string
 }
 
-export default function ResetPasswordModal({ open, onOpenChange, email }: ResetPasswordModalProps) {
+export default function ChangePasswordModal({ open, onOpenChange, email }: ResetPasswordModalProps) {
   const mutation = useResetPassword()
 
   const { control, handleSubmit, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: email || "",
-      resetCode: "",
+      currentPassword: "",
       newPassword: "",
       confirmPassword: "",
     },
@@ -51,8 +49,8 @@ export default function ResetPasswordModal({ open, onOpenChange, email }: ResetP
   const onSubmit = async (data: FormValues) => {
     try {
       const response = await mutation.mutateAsync({
-        email: data.email,
-        resetCode: data.resetCode,
+        currentPassword: data.currentPassword,
+        newPasswordConfirm: data.confirmPassword,
         newPassword: data.newPassword,
       })
 
@@ -66,7 +64,7 @@ export default function ResetPasswordModal({ open, onOpenChange, email }: ResetP
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-125">
         <DialogHeader>
           <DialogTitle>Şifre Sıfırla</DialogTitle>
           <DialogDescription>
@@ -75,11 +73,11 @@ export default function ResetPasswordModal({ open, onOpenChange, email }: ResetP
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <FormInput
-            type="text"
-            name="email"
-            label="Email"
+            type="password"
+            name="currentPassword"
+            label="Mevcut Şifre"
             control={control}
-            placeholder="ornek@email.com"
+            placeholder="••••••••"
           />
           <FormInput
             type="password"

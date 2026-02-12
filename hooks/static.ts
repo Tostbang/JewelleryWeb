@@ -1,7 +1,8 @@
 import { Calculator01Filled, CustomerSupportFilled, DashboardSquare03Filled, LaptopPhoneSync1Filled, Package, PackageFilled, User02Filled } from "asem-icons";
 import { CircleQuestionMark, Factory, Headset, LayoutDashboard, Star, User } from "lucide-react";
 
-export const sidebarLinks = [
+
+export const userLinks = [
   {
     title: "Kontrol Paneli",
     url: "/dash/dashboard",
@@ -14,12 +15,12 @@ export const sidebarLinks = [
     icon: Calculator01Filled,
     subLinks: null,
   },
-  {
-    title: "Destek",
-    url: "/dash/support",
-    icon: CustomerSupportFilled,
-    subLinks: null
-  },
+  // {
+  //   title: "Destek",
+  //   url: "/dash/support",
+  //   icon: CustomerSupportFilled,
+  //   subLinks: null
+  // },
   // {
   //   title: "Paketler",
   //   url: "/dash/packages",
@@ -114,4 +115,37 @@ export const sidebarLinks = [
   //     },
   //   ]
   // }
+]
+
+export const adminLinks = [
+  {
+    title: "Kontrol Paneli",
+    url: "/admin/dashboard",
+    icon: DashboardSquare03Filled,
+    subLinks: null,
+  },
+  {
+    title: "Destek",
+    url: "/admin/support",
+    icon: CustomerSupportFilled,
+    subLinks: null
+  },
+  {
+    title: "Cihazlar",
+    url: "/admin/devices",
+    icon: LaptopPhoneSync1Filled,
+    subLinks: null
+  },
+  {
+    title: "paketler",
+    url: "/admin/packages",
+    icon: PackageFilled,
+    subLinks: null,
+  },
+  {
+    title: "profil",
+    url: "/admin/profile",
+    icon: User02Filled,
+    subLinks: null,
+  },
 ]

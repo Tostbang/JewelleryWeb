@@ -20,7 +20,7 @@ export default function AlertDialogProvider() {
     // updateAlertConfig(false)
   }
 
-  // if (!alertConfig) return null;
+  if (!alertConfig) return null;
 
   return (
     <AlertDialog open={alertOpen} onOpenChange={updateAlertConfig}>

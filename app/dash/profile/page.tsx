@@ -5,29 +5,26 @@ import MyCard from "@/components/MyCard"
 import { useProfileStore } from "@/lib/store/profile-store"
 import { Button } from "@/components/ui/button"
 import EditProfileModal from "./components/EditProfileModal"
-import ResetPasswordModal from "./components/ResetPasswordModal"
 import { cn } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/skeleton"
+import ChangePasswordModal from "./components/ChangePasswordModal"
+import { Alert } from "@/lib/useGlobalStore"
+import { useDeleteAccount } from "./_services/mutations"
 
 function ProfileSkeleton() {
   return (
-    <div className="p-6 space-y-3">
-      <div className="flex items-center justify-between">
-        <div className="space-y-2">
-          <Skeleton className="h-9 w-64" />
-          <Skeleton className="h-5 w-96" />
+    <MyCard title="Kişisel Bilgiler" Icon={UserAccount}>
+      <div className="flex">
+        <div className="space-y-4 flex-1">
+          <div className="grid grid-cols-2 gap-4">
+            <Skeleton className="h-20.5 rounded-[30px]" />
+            <Skeleton className="h-20.5 rounded-[30px]" />
+          </div>
+          <Skeleton className="h-20.5 rounded-[30px]" />
+          <Skeleton className="h-20.5 rounded-[30px]" />
         </div>
       </div>
-
-      <div className="flex gap-3 mt-4">
-        <div className="w-160">
-          <Skeleton className="h-[400px] w-full rounded-[30px]" />
-        </div>
-        <div className="flex-1">
-          <Skeleton className="h-[400px] w-full rounded-[30px]" />
-        </div>
-      </div>
-    </div>
+    </MyCard>
   )
 }
 
@@ -35,38 +32,19 @@ export default function Page() {
   const profile = useProfileStore((state) => state.profile)
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [resetPasswordModalOpen, setResetPasswordModalOpen] = useState(false)
+  const deleteMutation = useDeleteAccount()
 
-  if (!profile) {
-    return <ProfileSkeleton />
+  const handleDeleteAccount = (sessionId: number) => {
+    Alert({
+      AlertTitle: "Hesabı Sil",
+      AlertDescription: "Hesabınızı kalıcı olarak silmek istediğinizden emin misiniz?",
+      CancelLabel: "Vazgeç",
+      ConfirmLabel: "Hesabı Sil",
+      onConfirm: () => {
+        deleteMutation.mutate()
+      }
+    })
   }
-
-
-  // const profileCards = [
-  //   {
-  //     title: "Kullanıcı ID",
-  //     value: `#${profile.userId}`,
-  //     icon: UserAccount,
-  //     bgColor: "bg-my-orange",
-  //   },
-  //   {
-  //     title: "Email",
-  //     value: profile.email,
-  //     icon: Mail01Filled,
-  //     bgColor: "bg-my-blue",
-  //   },
-  //   {
-  //     title: "Rol",
-  //     value: getRoleName(profile.roleId),
-  //     icon: UserShield01Filled,
-  //     bgColor: "bg-my-lavender",
-  //   },
-  //   {
-  //     title: "Onay Durumu",
-  //     value: profile.isApproved ? "Onaylı" : "Onay Bekliyor",
-  //     icon: IrisScanFilled,
-  //     bgColor: profile.isApproved ? "bg-my-pink" : "bg-gray-300",
-  //   },
-  // ]
 
   return (
     <div className="p-6 space-y-3">
@@ -90,8 +68,8 @@ export default function Page() {
       <div className="flex gap-3 mt-4">
         <MyCard title="Ayarlar" Icon={Setting01Filled} className="w-160">
           <div className="">
-            <div className="bg-white rounded-full p-2 border w-fit mx-auto">
-              <User02 className="size-20" />
+            <div className="bg-white rounded-full  border  mx-auto size-24 flex justify-center items-center">
+              <User02 className="size-14" />
             </div>
           </div>
           <div className="flex flex-col gap-y-2.5 mt-8">
@@ -103,41 +81,49 @@ export default function Page() {
               <Edit02Filled className="size-4 mr-2" />
               Profili Düzenle
             </Button>
-            <Button variant={"destructive"} onClick={() => setEditModalOpen(true)} className="h-11">
+            <Button variant={"destructive"} onClick={handleDeleteAccount} className="h-11">
               <Delete02Filled className="size-4 mr-2" />
               Profili Sil
             </Button>
           </div>
         </MyCard>
-        <MyCard title="Kişisel Bilgiler" Icon={UserAccount}>
-          <div className="flex">
-            <div className="space-y-4 flex-1">
-              <div className="grid grid-cols-2 gap-4">
+        {!profile ? (
+          <ProfileSkeleton />
+        ) : (
+          <MyCard title="Kişisel Bilgiler" Icon={UserAccount}>
+            <div className="flex">
+              <div className="space-y-4 flex-1">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-4 bg-white/50 rounded-[30px] squircle">
+                    <p className="text-sm text-muted-foreground mb-1">Ad</p>
+                    <p className="text-lg font-semibold">{profile.firstName}</p>
+                  </div>
+                  <div className="p-4 bg-white/50 rounded-[30px] squircle">
+                    <p className="text-sm text-muted-foreground mb-1">Soyad</p>
+                    <p className="text-lg font-semibold">{profile.lastName}</p>
+                  </div>
+                </div >
                 <div className="p-4 bg-white/50 rounded-[30px] squircle">
-                  <p className="text-sm text-muted-foreground mb-1">Ad</p>
-                  <p className="text-lg font-semibold">{profile.firstName}</p>
+                  <p className="text-sm text-muted-foreground mb-1">Email Adresi</p>
+                  <p className="text-lg font-semibold break-all">{profile.email}</p>
                 </div>
-                <div className="p-4 bg-white/50 rounded-[30px] squircle">
-                  <p className="text-sm text-muted-foreground mb-1">Soyad</p>
-                  <p className="text-lg font-semibold">{profile.lastName}</p>
-                </div>
-              </div>
-              <div className="p-4 bg-white/50 rounded-[30px] squircle">
-                <p className="text-sm text-muted-foreground mb-1">Email Adresi</p>
-                <p className="text-lg font-semibold break-all">{profile.email}</p>
-              </div>
-              {(profile.registerLat !== 0 || profile.registerLng !== 0) && (
-                <div className="p-4 bg-white/50 rounded-[30px] squircle">
-                  <p className="text-sm text-muted-foreground mb-1">Kayıt Konumu</p>
-                  <p className="text-lg font-semibold">
-                    <MapPinFilled className="inline size-4 mr-1" />
-                    {profile.registerLat.toFixed(6)}, {profile.registerLng.toFixed(6)}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
-        </MyCard>
+                {
+                  (profile.registerLat !== 0 || profile.registerLng !== 0) && (
+                    <div className="p-4 bg-white/50 rounded-[30px] squircle">
+                      <p className="text-sm text-muted-foreground mb-1">Kayıt Konumu</p>
+                      <p className="text-lg font-semibold">
+                        <MapPinFilled className="inline size-4 mr-1" />
+                        {profile.registerLat?.toFixed(6)}, {profile.registerLng?.toFixed(6)}
+                      </p>
+                    </div>
+                  )
+                }
+              </div >
+            </div >
+          </MyCard >
+        )
+        }
+
 
         {/* <MyCard title="Hesap Özeti" Icon={IrisScanFilled}>
           <div className="grid grid-cols-2 gap-2">
@@ -162,19 +148,22 @@ export default function Page() {
             })}
           </div>
         </MyCard> */}
-      </div>
+      </div >
+      {profile &&
+        <>
+          <EditProfileModal
+            open={editModalOpen}
+            onOpenChange={setEditModalOpen}
+            profile={profile}
+          />
 
-      <EditProfileModal
-        open={editModalOpen}
-        onOpenChange={setEditModalOpen}
-        profile={profile}
-      />
-
-      <ResetPasswordModal
-        open={resetPasswordModalOpen}
-        onOpenChange={setResetPasswordModalOpen}
-        email={profile.email}
-      />
-    </div>
+          <ChangePasswordModal
+            open={resetPasswordModalOpen}
+            onOpenChange={setResetPasswordModalOpen}
+            email={profile.email}
+          />
+        </>
+      }
+    </div >
   )
 }

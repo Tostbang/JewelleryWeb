@@ -46,9 +46,9 @@ export type ItemLink = {
 }
 
 
-export function MyNav() {
+export function MyNav({ layout }: { layout: "dash" | "admin" }) {
   const { isMobile, state } = useSidebar()
-  const links = useLinks()
+  const links = useLinks(layout)
   // const { profile } = useProfileStore()
 
   // const isManager = profile?.roleId === "Manager"

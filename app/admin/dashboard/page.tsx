@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Bar, BarChart, Line, LineChart, Pie, PieChart, CartesianGrid, XAxis, YAxis, Cell } from "recharts"
@@ -12,13 +13,12 @@ import { AlignBoxBottomCenter, User02, TradeMark, UserLock01, Bitcoin, BitcoinCi
 import { UserMinus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MyCard from "@/components/MyCard"
-import PriceCalculatorForm from "./components/PriceCalculatorForm"
-import { useGetHistory, useGetLiveBuySell } from "./_services/queries"
 import { formatDistanceToNow } from "date-fns"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useState } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useGetLiveBuySell } from "@/app/dash/dashboard/_services/queries"
 
 function LiveDataSkeleton() {
   return (
@@ -93,7 +93,7 @@ const chartConfig = {
 }
 
 export default function DashboardPage() {
-  const { data: historyData, isLoading } = useGetHistory()
+  // const { data: historyData, isLoading } = useGetHistory()
   const { data: liveData, isLoading: isLiveDataLoading } = useGetLiveBuySell()
   const [selectedKarat, setSelectedKarat] = useState("14")
 
@@ -262,11 +262,11 @@ export default function DashboardPage() {
       </MyCard>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3  ">
-        <MyCard title="Hızlı Fiyat Hesaplayıcı" Icon={Calculator01Filled} className="">
+        {/* <MyCard title="Hızlı Fiyat Hesaplayıcı" Icon={Calculator01Filled} className="">
           <PriceCalculatorForm />
-        </MyCard>
+        </MyCard> */}
 
-        <MyCard title="Son Aktiviteler" Icon={TimeQuarterPassFilled}>
+        {/* <MyCard title="Son Aktiviteler" Icon={TimeQuarterPassFilled}>
           <ScrollArea className="space-y-3 h-50 pr-3">
             {isLoading ? (
               <HistorySkeleton />
@@ -299,7 +299,7 @@ export default function DashboardPage() {
               </div>
             )}
           </ScrollArea>
-        </MyCard>
+        </MyCard> */}
 
       </div>
     </div>
