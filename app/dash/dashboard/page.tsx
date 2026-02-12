@@ -18,6 +18,39 @@ import { formatDistanceToNow } from "date-fns"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useState } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Skeleton } from "@/components/ui/skeleton"
+
+function LiveDataSkeleton() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+      {Array.from({ length: 7 }).map((_, i) => (
+        <Skeleton key={i} className="h-[180px] rounded-[60px]" />
+      ))}
+    </div>
+  )
+}
+
+function HistorySkeleton() {
+  return (
+    <div className="space-y-3">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div key={i} className="flex items-center justify-between py-2 border-b">
+          <div className="flex-1 space-y-2">
+            <div className="flex items-center gap-2">
+              <Skeleton className="h-5 w-12 rounded" />
+              <Skeleton className="h-4 w-32" />
+            </div>
+            <Skeleton className="h-3 w-64" />
+          </div>
+          <div className="text-right space-y-2">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-3 w-20" />
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 const salesData = [
   { month: "Jan", sales: 45000, orders: 23 },
@@ -153,12 +186,7 @@ export default function DashboardPage() {
 
       <MyCard title="İş Özeti" Icon={BorderFullFilled} >
         {isLiveDataLoading ? (
-          <div className="flex items-center justify-center py-20">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-my-blue mx-auto mb-4"></div>
-              <p className="text-muted-foreground">Canlı altın fiyatları yükleniyor...</p>
-            </div>
-          </div>
+          <LiveDataSkeleton />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
             {statsCards.map((card, index) => {
@@ -241,9 +269,7 @@ export default function DashboardPage() {
         <MyCard title="Son Aktiviteler" Icon={TimeQuarterPassFilled}>
           <ScrollArea className="space-y-3 h-50 pr-3">
             {isLoading ? (
-              <div className="text-center py-4 text-sm text-muted-foreground">
-                Geçmiş yükleniyor...
-              </div>
+              <HistorySkeleton />
             ) : historyData && historyData.items && historyData.items.length > 0 ? (
               historyData.items.slice(0, 5).map((history) => (
                 <div key={history.historyId} className="flex items-center justify-between py-2 border-b last:border-0">

@@ -7,6 +7,29 @@ import { Button } from "@/components/ui/button"
 import EditProfileModal from "./components/EditProfileModal"
 import ResetPasswordModal from "./components/ResetPasswordModal"
 import { cn } from "@/lib/utils"
+import { Skeleton } from "@/components/ui/skeleton"
+
+function ProfileSkeleton() {
+  return (
+    <div className="p-6 space-y-3">
+      <div className="flex items-center justify-between">
+        <div className="space-y-2">
+          <Skeleton className="h-9 w-64" />
+          <Skeleton className="h-5 w-96" />
+        </div>
+      </div>
+
+      <div className="flex gap-3 mt-4">
+        <div className="w-160">
+          <Skeleton className="h-[400px] w-full rounded-[30px]" />
+        </div>
+        <div className="flex-1">
+          <Skeleton className="h-[400px] w-full rounded-[30px]" />
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export default function Page() {
   const profile = useProfileStore((state) => state.profile)
@@ -14,16 +37,7 @@ export default function Page() {
   const [resetPasswordModalOpen, setResetPasswordModalOpen] = useState(false)
 
   if (!profile) {
-    return (
-      <div className="p-6">
-        <div className="flex items-center justify-center h-[60vh]">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-muted-foreground">Profil bilgileri yükleniyor...</p>
-          </div>
-        </div>
-      </div>
-    )
+    return <ProfileSkeleton />
   }
 
 

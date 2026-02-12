@@ -17,6 +17,31 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
+import { Skeleton } from "@/components/ui/skeleton"
+
+function PackagesSkeleton() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div key={i} className="rounded-xl border-2 p-6 space-y-4">
+          <div>
+            <Skeleton className="h-7 w-32 mb-2" />
+            <div className="flex items-baseline gap-1">
+              <Skeleton className="h-9 w-24" />
+              <Skeleton className="h-4 w-16" />
+            </div>
+          </div>
+          <div className="space-y-3 py-4">
+            <Skeleton className="h-5 w-full" />
+            <Skeleton className="h-5 w-full" />
+            <Skeleton className="h-5 w-full" />
+          </div>
+          <Skeleton className="h-10 w-full rounded" />
+        </div>
+      ))}
+    </div>
+  )
+}
 
 export default function PackagesPage() {
   const { data: packagesData, isLoading } = useGetAllPackages()
@@ -85,9 +110,7 @@ export default function PackagesPage() {
       {/* All Packages Section */}
       <MyCard title="Available Packages" Icon={PackageFilled}>
         {isLoading ? (
-          <div className="text-center py-8 text-muted-foreground">
-            Loading packages...
-          </div>
+          <PackagesSkeleton />
         ) : packagesData && packagesData.packages && packagesData.packages.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {packagesData.packages.map((pkg) => {

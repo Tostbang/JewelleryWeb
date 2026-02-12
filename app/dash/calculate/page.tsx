@@ -6,6 +6,29 @@ import { Calculator01Filled, TimeQuarterPassFilled } from 'asem-icons'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { formatDistanceToNow } from 'date-fns'
 import { useGetHistory } from '../dashboard/_services/queries'
+import { Skeleton } from '@/components/ui/skeleton'
+
+function HistorySkeleton() {
+  return (
+    <div className="space-y-3">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div key={i} className="flex items-center justify-between py-2 border-b">
+          <div className="flex-1 space-y-2">
+            <div className="flex items-center gap-2">
+              <Skeleton className="h-5 w-12 rounded" />
+              <Skeleton className="h-4 w-32" />
+            </div>
+            <Skeleton className="h-3 w-64" />
+          </div>
+          <div className="text-right space-y-2">
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-3 w-20" />
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 export default function page() {
   const { data: historyData, isLoading } = useGetHistory()
@@ -19,9 +42,7 @@ export default function page() {
         <MyCard title="Son Aktiviteler" Icon={TimeQuarterPassFilled}>
           <ScrollArea className="space-y-3 h-50 pr-3">
             {isLoading ? (
-              <div className="text-center py-4 text-sm text-muted-foreground">
-                Geçmiş yükleniyor...
-              </div>
+              <HistorySkeleton />
             ) : historyData && historyData.items && historyData.items.length > 0 ? (
               historyData.items.slice(0, 5).map((history) => (
                 <div key={history.historyId} className="flex items-center justify-between py-2 border-b last:border-0">
