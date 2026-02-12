@@ -75,7 +75,7 @@ export function NavUser() {
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{profile?.firstName} {profile?.lastName}</span>
-                <span className="truncate text-xs">{profile?.email} . {profile?.roleId}</span>
+                <span className="truncate text-xs">{profile?.email}</span>
               </div>
             </div>
             {/* <div className="flex items-center gap-x-1 px-4">
