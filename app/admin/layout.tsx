@@ -12,7 +12,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
     <ViewTransitions>
       <main className="bg-my-gradient">
         <DashProviders sideBarDefaultValue={sideBarDefaultValue}>
-          <AppSidebar variant="floating" />
+          <AppSidebar layout="admin" variant="floating" />
           <SidebarInset className="bg-transparent">
             <MainComponent >
               {children}

@@ -30,7 +30,12 @@ function DevicesSkeleton() {
   )
 }
 
-export default function DevicesPage() {
+export default function Page() {
+  return <DevicesPage />
+}
+
+
+export function DevicesPage() {
   const { data, isLoading, error } = useGetSessions()
   const logoutMutation = useLogoutSession()
 

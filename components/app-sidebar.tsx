@@ -67,7 +67,7 @@ export function AppSidebar({ layout, ...props }: { layout: "admin" | "dash" } & 
       </SidebarHeader>
       <SidebarContent className="">
         <ScrollArea className="h-full">
-          <MyNav />
+          <MyNav layout={layout} />
         </ScrollArea>
         {/* <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} /> */}

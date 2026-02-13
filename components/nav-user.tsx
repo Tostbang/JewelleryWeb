@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/sidebar"
 import { deleteToken } from "@/lib/helpers"
 import { useProfileStore } from "@/lib/store/profile-store"
+import { Role } from "@/lib/types"
 import { Computer, Laptop, Logout04, UnfoldMoreSharp, User02 } from "asem-icons"
 import { useRouter } from "next/navigation"
 // import { useProfileStore } from "@/lib/stores/profile-store"
@@ -28,7 +29,7 @@ export function NavUser() {
   const router = useRouter()
   const { profile } = useProfileStore()
 
-  // const isPurchaser = profile?.roleId === "Purchaser"
+  const isAdmin = profile?.roleId === Role.Admin
   // const isManager = profile?.roleId === "Manager"
   // const isSupplier = profile?.roleId === "Supplier"
   // const isDepartmentUser = profile?.roleId === "DepartmentUser"
@@ -38,8 +39,8 @@ export function NavUser() {
     window.location.href = "/";
   }
 
-  // const profileUrl = isSupplier ? "/dash/profile/supplier" : "/dash/profile"
-  const profileUrl = "/dash/profile"
+  const profileUrl = isAdmin ? "/admin/profile" : "/dash/profile"
+  const deviceUrl = isAdmin ? "/admin/devices" : "/dash/devices"
 
 
 
@@ -122,7 +123,7 @@ export function NavUser() {
           )} */}
 
           {/* Devices - All roles */}
-          <DropdownMenuItem onClick={() => router.push("/dash/devices")}>
+          <DropdownMenuItem onClick={() => router.push(deviceUrl)}>
             <Laptop />
             Cihazlar
           </DropdownMenuItem>

@@ -1,6 +1,7 @@
 "use client"
 
 import { ArrowRight01Sharp } from "asem-icons"
+import { ChevronRight } from "lucide-react"
 
 import {
   Collapsible,

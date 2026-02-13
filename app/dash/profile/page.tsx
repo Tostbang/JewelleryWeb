@@ -11,7 +11,7 @@ import ChangePasswordModal from "./components/ChangePasswordModal"
 import { Alert } from "@/lib/useGlobalStore"
 import { useDeleteAccount } from "./_services/mutations"
 
-function ProfileSkeleton() {
+export function ProfileSkeleton() {
   return (
     <MyCard title="Kişisel Bilgiler" Icon={UserAccount}>
       <div className="flex">
@@ -29,6 +29,10 @@ function ProfileSkeleton() {
 }
 
 export default function Page() {
+  return <ProfilePage />
+}
+
+export function ProfilePage() {
   const profile = useProfileStore((state) => state.profile)
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [resetPasswordModalOpen, setResetPasswordModalOpen] = useState(false)

@@ -15,6 +15,7 @@ import { useLogin } from "./_services/mutations"
 import { toast } from "sonner"
 import MyCard from "../MyCard"
 import { MyButton } from "../buttons/MyButton"
+import { Role } from "@/lib/types"
 
 const loginSchema = z.object({
   email: z.string().email("Lütfen geçerli bir e-posta adresi girin"),
@@ -61,17 +62,13 @@ export const LoginForm = () => {
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
-      const response = await loginMutation.mutateAsync({
+      const response = loginMutation.mutate({
         email: data.email,
         password: data.password,
         lat: location?.lat || 0,
         lng: location?.lng || 0,
       })
 
-      toast.success("Giriş başarılı!")
-
-      // Redirect to dashboard
-      router.push("/dash/dashboard")
     } catch (error) {
       console.error("Login error:", error)
       toast.error(error instanceof Error ? error.message : "Giriş başarısız. Lütfen tekrar deneyin.")

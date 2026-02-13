@@ -1,4 +1,4 @@
-import { Calculator01Filled, CustomerSupportFilled, DashboardSquare03Filled, LaptopPhoneSync1Filled, Package, PackageFilled, User02Filled } from "asem-icons";
+import { Calculator01Filled, CustomerSupportFilled, DashboardSquare03Filled, LaptopPhoneSync1Filled, Package, PackageFilled, User02Filled, UserMultipleFilled } from "asem-icons";
 import { CircleQuestionMark, Factory, Headset, LayoutDashboard, Star, User } from "lucide-react";
 
 
@@ -125,6 +125,18 @@ export const adminLinks = [
     subLinks: null,
   },
   {
+    title: "Kullanıcılar",
+    url: "/admin/users",
+    icon: UserMultipleFilled,
+    subLinks: null,
+  },
+  {
+    title: "Paketler",
+    url: "/admin/packages",
+    icon: PackageFilled,
+    subLinks: null,
+  },
+  {
     title: "Destek",
     url: "/admin/support",
     icon: CustomerSupportFilled,
@@ -137,13 +149,7 @@ export const adminLinks = [
     subLinks: null
   },
   {
-    title: "paketler",
-    url: "/admin/packages",
-    icon: PackageFilled,
-    subLinks: null,
-  },
-  {
-    title: "profil",
+    title: "Profil",
     url: "/admin/profile",
     icon: User02Filled,
     subLinks: null,

@@ -9,10 +9,10 @@ import { Role } from "@/lib/types";
 export function useLinks(layout: "dash" | "admin") {
 
   return useMemo(() => {
-    if (layout = "dash") {
+    if (layout === "dash") {
       return userLinks;
     }
-    else if (layout = "admin") {
+    else if (layout === "admin") {
       return adminLinks;
     } else {
       return []

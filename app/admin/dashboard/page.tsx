@@ -213,8 +213,6 @@ export default function DashboardPage() {
                         <h3 className="text-2xl font-bold mt-2 ">{card.value}</h3>
                       </div>
                       <p className="text-xs mt-2 flex items-center gap-1 text-black">
-                        {card.trend === 'up' && '↑'}
-                        {card.trend === 'down' && '↓'}
                         {card.change}
                       </p>
                     </div>
