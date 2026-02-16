@@ -14,7 +14,7 @@ import { Pricing } from "@/components/pricing/Pricing";
 
 export default function Page() {
   return (
-    <main >
+    <main>
       <NavBar />
       <Hero />
       <Logos />

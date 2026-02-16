@@ -8,7 +8,7 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart"
-import { AlignBoxBottomCenter, User02, TradeMark, UserLock01, Bitcoin, BitcoinCircle, BitcoinFilled, BitcoinSquare, BitcoinSquareFilled, Chart, Coins01Filled, Gem, GemFilled, Package, PackageAdd, ShoppingCart01, TruckReturn, TruckReturnFilled, UserAccount, PackageFilled, Desk, Desk01, Desk02Filled, Football, Basketball02Filled, PackageReceiveFilled, UserMultipleFilled, AnalyticsUpFilled, Analytics01Filled, ArrowExpand01Sharp, BorderFullFilled, Calculator01Filled, IrisScanFilled, Sparkles, TimeQuarterPassFilled, GoldIngotsFilled, TimeHalfPassFilled, GoldFilled } from "asem-icons"
+import { AlignBoxBottomCenter, User02, TradeMark, UserLock01, Bitcoin, BitcoinCircle, BitcoinFilled, BitcoinSquare, BitcoinSquareFilled, Chart, Coins01Filled, Gem, GemFilled, Package, PackageAdd, ShoppingCart01, TruckReturn, TruckReturnFilled, UserAccount, PackageFilled, Desk, Desk01, Desk02Filled, Football, Basketball02Filled, PackageReceiveFilled, UserMultipleFilled, AnalyticsUpFilled, Analytics01Filled, ArrowExpand01Sharp, BorderFullFilled, Calculator01Filled, IrisScanFilled, Sparkles, TimeQuarterPassFilled, GoldIngotsFilled, TimeHalfPassFilled, GoldFilled, ChartLineData01, ChartLineDataFilled, CreditCardFilled } from "asem-icons"
 import { UserMinus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MyCard from "@/components/MyCard"
@@ -19,6 +19,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { useState } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
+import { GoldPriceChart } from "./components/GoldPriceChart"
 
 function LiveDataSkeleton() {
   return (
@@ -132,33 +133,33 @@ export default function DashboardPage() {
       bgColor: "bg-my-blue",
       iconColor: "text-yellow-600",
     },
-    {
-      title: "Çeyrek Altın",
-      value: liveData ? `₺${liveData.ceyrekAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "...",
-      change: "Çeyrek",
-      trend: "neutral" as const,
-      icon: TimeQuarterPassFilled,
-      bgColor: "bg-my-lavender",
-      iconColor: "text-purple-600",
-    },
-    {
-      title: "Yarım Altın",
-      value: liveData ? `₺${liveData.yarimAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "...",
-      change: "Yarım",
-      trend: "neutral" as const,
-      icon: TimeHalfPassFilled,
-      bgColor: "bg-my-pink",
-      iconColor: "text-green-500",
-    },
-    {
-      title: "Tam Altın",
-      value: liveData ? `₺${liveData.tamAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "...",
-      change: "Tam",
-      trend: "neutral" as const,
-      icon: GoldIngotsFilled,
-      bgColor: "bg-my-orange2",
-      iconColor: "text-orange-600",
-    },
+    // {
+    //   title: "Çeyrek Altın",
+    //   value: liveData ? `₺${liveData.ceyrekAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "...",
+    //   change: "Çeyrek",
+    //   trend: "neutral" as const,
+    //   icon: TimeQuarterPassFilled,
+    //   bgColor: "bg-my-lavender",
+    //   iconColor: "text-purple-600",
+    // },
+    // {
+    //   title: "Yarım Altın",
+    //   value: liveData ? `₺${liveData.yarimAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "...",
+    //   change: "Yarım",
+    //   trend: "neutral" as const,
+    //   icon: TimeHalfPassFilled,
+    //   bgColor: "bg-my-pink",
+    //   iconColor: "text-green-500",
+    // },
+    // {
+    //   title: "Tam Altın",
+    //   value: liveData ? `₺${liveData.tamAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "...",
+    //   change: "Tam",
+    //   trend: "neutral" as const,
+    //   icon: GoldIngotsFilled,
+    //   bgColor: "bg-my-orange2",
+    //   iconColor: "text-orange-600",
+    // },
     {
       title: "Has Altın",
       value: liveData ? `₺${liveData.hasAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "...",
@@ -172,7 +173,7 @@ export default function DashboardPage() {
 
   return (
     <div className="p-6 space-y-3">
-      <div className="flex items-center justify-between">
+      {/* <div className="flex items-center justify-between">
         <div>
           <div className=''>
           </div>
@@ -182,7 +183,7 @@ export default function DashboardPage() {
         <div suppressHydrationWarning={true} className="text-sm text-muted-foreground">
           Son güncelleme: {new Date().toLocaleTimeString('tr-TR')}
         </div>
-      </div>
+      </div> */}
 
       <MyCard title="İş Özeti" Icon={BorderFullFilled} >
         {isLiveDataLoading ? (
@@ -261,6 +262,18 @@ export default function DashboardPage() {
         )}
       </MyCard>
 
+      <div className="grid grid-cols-3 gap-3">
+        <div className="col-span-2">
+          <MyCard title="Gold Price Chart" Icon={ChartLineDataFilled}>
+            <GoldPriceChart />
+          </MyCard>
+        </div>
+        <div className="">
+          <MyCard title="My Scribtion" Icon={CreditCardFilled}>
+            <div></div>
+          </MyCard>
+        </div>
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3  ">
         <MyCard title="Hızlı Fiyat Hesaplayıcı" Icon={Calculator01Filled} className="">
           <PriceCalculatorForm />

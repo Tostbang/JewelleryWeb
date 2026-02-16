@@ -1,10 +1,15 @@
-- [ ] I would add some calculation cards to the hesaplama page
 - [x] add delete profile action on the profile page 
 - [x] add change password action on the profile page
-- [ ] add the admin layout
+- [x] add the admin layout
 - [x] add the proxy for the admin and the user
-- [ ] add dashboard page for admin
+- [x] add dashboard page for admin
+- [x] add package page for admin
+- [x] add profile page for admin
+- [x] add users page for admin
+- [ ] add the graphics card plus the subscription card on the dashboard
+- [ ] add the endpoint for logging out
 - [ ] add support page for admin
-- [ ] add package page for admin
-- [ ] add profile page for admin
-- [ ] add users page for admin
+- [ ] I would add some calculation cards to the hesaplama page
+- [ ] add the pagination on the users page "admin/users"
+- [ ] add email confirmation forms 
+- [ ] add the send again button on the email confirmation
