@@ -5,7 +5,7 @@ import { FetchData } from "@/lib/fetchData"
 import { toNumberSafe } from "@/lib/helpers"
 
 export interface LaborCostRequest {
-  karat: string
+  karat: number | string
   cost: string
 }
 
@@ -34,5 +34,67 @@ export const useCalculateLaborCost = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["trade-history"] })
     },
+  })
+}
+
+export interface CompareKaratsRequest {
+  karat1: number
+  karat2: number
+  gram: number
+}
+
+export interface CompareKaratsResponse {
+  karat1: number
+  karat2: number
+  gram: number
+  purityPercent1: number
+  purityPercent2: number
+  pureGoldGram1: number
+  pureGoldGram2: number
+  gramPriceTl1: number
+  gramPriceTl2: number
+  totalPriceTl1: number
+  totalPriceTl2: number
+  totalPriceDiffTl: number
+  code: string
+  message: string
+  errors: string[]
+}
+
+export const useCompareKarats = () => {
+  return useMutation<CompareKaratsResponse, Error, CompareKaratsRequest>({
+    mutationFn: (data) =>
+      FetchData("Trade/compare-karats", {
+        method: "POST",
+        secure: true,
+        body: data,
+      }),
+  })
+}
+
+export interface ConvertWeightRequest {
+  value: number
+  fromUnit: number
+  toUnit: number
+}
+
+export interface ConvertWeightResponse {
+  inputValue: number
+  fromUnit: number
+  toUnit: number
+  resultValue: number
+  code: string
+  message: string
+  errors: string[]
+}
+
+export const useConvertWeight = () => {
+  return useMutation<ConvertWeightResponse, Error, ConvertWeightRequest>({
+    mutationFn: (data) =>
+      FetchData("Trade/ConvertWeight", {
+        method: "POST",
+        secure: true,
+        body: data,
+      }),
   })
 }

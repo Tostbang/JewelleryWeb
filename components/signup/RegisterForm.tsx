@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation"
 import { BubbleButton } from "@/components/buttons/BubbleButton"
 import { ArrowLeft01Sharp } from "asem-icons"
 import { useRegister } from "./_services/mutations"
+import Link from "next/link"
 import { toast } from "sonner"
 
 const registerSchema = z.object({
@@ -184,11 +185,11 @@ export const RegisterForm = () => {
         <p className="mt-2 text-xs text-muted-foreground text-center leading-relaxed px-2">
           Kayıt olarak{" "}
           <span className="text-my-blue font-medium cursor-pointer hover:underline">
-            Şartlar ve Koşullarımızı
+            <Link href="/terms">Şartlar ve Koşullarımızı</Link>
           </span>
           {" "}ve{" "}
           <span className="text-my-blue font-medium cursor-pointer hover:underline">
-            Gizlilik Politikamızı
+            <Link href="/privacy">Gizlilik Politikamızı</Link>
           </span>
           {" "}kabul etmiş olursunuz.
         </p>

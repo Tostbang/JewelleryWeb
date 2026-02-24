@@ -51,11 +51,11 @@ export const Footer = () => {
           links={[
             {
               title: "Terms & Conditions",
-              href: "/#",
+              href: "/terms",
             },
             {
               title: "Privacy Policy",
-              href: "/#",
+              href: "/privacy",
             },
             {
               title: "Refund Policy",

@@ -12,7 +12,7 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { BubbleButton } from "@/components/buttons/BubbleButton"
 import { ArrowLeft01Sharp } from "asem-icons"
 import { toast } from "sonner"
-import { useConfirmEmail } from "./_services/mutations"
+import { useConfirmEmail, useResendVerificationCode } from "./_services/mutations"
 
 const confirmSchema = z.object({
   pin: z.string().length(6, "PIN 6 haneli olmalıdır"),
@@ -24,7 +24,7 @@ export default function ConfirmPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const email = searchParams.get("email")
-  const [countdown, setCountdown] = useState(0)
+  const [countdown, setCountdown] = useState(180)
 
   const { control, handleSubmit } = useForm<ConfirmFormValues>({
     resolver: zodResolver(confirmSchema),
@@ -34,6 +34,7 @@ export default function ConfirmPage() {
   })
 
   const confirmMutation = useConfirmEmail()
+  const resendMutation = useResendVerificationCode()
 
   useEffect(() => {
     if (!email) {
@@ -74,11 +75,17 @@ export default function ConfirmPage() {
   }
 
   const handleResendPin = async () => {
-    if (countdown > 0) return
+    if (countdown > 0 || !email) return
 
-    // TODO: Add resend PIN mutation when API is available
-    toast.info("Yeni PIN kodu gönderildi")
-    setCountdown(60)
+    try {
+      await resendMutation.mutateAsync({ email })
+      toast.info("Doğrulama kodunu tekrar gönder")
+      setCountdown(180)
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "Kod gönderilemedi. Lütfen tekrar deneyin."
+      )
+    }
   }
 
   if (!email) {
@@ -136,15 +143,17 @@ export default function ConfirmPage() {
             </p>
             <button
               onClick={handleResendPin}
-              disabled={countdown > 0}
-              className={`text-sm font-medium transition-all ${countdown > 0
+              disabled={countdown > 0 || resendMutation.isPending}
+              className={`text-sm font-medium transition-all ${countdown > 0 || resendMutation.isPending
                 ? "text-muted-foreground cursor-not-allowed"
                 : "text-my-blue hover:underline"
                 }`}
             >
-              {countdown > 0
-                ? `Yeniden gönder (${countdown}s)`
-                : "Yeniden gönder"}
+              {resendMutation.isPending
+                ? "Gönderiliyor..."
+                : countdown > 0
+                  ? `Yeniden gönder (${Math.floor(countdown / 60)}:${String(countdown % 60).padStart(2, "0")})`
+                  : "Yeniden gönder"}
             </button>
           </div>
         </MyCard>

@@ -1,83 +1,196 @@
 "use client"
 import MyCard from '@/components/MyCard'
-import React from 'react'
+import React, { SetStateAction, useState } from 'react'
 import PriceCalculatorForm from '../dashboard/_components/PriceCalculatorForm'
-import { Calculator01Filled, TimeQuarterPassFilled } from 'asem-icons'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { formatDistanceToNow } from 'date-fns'
-import { useGetHistory } from '../dashboard/_services/queries'
+import KaratCompareForm from '../dashboard/_components/KaratCompareForm'
+import WeightConverterForm from '../dashboard/_components/WeightConverterForm'
+import { Calculator01Filled, TimeQuarterPassFilled, JusticeScale01Filled, BodyWeightFilled, Calendar04 } from 'asem-icons'
+import { useGetHistory, HistoryItem, HistoryParams } from '../dashboard/_services/queries'
 import { Skeleton } from '@/components/ui/skeleton'
+import { DataTable } from '@/components/data-table'
+import { createHistoryColumns } from './columns'
+import { Filter } from 'lucide-react'
+import { format, formatDate } from 'date-fns'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Button } from '@/components/ui/button'
+import { Calendar } from '@/components/ui/calendar'
+import { cn } from '@/lib/utils'
+import { tr } from 'date-fns/locale'
 
-function HistorySkeleton() {
+function HistoryTableSkeleton() {
   return (
     <div className="space-y-3">
-      {Array.from({ length: 3 }).map((_, i) => (
-        <div key={i} className="flex items-center justify-between py-2 border-b">
-          <div className="flex-1 space-y-2">
-            <div className="flex items-center gap-2">
-              <Skeleton className="h-5 w-12 rounded" />
-              <Skeleton className="h-4 w-32" />
-            </div>
-            <Skeleton className="h-3 w-64" />
-          </div>
-          <div className="text-right space-y-2">
-            <Skeleton className="h-4 w-24" />
-            <Skeleton className="h-3 w-20" />
-          </div>
-        </div>
+      <Skeleton className="h-10 w-full" />
+      {Array.from({ length: 4 }).map((_, i) => (
+        <Skeleton key={i} className="h-12 w-full" />
       ))}
     </div>
   )
 }
 
-export default function page() {
-  const { data: historyData, isLoading } = useGetHistory()
+const KARAT_OPTIONS = [
+  { value: "14", label: "14K" },
+  { value: "18", label: "18K" },
+  { value: "22", label: "22K" },
+  { value: "24", label: "24K" },
+]
+
+export default function CalculatePage() {
+  const [karatFilter, setKaratFilter] = useState<number | undefined>(undefined)
+  const [startDate, setStartDate] = useState<Date | null>(null)
+  const [endDate, setEndDate] = useState<Date | null>(null)
+  const [selectedItem, setSelectedItem] = useState<HistoryItem | null>(null)
+  const [detailOpen, setDetailOpen] = useState(false)
+
+  const params: HistoryParams = {
+    ...(karatFilter !== undefined && { karat: karatFilter }),
+    ...(startDate && { startDate: startDate.toISOString() }),
+    ...(endDate && { endDate: endDate.toISOString() }),
+  }
+
+  const { data: historyData, isLoading } = useGetHistory(params)
+
+  const handleViewDetails = (item: HistoryItem) => {
+    setSelectedItem(item)
+    setDetailOpen(true)
+  }
+
+  const columns = createHistoryColumns(handleViewDetails)
+
   return (
-    <div className='p-6 '>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3  ">
-        <MyCard title="Hızlı Fiyat Hesaplayıcı" Icon={Calculator01Filled} className="">
+    <div className='p-6'>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mb-3">
+        <MyCard title="Hızlı Fiyat Hesaplayıcı" Icon={Calculator01Filled}>
           <PriceCalculatorForm />
         </MyCard>
 
-        <MyCard title="Son Aktiviteler" Icon={TimeQuarterPassFilled}>
-          <ScrollArea className="space-y-3 h-50 pr-3">
-            {isLoading ? (
-              <HistorySkeleton />
-            ) : historyData && historyData.items && historyData.items.length > 0 ? (
-              historyData.items.slice(0, 5).map((history) => (
-                <div key={history.historyId} className="flex items-center justify-between py-2 border-b last:border-0">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
-                        {history.karat}K
-                      </span>
-                      <p className="text-sm font-medium">Altın Hesaplama</p>
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {history.gram ? `${history.gram.toLocaleString('tr-TR')}g • ` : ''}
-                      Maliyet: ₺{history.cost.toLocaleString('tr-TR')} • İşçilik: ₺{history.laborCost.toLocaleString('tr-TR')}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-semibold">₺{history.totalCost.toLocaleString('tr-TR')}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {formatDistanceToNow(new Date(history.createdDate), { addSuffix: true })}
-                    </p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <div className="text-center py-4 text-sm text-muted-foreground">
-                Geçmiş bulunamadı
-              </div>
-            )}
-          </ScrollArea>
+        <MyCard title="Karat Karşılaştırması" Icon={JusticeScale01Filled}>
+          <KaratCompareForm />
         </MyCard>
 
+        <MyCard title="Ağırlık Dönüştürücü" Icon={BodyWeightFilled}>
+          <WeightConverterForm />
+        </MyCard>
       </div>
+      <MyCard
+        title="Son Aktiviteler"
+        Icon={TimeQuarterPassFilled}
+        actions={
+          <div className="flex items-center gap-2 flex-wrap">
+            <Filter className="h-4 w-4 text-muted-foreground shrink-0" />
+            <Select
+              value={karatFilter !== undefined ? String(karatFilter) : "all"}
+              onValueChange={(v) => setKaratFilter(v === "all" ? undefined : Number(v))}
+            >
+              <SelectTrigger className="w-32 h-8 text-xs">
+                <SelectValue placeholder="Karat" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Tümü</SelectItem>
+                {KARAT_OPTIONS.map((o) => (
+                  <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <div className='w-68 flex gap-x-2'>
+              <div className='w-1/2'>
+                <DateInput date={startDate} setDate={setStartDate} placeholder="Başlangıç" />
+              </div>
+              <div className='w-1/2'>
+                <DateInput date={endDate} setDate={setEndDate} placeholder="Bitiş" />
+              </div>
+            </div>
+          </div>
+        }
+      >
+        {isLoading ? (
+          <HistoryTableSkeleton />
+        ) : historyData && historyData.items && historyData.items.length > 0 ? (
+          <DataTable columns={columns} data={historyData.items} />
+        ) : (
+          <div className="text-center py-8 text-sm text-muted-foreground">
+            Geçmiş bulunamadı
+          </div>
+        )}
+      </MyCard>
+
+
+      <Dialog open={detailOpen} onOpenChange={setDetailOpen}>
+        <DialogContent className="sm:max-w-[420px]">
+          <DialogHeader>
+            <DialogTitle>İşlem Detayı</DialogTitle>
+            <DialogDescription>Hesaplama kaydının detayları</DialogDescription>
+          </DialogHeader>
+          {selectedItem && (
+            <div className="grid gap-3 py-2">
+              {[
+                { label: "Karat", value: `${selectedItem.karat}K` },
+                { label: "Maliyet", value: `₺${selectedItem.cost.toLocaleString("tr-TR", { minimumFractionDigits: 2 })}` },
+                { label: "Gram Fiyatı", value: `₺${selectedItem.gramPrice.toLocaleString("tr-TR", { minimumFractionDigits: 2 })}` },
+                { label: "İşçilik", value: `₺${selectedItem.laborCost.toLocaleString("tr-TR", { minimumFractionDigits: 2 })}` },
+                { label: "Toplam", value: `₺${selectedItem.totalCost.toLocaleString("tr-TR", { minimumFractionDigits: 2 })}`, bold: true },
+                { label: "Tarih", value: format(new Date(selectedItem.createdDate), "dd MMM yyyy HH:mm") },
+              ].map(({ label, value, bold }) => (
+                <div key={label} className="grid grid-cols-3 items-center gap-4">
+                  <span className="font-medium text-sm">{label}:</span>
+                  <span className={`col-span-2 text-sm ${bold ? "font-bold text-primary" : ""}`}>{value}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
-
-
-
   )
+}
+
+
+
+export function DateInput({ date, setDate, placeholder }: { date: Date | null, setDate: (date: Date | null) => void, placeholder: string }) {
+  const [open, setOpen] = useState(false)
+
+  return <Popover open={open} onOpenChange={setOpen}>
+    <PopoverTrigger asChild>
+      <Button
+        variant={'outline'}
+        className={cn(
+          'w-full pl-3 text-left font-normal text-xs h-9 rounded-full bg-input/30',
+          !date && 'text-muted-foreground'
+        )}
+      >
+        {date ? format(date, "dd MMM yyyy", { locale: tr }) : <span>{placeholder}</span>}
+        <Calendar04 className="ml-auto h-4 w-4 opacity-50" />
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-auto p-0" align="start">
+      <Calendar
+        // disabled={{ before: new Date() }}
+        mode="single"
+        selected={date}
+        onSelect={(date) => {
+          // const formattedDate = format(date as Date, 'dd/MM/yyyy');
+          console.log(date)
+          if (date) {
+            setDate(date);
+            setOpen(false)
+          }
+        }}
+        initialFocus
+      />
+    </PopoverContent>
+  </Popover>
 }

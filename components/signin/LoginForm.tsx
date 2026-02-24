@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation"
 import { BubbleButton } from "@/components/buttons/BubbleButton"
 import { ArrowLeft01Sharp } from "asem-icons"
 import { useLogin } from "./_services/mutations"
+import Link from "next/link"
 import { toast } from "sonner"
 import MyCard from "../MyCard"
 import { MyButton } from "../buttons/MyButton"
@@ -145,11 +146,11 @@ export const LoginForm = () => {
         <p className="mt-4 text-xs text-muted-foreground text-center leading-relaxed px-2">
           Giriş yaparak{" "}
           <span className="text-my-blue font-medium cursor-pointer hover:underline">
-            Şartlar ve Koşullarımızı
+            <Link href="/terms">Şartlar ve Koşullarımızı</Link>
           </span>
           {" "}ve{" "}
           <span className="text-my-blue font-medium cursor-pointer hover:underline">
-            Gizlilik Politikamızı
+            <Link href="/privacy">Gizlilik Politikamızı</Link>
           </span>
           {" "}kabul etmiş olursunuz.
         </p>

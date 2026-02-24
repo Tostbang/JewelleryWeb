@@ -19,3 +19,15 @@ export const DurationTypeLabels: Record<DurationType, string> = {
   [DurationType.Months]: "Ay",
   [DurationType.Years]: "Yıl",
 }
+
+export enum WeightUnit {
+  Gram = 1,
+  Kilogram = 2,
+  Ounce = 3,
+}
+
+export const WeightUnitLabels: Record<WeightUnit, string> = {
+  [WeightUnit.Gram]: "Gram",
+  [WeightUnit.Kilogram]: "Kilogram",
+  [WeightUnit.Ounce]: "Ons",
+}

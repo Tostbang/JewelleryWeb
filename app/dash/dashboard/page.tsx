@@ -8,7 +8,7 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart"
-import { AlignBoxBottomCenter, User02, TradeMark, UserLock01, Bitcoin, BitcoinCircle, BitcoinFilled, BitcoinSquare, BitcoinSquareFilled, Chart, Coins01Filled, Gem, GemFilled, Package, PackageAdd, ShoppingCart01, TruckReturn, TruckReturnFilled, UserAccount, PackageFilled, Desk, Desk01, Desk02Filled, Football, Basketball02Filled, PackageReceiveFilled, UserMultipleFilled, AnalyticsUpFilled, Analytics01Filled, ArrowExpand01Sharp, BorderFullFilled, Calculator01Filled, IrisScanFilled, Sparkles, TimeQuarterPassFilled, GoldIngotsFilled, TimeHalfPassFilled, GoldFilled, ChartLineData01, ChartLineDataFilled, CreditCardFilled, NecklaceFilled } from "asem-icons"
+import { AlignBoxBottomCenter, User02, TradeMark, UserLock01, Bitcoin, BitcoinCircle, BitcoinFilled, BitcoinSquare, BitcoinSquareFilled, Chart, Coins01Filled, Gem, GemFilled, Package, PackageAdd, ShoppingCart01, TruckReturn, TruckReturnFilled, UserAccount, PackageFilled, Desk, Desk01, Desk02Filled, Football, Basketball02Filled, PackageReceiveFilled, UserMultipleFilled, AnalyticsUpFilled, Analytics01Filled, ArrowExpand01Sharp, BorderFullFilled, Calculator01Filled, IrisScanFilled, Sparkles, TimeQuarterPassFilled, GoldIngotsFilled, TimeHalfPassFilled, GoldFilled, ChartLineData01, ChartLineDataFilled, CreditCardFilled, NecklaceFilled, CreditCardNotFound, Sunglasses } from "asem-icons"
 import { UserMinus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MyCard from "@/components/MyCard"
@@ -22,6 +22,8 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { GoldPriceChart } from "./_components/GoldPriceChart"
 import { SubscribtionCard } from "./_components/SubscriptionCard"
 import { title } from "process"
+import { MyButton } from "@/components/buttons/MyButton"
+import Link from "next/link"
 
 function LiveDataSkeleton() {
   return (
@@ -98,27 +100,21 @@ const chartConfig = {
 export default function DashboardPage() {
   const { data: historyData, isLoading } = useGetHistory()
   const { data: liveData, isLoading: isLiveDataLoading } = useGetLiveBuySell()
-  const [selectedKarat, setSelectedKarat] = useState("14")
+  const [selectedKarat, setSelectedKarat] = useState("22")
   const [chartPeriod, setChartPeriod] = useState<"5" | "30">("5")
   const { data: chartData, isLoading: isChartLoading } = useGetChartData(chartPeriod)
 
   const getKaratPrice = () => {
     if (!liveData) return "..."
     switch (selectedKarat) {
-      case "14k":
+      case "14":
         return `₺${liveData.karatPrices.gram14kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-      case "18k":
+      case "18":
         return `₺${liveData.karatPrices.gram18kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-      case "22k":
+      case "22":
         return `₺${liveData.karatPrices.gram22kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-      case "24k":
+      case "24":
         return `₺${liveData.karatPrices.gram24kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-      case "Çeyrek":
-        return `₺${liveData.ceyrekAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-      case "Yarım":
-        return `₺${liveData.yarimAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} `
-      case "Tam":
-        return `₺${liveData.tamAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} `
       default:
         return "..."
     }
@@ -135,7 +131,7 @@ export default function DashboardPage() {
       iconColor: "fill-blue-600",
     },
     {
-      title: "Gram Satış (TL)",
+      title: "Gram SatışKaraon (TL)",
       value: liveData ? `₺${liveData.gramSellTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` : "...",
       change: liveData?.timestamp ? new Date(liveData.timestamp * 1000).toLocaleTimeString('tr-TR') : "",
       trend: "neutral" as const,
@@ -249,13 +245,13 @@ export default function DashboardPage() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="14k">14K Altın</SelectItem>
-                        <SelectItem value="18k">18K Altın</SelectItem>
-                        <SelectItem value="22k">22K Altın</SelectItem>
-                        <SelectItem value="24k">24K Altın</SelectItem>
-                        <SelectItem value="Çeyrek">Çeyrek Altin</SelectItem>
+                        <SelectItem value="14">14K Altın</SelectItem>
+                        <SelectItem value="18">18K Altın</SelectItem>
+                        <SelectItem value="22">22K Altın</SelectItem>
+                        <SelectItem value="24">24K Altın</SelectItem>
+                        {/* <SelectItem value="Çeyrek">Çeyrek Altin</SelectItem>
                         <SelectItem value="Yarım">Yarım Altin</SelectItem>
-                        <SelectItem value="Tam">Tam Altin</SelectItem>
+                        <SelectItem value="Tam">Tam Altin</SelectItem> */}
                       </SelectContent>
                     </Select>
                   </div>
@@ -268,7 +264,7 @@ export default function DashboardPage() {
                     <h3 className="text-2xl font-bold mt-2">{getKaratPrice()}</h3>
                   </div>
                   <p className="text-xs mt-2 flex items-center gap-1 text-black">
-                    {selectedKarat} Altın
+                    {selectedKarat} Karat
                   </p>
                 </div>
               </div>
@@ -362,7 +358,7 @@ export default function DashboardPage() {
         </MyCard>
 
         <MyCard title="Son Aktiviteler" Icon={TimeQuarterPassFilled} expandable={true}>
-          <ScrollArea className="space-y-3 h-50 pr-3">
+          <ScrollArea className="space-y-3 h-44 pr-3">
             {isLoading ? (
               <HistorySkeleton />
             ) : historyData && historyData.items && historyData.items.length > 0 ? (
@@ -389,8 +385,19 @@ export default function DashboardPage() {
                 </div>
               ))
             ) : (
-              <div className="text-center py-4 text-sm text-muted-foreground">
-                Geçmiş bulunamadı
+              <div className="flex flex-col items-center justify-center h-44 px-24 text-center space-y-3">
+                <div className="p-4 rounded-full bg-gray-200">
+                  <TimeQuarterPassFilled className="size-5 " />
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900 mb-1">Geçmiş bulunamadı</p>
+                  <p className="text-sm text-muted-foreground">{"Fiyat Hesaplayıcı’yı kullandıktan sonra geçmişiniz burada görünecek."}</p>
+                  {/* <MyButton className="h-11 mt-6" asChild>
+                    <Link href={"/dash/packages"} className="px-2">
+                      Paket Al
+                    </Link>
+                  </MyButton> */}
+                </div>
               </div>
             )}
           </ScrollArea>

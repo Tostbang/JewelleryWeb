@@ -40,15 +40,15 @@ export function SubscribtionCard() {
   // If no active package
   if (!packageData?.packageId) {
     return (
-      <div className="flex flex-col items-center justify-center h-[200px] text-center space-y-3">
+      <div className="flex flex-col items-center justify-center h-full px-9 text-center space-y-3">
         <div className="p-4 rounded-full bg-gray-200">
           <CreditCardNotFound className="size-4 " />
         </div>
         <div>
-          <p className="font-medium text-gray-900">Aktif Paket Yok</p>
-          <p className="text-sm text-muted-foreground">{"Henüz bir paket seçilmedi"}</p>
-          <MyButton className="h-11 mt-1" asChild>
-            <Link href={"/dash/packages"}>
+          <p className="font-medium text-gray-900 mb-1">Aktif Paket Yok</p>
+          <p className="text-sm text-muted-foreground">{"Henüz bir paket seçilmedi. Paketler sayfasından bir paket satın alın."}</p>
+          <MyButton className="h-11 mt-6" asChild>
+            <Link href={"/dash/packages"} className="px-2">
               Paket Al
             </Link>
           </MyButton>

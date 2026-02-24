@@ -40,10 +40,23 @@ export interface LiveBuySellResponse {
   errors: string[]
 }
 
-export const useGetHistory = () => {
+export interface HistoryParams {
+  karat?: number
+  startDate?: string
+  endDate?: string
+}
+
+export const useGetHistory = (params?: HistoryParams) => {
   return useQuery<HistoryResponse>({
-    queryKey: ["trade-history"],
-    queryFn: () => FetchData("Trade/MyHistory", { secure: true }),
+    queryKey: ["trade-history", params],
+    queryFn: () => {
+      const searchParams = new URLSearchParams()
+      if (params?.karat) searchParams.set("karat", String(params.karat))
+      if (params?.startDate) searchParams.set("startDate", params.startDate)
+      if (params?.endDate) searchParams.set("endDate", params.endDate)
+      const qs = searchParams.toString()
+      return FetchData(`Trade/MyHistory${qs ? `?${qs}` : ""}`, { secure: true })
+    },
   })
 }
 

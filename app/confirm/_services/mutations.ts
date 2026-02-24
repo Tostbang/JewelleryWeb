@@ -27,3 +27,25 @@ export const useConfirmEmail = () => {
       }),
   })
 }
+
+export interface ResendVerificationCodeRequest {
+  email: string
+}
+
+export interface ResendVerificationCodeResponse {
+  code: string
+  message: string
+  errors: string[]
+  remainingSeconds: number
+}
+
+export const useResendVerificationCode = () => {
+  return useMutation<ResendVerificationCodeResponse, Error, ResendVerificationCodeRequest>({
+    mutationFn: (data: ResendVerificationCodeRequest) =>
+      FetchData("Auth/ResendVerificationCode", {
+        method: "POST",
+        secure: false,
+        body: { email: data.email },
+      }),
+  })
+}

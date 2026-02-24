@@ -18,9 +18,10 @@ import { useCalculateLaborCost, LaborCostResponse } from "../_services/mutations
 import { SelectItem } from "@/components/ui/select"
 
 const formSchema = z.object({
-  karat: z.string({
-    message: "Karat is required",
-  }).min(1, "Karat must be at least 1"),
+  karat: z.number({
+    required_error: "Karat seçimi zorunludur",
+    invalid_type_error: "Karat seçimi zorunludur",
+  }).min(1, "Karat seçimi zorunludur"),
   cost: z.string({
     message: "Cost is required",
   }).min(1, "Cost must be greater than 0"),
@@ -35,7 +36,7 @@ export default function PriceCalculatorForm() {
   const { control, handleSubmit, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      karat: "14",
+      karat: 14,
       cost: "0",
     },
   })
