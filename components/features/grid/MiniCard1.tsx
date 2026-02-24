@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "../../utils/Card";
 import { CalloutChip } from "../../utils/CalloutChip";
 import { motion } from "motion/react";
-import { Link04Filled } from "asem-icons";
+import { LaptopPhoneSync1Filled } from "asem-icons";
 import { BubbleButton } from "@/components/buttons/BubbleButton";
 
 export const MiniCard1 = () => {
@@ -10,11 +10,11 @@ export const MiniCard1 = () => {
     <div className="col-span-2 h-[375px] md:col-span-1">
       <Card className="bg-my-lavender dark:bg-my-lavender/20">
         <div className="mx-auto w-fit">
-          <CalloutChip>Callout #2</CalloutChip>
+          <CalloutChip>Çoklu Cihaz</CalloutChip>
         </div>
-        <p className="mb-1.5 text-center text-2xl">Highlight something cool</p>
-        <p className="mb-6 text-center text-zinc-600 dark:text-zinc-400">Short and sweet.</p>
-        <BubbleButton className="mx-auto">Call to action</BubbleButton>
+        <p className="mb-1.5 text-center text-2xl">Her Cihazdan Erişim</p>
+        <p className="mb-6 text-center text-zinc-600 dark:text-zinc-400">Telefon, tablet veya bilgisayardan kolayca bağlanın.</p>
+        <BubbleButton className="mx-auto">Hemen Dene</BubbleButton>
         <Ping />
       </Card>
     </div>
@@ -26,7 +26,7 @@ const LOOP_DURATION = 6;
 const Ping = () => {
   return (
     <div className="absolute bottom-2 left-1/2 w-fit -translate-x-1/2 translate-y-1/2">
-      <Link04Filled className="relative z-10 size-20 text-black drop-shadow-lg" />
+      <LaptopPhoneSync1Filled className="relative z-10 size-20 text-black drop-shadow-lg" />
       <Band delay={0} />
       <Band delay={LOOP_DURATION * 0.25} />
       <Band delay={LOOP_DURATION * 0.5} />

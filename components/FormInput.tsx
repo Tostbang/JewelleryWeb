@@ -222,8 +222,12 @@ export default function FormInput({
               <Select
                 disabled={props.disabled}
                 name={field.name}
-                value={field.value}
-                onValueChange={field.onChange}
+                value={field.value?.toString()}
+                defaultValue={field.value?.toString()}
+                onValueChange={(value) => {
+                  // console.log('Duration Type Changed:', value)
+                  field.onChange(parseInt(value))
+                }}
               >
                 <SelectTrigger
                   id={field.name}
@@ -326,17 +330,17 @@ export default function FormInput({
                   {label ? label : name}
                 </FieldLabel>
               )}
-              <InputOTP maxLength={6} {...field} className="w-full">
-                <InputOTPGroup>
-                  <InputOTPSlot index={0} />
-                  <InputOTPSlot index={1} />
-                  <InputOTPSlot index={2} />
+              <InputOTP maxLength={6} {...field} className="w-full ">
+                <InputOTPGroup className='w-1/2 grid grid-cols-3'>
+                  <InputOTPSlot index={0} className='w-full' />
+                  <InputOTPSlot index={1} className='w-full' />
+                  <InputOTPSlot index={2} className='w-full' />
                 </InputOTPGroup>
-                <InputOTPSeparator />
-                <InputOTPGroup>
-                  <InputOTPSlot index={3} />
-                  <InputOTPSlot index={4} />
-                  <InputOTPSlot index={5} />
+                <InputOTPSeparator className='px-2' />
+                <InputOTPGroup className='w-1/2 grid grid-cols-3'>
+                  <InputOTPSlot index={3} className='w-full' />
+                  <InputOTPSlot index={4} className='w-full' />
+                  <InputOTPSlot index={5} className='w-full' />
                 </InputOTPGroup>
               </InputOTP>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

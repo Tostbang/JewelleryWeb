@@ -1,5 +1,6 @@
 "use client"
 
+import { useSignOut } from "@/app/dash/_services/mutations"
 import {
   Avatar,
   AvatarFallback,
@@ -33,11 +34,8 @@ export function NavUser() {
   // const isManager = profile?.roleId === "Manager"
   // const isSupplier = profile?.roleId === "Supplier"
   // const isDepartmentUser = profile?.roleId === "DepartmentUser"
+  const { mutate } = useSignOut()
 
-  function LogOut() {
-    deleteToken()
-    window.location.href = "/";
-  }
 
   const profileUrl = isAdmin ? "/admin/profile" : "/dash/profile"
   const deviceUrl = isAdmin ? "/admin/devices" : "/dash/devices"
@@ -129,7 +127,7 @@ export function NavUser() {
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => LogOut()}>
+          <DropdownMenuItem onClick={() => mutate(profile?.currentSessionId ?? 0)}>
             <Logout04 />
             Çıkış Yap
           </DropdownMenuItem>

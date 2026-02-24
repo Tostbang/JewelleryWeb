@@ -1,37 +1,37 @@
 import { IconType } from "@/lib/types";
-import { Calendar01, Cloud, Dollar02, Moon02, Tick02, Watch01 } from "asem-icons";
+import { Calendar01, Cloud, Dollar02, Moon02, Tick02, Watch01, GoldFilled, KnightShieldFilled, ChartLineData02, SmartPhone01 } from "asem-icons";
 
 export const SimpleGrid = () => (
   <div className="relative z-10 bg-white grid grid-cols-2 gap-9 px-3 md:grid-cols-3 md:gap-12 md:px-6">
     <Item
-      Icon={Calendar01}
-      title="Clear your calendar"
-      subtitle="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo, dolorem."
+      Icon={GoldFilled}
+      title="Canlı Altın Fiyatları"
+      subtitle="Güncel altın fiyatlarını anında görüntüleyin ve hesaplayın."
     />
     <Item
       Icon={Watch01}
-      title="Save tens of hours"
-      subtitle="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo, dolorem."
+      title="Zamandan Tasarruf"
+      subtitle="Otomatik hesaplama ile manuel işlemleri ortadan kaldırın."
     />
     <Item
-      Icon={Moon02}
-      title="Rest easy"
-      subtitle="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo, dolorem."
+      Icon={KnightShieldFilled}
+      title="Güvenli Altyapı"
+      subtitle="Verileriniz şifreli ve güvenli sunucularda korunur."
     />
     <Item
       Icon={Dollar02}
-      title="Save thousands"
-      subtitle="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo, dolorem."
+      title="Maliyet Tasarrufu"
+      subtitle="Hataları minimize edin, kayıpları önleyin."
     />
     <Item
-      Icon={Cloud}
-      title="Simple hosting"
-      subtitle="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo, dolorem."
+      Icon={SmartPhone01}
+      title="Mobil Uyumlu"
+      subtitle="Telefondan, tabletten, bilgisayardan erişim imkanı."
     />
     <Item
-      Icon={Tick02}
-      title="Everything you need"
-      subtitle="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo, dolorem."
+      Icon={ChartLineData02}
+      title="Detaylı Raporlar"
+      subtitle="Tüm işlemlerinizi takip edin, analiz edin."
     />
   </div>
 );

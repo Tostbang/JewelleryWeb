@@ -20,11 +20,10 @@ export const LongCard = () => {
     <div className="col-span-2 h-fit sm:h-[209px]">
       <Card className="bg-my-orange2">
         <div className="relative z-20">
-          <CalloutChip>Callout #4</CalloutChip>
-          <p className="mb-1.5 text-2xl">Talk about integrations</p>
+          <CalloutChip>Entegrasyon 🔗</CalloutChip>
+          <p className="mb-1.5 text-2xl">Teknoloji Altyapımız</p>
           <p className="max-w-sm text-zinc-600 dark:text-zinc-400">
-            If you connect with tools that people already know and use, show it
-            off!
+            Modern ve güvenilir teknolojiler ile destekleniyor.
           </p>
         </div>
         <div className="absolute bottom-0 right-0 top-0 z-10 w-48 bg-gradient-to-r from-my-orange/0 to-my-orange/50 dark:from-my-orange/0 dark:to-my-orange/25" />

@@ -10,6 +10,7 @@ import { Hero } from "@/components/hero/Hero";
 import { Logos } from "@/components/logos/Logos";
 import { NavBar } from "@/components/navbar/NavBar";
 import { Pricing } from "@/components/pricing/Pricing";
+import { SupportForm } from "@/components/support/SupportForm";
 
 
 export default function Page() {
@@ -19,12 +20,15 @@ export default function Page() {
       <Hero />
       <Logos />
       <FeatureGrid />
-      <CodeDemo />
+      {/* <CodeDemo /> */}
       <Carousel />
       <Customers />
       <Stats />
       <Pricing />
       <CTA />
+      <section className="py-20 px-6 bg-gradient-to-b from-white to-my-blue/5">
+        <SupportForm />
+      </section>
       <Footer />
     </main>
   );

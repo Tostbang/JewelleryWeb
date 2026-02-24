@@ -10,6 +10,7 @@ export type Profile = {
   isApproved: boolean,
   registerLat: number,
   registerLng: number
+  currentSessionId: number
 }
 
 type ProfileStore = {

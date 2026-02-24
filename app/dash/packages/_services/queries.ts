@@ -1,7 +1,8 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { FetchData } from "@/lib/fetchData"
+import { DurationType } from "@/lib/types"
 
 export interface Package {
   packageId: number
@@ -10,6 +11,8 @@ export interface Package {
   allowMobile: boolean
   allowedRadiusKm: number
   price: number
+  durationValue: number
+  durationType: DurationType
 }
 
 export interface PackagesResponse {
@@ -28,6 +31,23 @@ export interface ActivePackageResponse {
   maxDeviceCount: number
   allowMobile: boolean
   allowedRadiusKm: number
+  totalDays: number
+  remainingDays: number
+  endsAt: string
+}
+
+export type CheckoutInitializeRequest = {
+  packageId: number;
+  callbackUrl: string;
+}
+
+export type CheckoutInitializeResponse = {
+  code: string;
+  message: string;
+  errors: string[];
+  token: string;
+  conversationId: string;
+  checkoutFormContent: string;
 }
 
 export const useGetAllPackages = () => {
@@ -42,4 +62,18 @@ export const useGetActivePackage = () => {
     queryKey: ["active-package"],
     queryFn: () => FetchData("Membership/GetActivePackage", { secure: true }),
   })
+}
+
+export async function initializeCheckout(request: CheckoutInitializeRequest): Promise<CheckoutInitializeResponse> {
+  return await FetchData("Payment/start-package-payment", {
+    method: "POST",
+    secure: true,
+    body: request,
+  });
+}
+
+export function useInitializeCheckout() {
+  return useMutation({
+    mutationFn: (request: CheckoutInitializeRequest) => initializeCheckout(request),
+  });
 }

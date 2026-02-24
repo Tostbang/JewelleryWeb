@@ -1,7 +1,7 @@
 "use client"
 
-import { Check, Smartphone, Monitor, MapPin } from "lucide-react"
-import { useGetAllPackages, useGetActivePackage } from "./_services/queries"
+import { Check, Smartphone, Monitor, MapPin, Calendar, Clock } from "lucide-react"
+import { useGetAllPackages, useGetActivePackage, useInitializeCheckout } from "./_services/queries"
 import { useBuyPackage } from "./_services/mutations"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -10,6 +10,11 @@ import { PackageFilled } from "asem-icons"
 import { cn } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Alert } from "@/lib/useGlobalStore"
+import { DurationTypeLabels } from "@/lib/types"
+import { format } from "date-fns"
+import { PaymentModal } from "./_components/PaymentModal"
+import { useState } from "react"
+import { toast } from "sonner"
 
 function PackagesSkeleton() {
   return (
@@ -38,56 +43,106 @@ function PackagesSkeleton() {
 export default function PackagesPage() {
   const { data: packagesData, isLoading } = useGetAllPackages()
   const { data: activePackage } = useGetActivePackage()
-  const buyPackageMutation = useBuyPackage()
+  // const buyPackageMutation = useBuyPackage()
+  const initializeCheckout = useInitializeCheckout()
+  const [selectedPackageId, setSelectedPackageId] = useState<number | null>(null)
+  const [checkoutFormHtml, setCheckoutFormHtml] = useState<string | null>(null)
+  const [showPaymentModal, setShowPaymentModal] = useState(false)
+
+
+  const handlePurchase = async (packageId: number) => {
+    setSelectedPackageId(packageId)
+    try {
+      const response = await initializeCheckout.mutateAsync({
+        packageId,
+        callbackUrl: `${window.location.origin}/callback`
+      })
+      if (response.checkoutFormContent) {
+        setCheckoutFormHtml(response.checkoutFormContent)
+        setShowPaymentModal(true)
+      } else {
+        toast.error('Ödeme formu alınamadı')
+      }
+    } finally {
+      setSelectedPackageId(null)
+    }
+  }
 
   return (
     <div className="p-6 space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Membership Packages</h1>
+        <h1 className="text-3xl font-bold">Üyelik Paketleri</h1>
         <p className="text-muted-foreground mt-1">
-          Choose the perfect plan for your business
+          İşiniz için mükemmel planı seçin
         </p>
       </div>
 
       {/* Active Package Section */}
       {activePackage && activePackage.packageId && (
-        <MyCard title="Your Active Package" Icon={PackageFilled}>
+        <MyCard title="Aktif Paketiniz" Icon={PackageFilled}>
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 rounded-lg p-6">
-            <div className="flex items-start justify-between">
+            <div className="flex items-start justify-between mb-4">
               <div>
                 <h3 className="text-xl font-bold mb-2">{activePackage.name}</h3>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-sm">
                     <Monitor className="w-4 h-4" />
-                    <span>Up to {activePackage.maxDeviceCount} devices</span>
+                    <span>{activePackage.maxDeviceCount} cihaza kadar</span>
                   </div>
                   {activePackage.allowMobile && (
                     <div className="flex items-center gap-2 text-sm">
                       <Smartphone className="w-4 h-4" />
-                      <span>Mobile access enabled</span>
+                      <span>Mobil erişim aktif</span>
                     </div>
                   )}
                   <div className="flex items-center gap-2 text-sm">
                     <MapPin className="w-4 h-4" />
-                    <span>{activePackage.allowedRadiusKm} km radius allowed</span>
+                    <span>{activePackage.allowedRadiusKm} km yarıçap izni</span>
                   </div>
                 </div>
               </div>
-              <Badge className="bg-green-500 text-white">Active</Badge>
+              <Badge className="bg-green-500 text-white">Aktif</Badge>
+            </div>
+
+            {/* Duration Info */}
+            <div className="border-t border-white/20 pt-4 mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-blue-600" />
+                <div>
+                  <p className="text-xs text-muted-foreground">Toplam Süre</p>
+                  <p className="font-semibold">{activePackage.totalDays} gün</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4 text-orange-600" />
+                <div>
+                  <p className="text-xs text-muted-foreground">Kalan Süre</p>
+                  <p className="font-semibold">{activePackage.remainingDays} gün</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-red-600" />
+                <div>
+                  <p className="text-xs text-muted-foreground">Bitiş Tarihi</p>
+                  <p className="font-semibold">
+                    {format(new Date(activePackage.endsAt), "dd MMM yyyy")}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </MyCard>
       )}
 
       {/* All Packages Section */}
-      <MyCard title="Available Packages" Icon={PackageFilled}>
+      <MyCard title="Mevcut Paketler" Icon={PackageFilled}>
         {isLoading ? (
           <PackagesSkeleton />
         ) : packagesData && packagesData.packages && packagesData.packages.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {packagesData.packages.map((pkg) => {
               const isActive = activePackage?.packageId === pkg.packageId
-              
+
               return (
                 <div
                   key={pkg.packageId}
@@ -100,7 +155,7 @@ export default function PackagesPage() {
                 >
                   {isActive && (
                     <Badge className="absolute top-4 right-4 bg-blue-500 text-white">
-                      Current Plan
+                      Mevcut Plan
                     </Badge>
                   )}
 
@@ -108,8 +163,10 @@ export default function PackagesPage() {
                     <div>
                       <h3 className="text-xl font-bold mb-1">{pkg.name}</h3>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-3xl font-bold">₹{pkg.price}</span>
-                        <span className="text-muted-foreground text-sm">/month</span>
+                        <span className="text-3xl font-bold">₺{pkg.price}</span>
+                        <span className="text-muted-foreground text-sm">
+                          /{pkg.durationValue} {DurationTypeLabels[pkg.durationType + 1]}
+                        </span>
                       </div>
                     </div>
 
@@ -117,17 +174,17 @@ export default function PackagesPage() {
                       <div className="flex items-start gap-3">
                         <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                         <span className="text-sm">
-                          Up to <strong>{pkg.maxDeviceCount}</strong> device{pkg.maxDeviceCount > 1 ? 's' : ''}
+                          <strong>{pkg.maxDeviceCount}</strong> cihaza kadar
                         </span>
                       </div>
-                      
+
                       <div className="flex items-start gap-3">
                         <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                         <span className="text-sm">
                           {pkg.allowMobile ? (
-                            <>Mobile access <strong>enabled</strong></>
+                            <>Mobil erişim <strong>aktif</strong></>
                           ) : (
-                            <>Mobile access <strong>disabled</strong></>
+                            <>Mobil erişim <strong>pasif</strong></>
                           )}
                         </span>
                       </div>
@@ -135,7 +192,14 @@ export default function PackagesPage() {
                       <div className="flex items-start gap-3">
                         <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                         <span className="text-sm">
-                          <strong>{pkg.allowedRadiusKm} km</strong> radius coverage
+                          <strong>{pkg.allowedRadiusKm} km</strong> yarıçap kapsamı
+                        </span>
+                      </div>
+
+                      <div className="flex items-start gap-3">
+                        <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">
+                          <strong>{pkg.durationValue} {DurationTypeLabels[pkg.durationType]}</strong> geçerlilik
                         </span>
                       </div>
                     </div>
@@ -143,22 +207,16 @@ export default function PackagesPage() {
                     <Button
                       className="w-full"
                       variant={isActive ? "outline" : "default"}
-                      disabled={isActive || buyPackageMutation.isPending}
+                      disabled={isActive || initializeCheckout.isPending}
                       onClick={() => Alert({
                         AlertTitle: "Paketi Satın Al",
-                        AlertDescription: `${pkg.name} paketini ₺${pkg.price}/ay fiyatla satın almak istediğinizden emin misiniz? Mevcut paketiniz varsa değiştirilecektir.`,
+                        AlertDescription: `${pkg.name} paketini ₺${pkg.price}/${pkg.durationValue} ${DurationTypeLabels[pkg.durationType]} fiyatla satın almak istediğinizden emin misiniz? Mevcut paketiniz varsa değiştirilecektir.`,
                         CancelLabel: "Vazgeç",
                         ConfirmLabel: "Satın Al",
-                        onConfirm: async () => {
-                          try {
-                            await buyPackageMutation.mutateAsync({ packageId: pkg.packageId })
-                          } catch (error) {
-                            console.error("Error buying package:", error)
-                          }
-                        }
+                        onConfirm: () => handlePurchase(pkg.packageId)
                       })}
                     >
-                      {isActive ? "Current Package" : "Buy Package"}
+                      {isActive ? "Mevcut Paket" : "Paketi Satın Al"}
                     </Button>
                   </div>
                 </div>
@@ -167,10 +225,15 @@ export default function PackagesPage() {
           </div>
         ) : (
           <div className="text-center py-8 text-muted-foreground">
-            No packages available
+            Paket bulunamadı
           </div>
         )}
       </MyCard>
+      <PaymentModal
+        open={showPaymentModal}
+        onOpenChange={setShowPaymentModal}
+        checkoutFormHtml={checkoutFormHtml}
+      />
     </div>
   )
 }

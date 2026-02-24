@@ -19,58 +19,57 @@ export const Pricing = () => {
     >
       <MaxWidthWrapper className="relative z-10 mx-auto max-w-5xl py-20 md:py-40">
         <SectionHeadingSpacing>
-          <SectionHeading persistCenter>Pricing</SectionHeading>
+          <SectionHeading persistCenter>Paketler</SectionHeading>
           <SectionSubheading persistCenter>
-            Use it for free for yourself, upgrade when your team needs advanced
-            control.
+            İşletmenizin ihtiyacına uygun paketi seçin. Dilediğiniz zaman değiştirebilirsiniz.
           </SectionSubheading>
         </SectionHeadingSpacing>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <PriceCard
-            tier="Free"
-            price="$0/mo"
-            bestFor="Best for 1-5 users"
-            CTA={<MyButton ghost className="w-full">Get started free</MyButton>}
+            tier="Başlangıç"
+            price="₺299/ay"
+            bestFor="Küçük işletmeler için"
+            CTA={<MyButton ghost className="w-full">Hemen Başla</MyButton>}
             benefits={[
-              { text: "One workspace", checked: true },
-              { text: "Email support", checked: true },
-              { text: "1 day data retention", checked: false },
-              { text: "Custom roles", checked: false },
-              { text: "Priority support", checked: false },
-              { text: "SSO", checked: false },
+              { text: "1 Cihaz", checked: true },
+              { text: "Email destek", checked: true },
+              { text: "Temel raporlama", checked: true },
+              { text: "Mobil erişim", checked: false },
+              { text: "Öncelikli destek", checked: false },
+              { text: "API erişimi", checked: false },
             ]}
           />
           <PriceCard
-            tier="Pro"
-            price="$79/mo"
-            bestFor="Best for 5-50 users"
+            tier="Profesyonel"
+            price="₺799/ay"
+            bestFor="Orta ölçekli işletmeler"
             CTA={
               <MyButton ghost className="w-full bg-gradient-to-br from-my-blue to-my-lavender text-white hover:shadow-lg hover:shadow-my-lavender/30 backdrop-blur-sm">
-                14-day free trial
+                14 Gün Ücretsiz Dene
               </MyButton>
             }
             benefits={[
-              { text: "Five workspaces", checked: true },
-              { text: "Email support", checked: true },
-              { text: "7 day data retention", checked: true },
-              { text: "Custom roles", checked: true },
-              { text: "Priority support", checked: false },
-              { text: "SSO", checked: false },
+              { text: "5 Cihaz", checked: true },
+              { text: "Email destek", checked: true },
+              { text: "Gelişmiş raporlama", checked: true },
+              { text: "Mobil erişim", checked: true },
+              { text: "Öncelikli destek", checked: true },
+              { text: "API erişimi", checked: false },
             ]}
           />
           <PriceCard
-            tier="Enterprise"
-            price="Contact us"
-            bestFor="Best for 50+ users"
-            CTA={<MyButton ghost className="w-full">Contact us</MyButton>}
+            tier="Kurumsal"
+            price="İletişime Geçin"
+            bestFor="Büyük işletmeler için"
+            CTA={<MyButton ghost className="w-full">Bize Ulaşın</MyButton>}
             benefits={[
-              { text: "Unlimited workspaces", checked: true },
-              { text: "Email support", checked: true },
-              { text: "30 day data retention", checked: true },
-              { text: "Custom roles", checked: true },
-              { text: "Priority support", checked: true },
-              { text: "SSO", checked: true },
+              { text: "Sınırsız cihaz", checked: true },
+              { text: "7/24 destek", checked: true },
+              { text: "Özel raporlama", checked: true },
+              { text: "Mobil erişim", checked: true },
+              { text: "Öncelikli destek", checked: true },
+              { text: "API erişimi", checked: true },
             ]}
           />
         </div>

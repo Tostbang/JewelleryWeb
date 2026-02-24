@@ -1,12 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { useGetAdminUsers, AdminUser } from "./_services/queries"
+import { useGetTickets, Ticket } from "./_services/queries"
 import { DataTable } from "@/components/data-table"
 import { createColumns } from "./columns"
-import { Filter } from "lucide-react"
 import MyCard from "@/components/MyCard"
-import { User02Filled } from "asem-icons"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Dialog,
@@ -18,13 +16,6 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { format } from "date-fns"
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import {
   Pagination,
   PaginationContent,
   PaginationItem,
@@ -33,8 +24,10 @@ import {
   PaginationPrevious,
   PaginationEllipsis,
 } from "@/components/ui/pagination"
+import { CustomerSupportFilled } from "asem-icons"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
-function UsersTableSkeleton() {
+function TicketsTableSkeleton() {
   return (
     <div className="space-y-3">
       <Skeleton className="h-10 w-full" />
@@ -45,38 +38,25 @@ function UsersTableSkeleton() {
   )
 }
 
-export default function AdminUsersPage() {
-  const [statusFilter, setStatusFilter] = useState<boolean | undefined>(undefined)
+export default function AdminSupportPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 10
 
-  const { data: usersData, isLoading } = useGetAdminUsers({
-    ...(statusFilter !== undefined && { status: statusFilter }),
+  const { data: ticketsData, isLoading } = useGetTickets({
     page: currentPage,
     pageSize: pageSize,
   })
-  const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null)
+  const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null)
   const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false)
 
-  const handleViewDetails = (user: AdminUser) => {
-    setSelectedUser(user)
+  const handleViewDetails = (ticket: Ticket) => {
+    setSelectedTicket(ticket)
     setIsDetailsDialogOpen(true)
   }
 
   const columns = createColumns(handleViewDetails)
 
-  const handleFilterChange = (value: string) => {
-    setCurrentPage(1)
-    if (value === "all") {
-      setStatusFilter(undefined)
-    } else if (value === "active") {
-      setStatusFilter(true)
-    } else {
-      setStatusFilter(false)
-    }
-  }
-
-  const totalPages = usersData?.totalPages || 0
+  const totalPages = ticketsData?.totalPages || 0
 
   const generatePageNumbers = () => {
     const pages: (number | "ellipsis")[] = []
@@ -117,43 +97,19 @@ export default function AdminUsersPage() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Kullanıcı Yönetimi</h1>
+          <h1 className="text-3xl font-bold">Destek Talepleri</h1>
           <p className="text-muted-foreground mt-1">
-            Tüm kullanıcıları görüntüleyin ve yönetin
+            Tüm destek taleplerini görüntüleyin ve yönetin
           </p>
         </div>
       </div>
 
-      <MyCard title="Tüm Kullanıcılar" Icon={User02Filled} actions={
-        <div className="flex items-center gap-2 ">
-          <Filter className="h-4 w-4 text-muted-foreground" />
-          <Select
-            value={
-              statusFilter === undefined
-                ? "all"
-                : statusFilter
-                  ? "active"
-                  : "inactive"
-            }
-            onValueChange={handleFilterChange}
-          >
-            <SelectTrigger className="w-[180px] ">
-              <SelectValue placeholder="Durum Filtrele" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">Tümü</SelectItem>
-              <SelectItem value="active">Aktif</SelectItem>
-              <SelectItem value="inactive">Pasif</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-      }>
+      <MyCard title="Tüm Destek Talepleri" Icon={CustomerSupportFilled}>
         {isLoading ? (
-          <UsersTableSkeleton />
-        ) : usersData && usersData.users && usersData.users.length > 0 ? (
+          <TicketsTableSkeleton />
+        ) : ticketsData && ticketsData.tickets && ticketsData.tickets.length > 0 ? (
           <>
-            <DataTable columns={columns} data={usersData.users} />
+            <DataTable columns={columns} data={ticketsData.tickets} />
             {totalPages > 1 && (
               <div className="mt-4">
                 <Pagination>
@@ -218,84 +174,80 @@ export default function AdminUsersPage() {
           </>
         ) : (
           <div className="text-center py-8 text-muted-foreground">
-            Kullanıcı bulunamadı.
+            Destek talebi bulunamadı.
           </div>
         )}
       </MyCard>
 
-      {/* User Details Dialog */}
+      {/* Ticket Details Dialog */}
       <Dialog open={isDetailsDialogOpen} onOpenChange={setIsDetailsDialogOpen}>
-        <DialogContent className="sm:max-w-[500px]">
-          <DialogHeader>
-            <DialogTitle>Kullanıcı Detayları</DialogTitle>
-            <DialogDescription>
-              Kullanıcının detaylı bilgilerini görüntüleyin
-            </DialogDescription>
-          </DialogHeader>
+        <DialogContent className="sm:max-w-[600px]">
+          <ScrollArea className="h-[80vh] pr-2">
+            <DialogHeader>
+              <DialogTitle>Destek Talebi Detayları</DialogTitle>
+              <DialogDescription>
+                Destek talebinin detaylı bilgilerini görüntüleyin
+              </DialogDescription>
+            </DialogHeader>
 
-          {selectedUser && (
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-3 items-center gap-4">
-                <span className="font-medium">Ad:</span>
-                <span className="col-span-2">{selectedUser.firstName}</span>
-              </div>
+            {selectedTicket && (
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-5 items-center gap-4">
+                  <span className="font-medium">Talep ID:</span>
+                  <span className="col-span-3">#{selectedTicket.ticketId}</span>
+                </div>
 
-              <div className="grid grid-cols-3 items-center gap-4">
-                <span className="font-medium">Soyad:</span>
-                <span className="col-span-2">{selectedUser.lastName}</span>
-              </div>
+                <div className="grid grid-cols-5 items-center gap-4">
+                  <span className="font-medium">Ad Soyad:</span>
+                  <span className="col-span-2">{selectedTicket.fullName}</span>
+                </div>
 
-              <div className="grid grid-cols-3 items-center gap-4">
-                <span className="font-medium">E-posta:</span>
-                <span className="col-span-2 text-sm">{selectedUser.email}</span>
-              </div>
+                <div className="grid grid-cols-5 items-center gap-4">
+                  <span className="font-medium">E-posta:</span>
+                  <span className="col-span-2 text-sm">{selectedTicket.email}</span>
+                </div>
 
-              <div className="grid grid-cols-3 items-center gap-4">
-                <span className="font-medium">Rol:</span>
-                <span className="col-span-2">
-                  <Badge variant={selectedUser.roleId === 1 ? "default" : "secondary"}>
-                    {selectedUser.roleId === 1 ? "Admin" : "Kullanıcı"}
-                  </Badge>
-                </span>
-              </div>
+                <div className="grid grid-cols-5 items-center gap-4">
+                  <span className="font-medium">Konu:</span>
+                  <span className="col-span-4 font-medium">{selectedTicket.title}</span>
+                </div>
 
-              <div className="grid grid-cols-3 items-center gap-4">
-                <span className="font-medium">Onay Durumu:</span>
-                <span className="col-span-2">
-                  <Badge variant={selectedUser.isApproved ? "default" : "destructive"}>
-                    {selectedUser.isApproved ? "Onaylı" : "Bekliyor"}
-                  </Badge>
-                </span>
-              </div>
-
-              <div className="grid grid-cols-3 items-center gap-4">
-                <span className="font-medium">Durum:</span>
-                <span className="col-span-2">
-                  <Badge variant={selectedUser.status ? "default" : "destructive"}>
-                    {selectedUser.status ? "Aktif" : "Pasif"}
-                  </Badge>
-                </span>
-              </div>
-
-              <div className="grid grid-cols-3 items-center gap-4">
-                <span className="font-medium">Kayıt Tarihi:</span>
-                <span className="col-span-2 text-sm">
-                  {format(new Date(selectedUser.createdDate), "dd MMM yyyy HH:mm")}
-                </span>
-              </div>
-
-              {selectedUser.modifiedDate && (
-                <div className="grid grid-cols-3 items-center gap-4">
-                  <span className="font-medium">Güncelleme:</span>
-                  <span className="col-span-2 text-sm">
-                    {format(new Date(selectedUser.modifiedDate), "dd MMM yyyy HH:mm")}
+                <div className="grid grid-cols-5 items-start gap-4">
+                  <span className="font-medium">Açıklama:</span>
+                  <span className="col-span-4 text-sm whitespace-pre-wrap">
+                    {selectedTicket.description}
                   </span>
                 </div>
-              )}
-            </div>
-          )}
+
+                {/* <div className="grid grid-cols-3 items-center gap-4">
+                <span className="font-medium">Talep Durumu:</span>
+                <span className="col-span-2">
+                  <Badge variant={selectedTicket.isClosed ? "secondary" : "default"}>
+                    {selectedTicket.isClosed ? "Kapalı" : "Açık"}
+                  </Badge>
+                </span>
+              </div>
+
+              <div className="grid grid-cols-3 items-center gap-4">
+                <span className="font-medium">Aktiflik:</span>
+                <span className="col-span-2">
+                  <Badge variant={selectedTicket.status ? "default" : "destructive"}>
+                    {selectedTicket.status ? "Aktif" : "Pasif"}
+                  </Badge>
+                </span>
+              </div> */}
+
+                <div className="grid grid-cols-5 items-center gap-4">
+                  <span className="font-medium">Oluşturma Tarihi:</span>
+                  <span className="col-span-2 text-sm">
+                    {format(new Date(selectedTicket.createdDate), "dd MMM yyyy HH:mm")}
+                  </span>
+                </div>
+              </div>
+            )}
+          </ScrollArea>
         </DialogContent>
       </Dialog>
-    </div>
+    </div >
   )
 }

@@ -21,6 +21,10 @@ export interface AdminUsersResponse {
   message: string
   errors: string[]
   users: AdminUser[]
+  page: number
+  pageSize: number
+  totalCount: number
+  totalPages: number
 }
 
 export interface UserDetail {
@@ -47,6 +51,8 @@ export interface UserDetailResponse {
 
 export interface UsersSearchRequest {
   status?: boolean
+  page?: number
+  pageSize?: number
 }
 
 export const useGetAdminUsers = (searchParams?: UsersSearchRequest) => {

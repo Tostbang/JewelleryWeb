@@ -27,7 +27,7 @@ export const CTA = () => {
           }}
           className="relative mb-3"
         >
-          <GlowingChip>Exciting announcement 🎉</GlowingChip>
+          <GlowingChip>Sınırsız İmkanlar 🚀</GlowingChip>
         </motion.div>
         <motion.h1
           initial={{
@@ -45,7 +45,7 @@ export const CTA = () => {
           }}
           className="mb-9 max-w-xl text-center text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight"
         >
-          A landing page template that works for you
+          İşletmenizi Dijitalleştirin
         </motion.h1>
         <motion.div
           initial={{
@@ -64,10 +64,10 @@ export const CTA = () => {
           className="flex flex-col items-center gap-4 sm:flex-row"
         >
           <MyButton
-            onClick={() => router.push("/login")}
+            onClick={() => router.push("/signup")}
             className="flex items-center gap-2"
           >
-            Try it free
+            Ücretsiz Dene
             <ArrowRight01Sharp />
           </MyButton>
           <MyButton
@@ -75,7 +75,7 @@ export const CTA = () => {
             onClick={() => router.push("/#features")}
             className="rounded-md px-4 py-2 text-lg text-zinc-900"
           >
-            Learn more
+            Daha Fazla Bilgi
           </MyButton>
         </motion.div>
       </MaxWidthWrapper>

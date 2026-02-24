@@ -39,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn(lexendDeca.className, outfit.variable)}>
+    <html lang="tr" className={cn(lexendDeca.className, outfit.variable)}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >

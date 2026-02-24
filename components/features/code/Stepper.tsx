@@ -1,24 +1,24 @@
 "use client"
 import { useAnimate, useInView } from "motion/react";
 import React, { useEffect } from "react";
-import { SourceCode, Mail01, Dollar02, Gift } from "asem-icons";
+import { UserAccount, Calculator01, ChartLineData02, Tick02 } from "asem-icons";
 
 const STEPS = [
   {
-    Icon: SourceCode,
-    text: "Connect",
+    Icon: UserAccount,
+    text: "Kaydol",
   },
   {
-    Icon: Mail01,
-    text: "Send",
+    Icon: Calculator01,
+    text: "Hesapla",
   },
   {
-    Icon: Dollar02,
-    text: "Profit",
+    Icon: ChartLineData02,
+    text: "Takip Et",
   },
   {
-    Icon: Gift,
-    text: "Celebrate",
+    Icon: Tick02,
+    text: "Yönet",
   },
 ];
 

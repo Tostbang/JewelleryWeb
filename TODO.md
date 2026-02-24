@@ -6,10 +6,11 @@
 - [x] add package page for admin
 - [x] add profile page for admin
 - [x] add users page for admin
-- [ ] add the graphics card plus the subscription card on the dashboard
-- [ ] add the endpoint for logging out
-- [ ] add support page for admin
-- [ ] I would add some calculation cards to the hesaplama page
-- [ ] add the pagination on the users page "admin/users"
-- [ ] add email confirmation forms 
+- [x] add the graphics card plus the subscription card on the dashboard
+- [x] add the endpoint for logging out
+- [x] add support page for admin
+- [x] add the pagination on the users page "admin/users"
+- [x] add email confirmation forms 
+- [ ] test the online iyzico payment
 - [ ] add the send again button on the email confirmation
+- [ ] I would add some calculation cards to the hesaplama page

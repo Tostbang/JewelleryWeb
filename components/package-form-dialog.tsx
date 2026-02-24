@@ -18,6 +18,9 @@ import { AdminPackage } from "@/app/admin/packages/_services/queries"
 import { CreatePackageRequest, UpdatePackageRequest, useCreatePackage, useUpdatePackage } from "@/app/admin/packages/_services/mutations"
 import { PropertyView, PropertyViewFilled, SmartPhone01 } from "asem-icons"
 import { cn } from "@/lib/utils"
+import { DurationType, DurationTypeLabels } from "@/lib/types"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Controller } from "react-hook-form"
 
 const packageSchema = z.object({
   name: z.string().min(1, "Paket adı gereklidir"),
@@ -25,6 +28,8 @@ const packageSchema = z.object({
   maxDeviceCount: z.number().min(1, "En az 1 cihaz olmalıdır"),
   allowedRadiusKm: z.number().min(0, "Yarıçap 0'dan büyük veya eşit olmalıdır"),
   allowMobile: z.boolean(),
+  durationValue: z.number().min(1, "Süre değeri en az 1 olmalıdır"),
+  durationType: z.nativeEnum(DurationType),
   status: z.boolean().optional(),
 })
 
@@ -53,6 +58,8 @@ export function PackageFormDialog({
       allowMobile: true,
       allowedRadiusKm: 10,
       price: 0,
+      durationValue: 1,
+      durationType: DurationType.Months,
       status: true,
     },
   })
@@ -61,22 +68,29 @@ export function PackageFormDialog({
   const status = watch("status")
 
   useEffect(() => {
+    console.log('packageToEdit changed:', packageToEdit)
     if (packageToEdit) {
+      console.log('Resetting form with edit data, durationType:', packageToEdit.durationType)
       reset({
         name: packageToEdit.name,
         maxDeviceCount: packageToEdit.maxDeviceCount,
         allowMobile: packageToEdit.allowMobile,
         allowedRadiusKm: packageToEdit.allowedRadiusKm,
         price: packageToEdit.price,
+        durationValue: packageToEdit.durationValue,
+        durationType: packageToEdit.durationType,
         status: packageToEdit.status,
       })
     } else {
+      console.log('Resetting form with default data')
       reset({
         name: "",
         maxDeviceCount: 1,
         allowMobile: true,
         allowedRadiusKm: 10,
         price: 0,
+        durationValue: 1,
+        durationType: DurationType.Months,
         status: true,
       })
     }
@@ -92,6 +106,8 @@ export function PackageFormDialog({
           allowMobile: data.allowMobile,
           allowedRadiusKm: data.allowedRadiusKm,
           price: data.price,
+          durationValue: data.durationValue,
+          durationType: +data.durationType,
           status: data.status ?? true,
         }
         await updateMutation.mutateAsync(updateData)
@@ -102,6 +118,8 @@ export function PackageFormDialog({
           allowMobile: data.allowMobile,
           allowedRadiusKm: data.allowedRadiusKm,
           price: data.price,
+          durationValue: data.durationValue,
+          durationType: +data.durationType,
         }
         await createMutation.mutateAsync(createData)
       }
@@ -115,7 +133,7 @@ export function PackageFormDialog({
   const isPending = createMutation.isPending || updateMutation.isPending
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} key={packageToEdit?.packageId || 'create'}>
       <div className="grid gap-3 pb-5">
         <FormInput
           type="text"
@@ -134,6 +152,56 @@ export function PackageFormDialog({
           step="0.01"
           min="0"
         />
+
+        <div className="grid grid-cols-2 gap-4 items-end">
+          <FormInput
+            type="number"
+            name="durationValue"
+            label="Süre Değeri"
+            control={control}
+            min="1"
+          />
+
+          <div className="space-y-2 ">
+            <Label>Süre Tipi</Label>
+            <Controller
+              name="durationType"
+              control={control}
+              render={({ field, fieldState }) => {
+                console.log('Duration Type Field Value:', field.value)
+                return (
+                  <div>
+                    <Select
+                      key={`duration-${field.value}`}
+                      value={field.value?.toString()}
+                      defaultValue={field.value?.toString()}
+                      onValueChange={(value) => {
+                        console.log('Duration Type Changed:', value)
+                        field.onChange(parseInt(value))
+                      }}
+                    >
+                      <SelectTrigger className={cn("w-full", fieldState.error && "border-destructive")}>
+                        <SelectValue placeholder="Süre tipi seçin" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Object.entries(DurationTypeLabels).map(([value, label]) => (
+                          <SelectItem key={value} value={value}>
+                            {label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {fieldState.error && (
+                      <p className="text-sm text-destructive mt-1">
+                        {fieldState.error.message}
+                      </p>
+                    )}
+                  </div>
+                )
+              }}
+            />
+          </div>
+        </div>
 
         <FormInput
           type="number"

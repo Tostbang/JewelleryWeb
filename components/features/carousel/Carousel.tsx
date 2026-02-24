@@ -61,10 +61,9 @@ const Carousel = () => {
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="mb-12 flex flex-col items-center justify-between gap-6 md:flex-row md:items-end">
             <div className="space-y-3">
-              <SectionHeading>Dive into the specifics</SectionHeading>
+              <SectionHeading>Neden Bizi Seçmelisiniz?</SectionHeading>
               <SectionSubheading>
-                Anything else you want to show off? What are you proud of? What
-                makes you different? Show it off here!
+                Altın işletmeniz için en modern ve güvenilir çözümler.
               </SectionSubheading>
             </div>
             <div className="flex items-center gap-2">
@@ -139,36 +138,36 @@ const features: FeatureType[] = [
   {
     id: 1,
     Icon: ArrowUp01Sharp,
-    title: "Fast & accurate reporting",
+    title: "Hızlı ve Doğru Hesaplama",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, dolor.",
+      "Altın fiyatlarını ayar bazında anında hesaplayın. Hata payı sıfıra yakın.",
   },
   {
     id: 2,
     Icon: Security,
-    title: "A+ Security",
+    title: "Güvenli Veri Yönetimi",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, dolor.",
+      "Tüm verileriniz şifreli olarak saklanır. Güvenliğiniz bizim önceliğimiz.",
   },
   {
     id: 3,
     Icon: UserGroup,
-    title: "World class teams",
+    title: "Çoklu Kullanıcı Desteği",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, dolor.",
+      "Ekibinizle birlikte çalışın. Her kullanıcı için ayrı yetkilendirme.",
   },
   {
     id: 4,
     Icon: Telephone,
-    title: "Best in class support",
+    title: "7/24 Destek",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, dolor.",
+      "Sorularınız için her zaman yanınızdayız. Teknik destek ve yardım.",
   },
   {
     id: 5,
     Icon: Cube,
-    title: "All-in-one product",
+    title: "Hepsi Bir Arada",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, dolor.",
+      "Hesaplama, takip, raporlama ve daha fazlası tek platformda.",
   },
 ];

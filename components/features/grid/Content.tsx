@@ -16,15 +16,14 @@ export const Content = () => (
         <div className="bg-[#f0ece8] p-8 rounded-2xl">
           <SectionHeadingSpacing>
             <SectionHeading>
-              Show the people
+              Altın İşletmenizi
               <br />
               <span className="bg-gradient-to-br from-my-blue to-my-lavender bg-clip-text text-transparent">
-                what makes you great
+                Dijital Çağa Taşıyın
               </span>
             </SectionHeading>
             <SectionSubheading>
-              Here's a good way to show some high levels pros as to what your
-              product does and for who.
+              Canlı fiyatlar, otomatik hesaplama ve çoklu cihaz desteği ile profesyonel altın yönetimi
             </SectionSubheading>
           </SectionHeadingSpacing>
 

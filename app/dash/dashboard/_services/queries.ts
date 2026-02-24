@@ -54,3 +54,43 @@ export const useGetLiveBuySell = () => {
     refetchInterval: 60000, // Refetch every 60 seconds
   })
 }
+
+export interface ActivePackageResponse {
+  packageId: number | null
+  name: string | null
+  maxDeviceCount: number
+  allowMobile: boolean
+  allowedRadiusKm: number
+  totalDays: number | null
+  remainingDays: number | null
+  endsAt: string | null
+  code: string
+  message: string
+  errors: string[]
+}
+
+export const useGetActivePackage = () => {
+  return useQuery<ActivePackageResponse>({
+    queryKey: ["active-package"],
+    queryFn: () => FetchData("Membership/GetActivePackage", { secure: true }),
+  })
+}
+
+export interface ChartDataItem {
+  date: string
+  priceGramTry: number
+}
+
+export interface ChartDataResponse {
+  items: ChartDataItem[]
+  code: string
+  message: string
+  errors: string[]
+}
+
+export const useGetChartData = (period: "5" | "30") => {
+  return useQuery<ChartDataResponse>({
+    queryKey: ["chart-data", period],
+    queryFn: () => FetchData(`Trade/Last${period}Days`, { secure: true }),
+  })
+}

@@ -1,5 +1,5 @@
 "use client"
-import { ArrowRight01Sharp } from "asem-icons";
+import { ArrowRight01Sharp, StarCircleFilled } from "asem-icons";
 import { MaxWidthWrapper } from "../utils/MaxWidthWrapper";
 import { motion } from "motion/react";
 import { MyButton } from "../buttons/MyButton";
@@ -25,7 +25,7 @@ export const Content = () => {
         }}
         className="relative"
       >
-        <GlowingChip>Exciting announcement 🎉</GlowingChip>
+        <GlowingChip Icon={StarCircleFilled}>Altın Yönetiminde Yeni Nesil Çözüm</GlowingChip>
       </motion.div>
       <motion.h1
         initial={{
@@ -43,7 +43,7 @@ export const Content = () => {
         }}
         className="mb-3 text-center text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight lg:text-8xl lg:leading-tight"
       >
-        A landing page template that works for you
+        Altın Değerini Anında Hesapla, Yönet
       </motion.h1>
       <motion.p
         initial={{
@@ -61,8 +61,7 @@ export const Content = () => {
         }}
         className="mb-9 max-w-2xl text-center text-base text-zinc-600 sm:text-lg md:text-xl"
       >
-        Build beautiful landing pages for your startups, clients, and side
-        projects, without having to think about design.
+        Canlı altın fiyatları, anlık hesaplama ve profesyonel yönetim araçları ile işletmenizi dijitalleştirin. Tüm cihazlarınızdan güvenle erişin.
       </motion.p>
       <motion.div
         initial={{
@@ -84,14 +83,14 @@ export const Content = () => {
           onClick={() => router.push("/login")}
           className="flex items-center gap-2"
         >
-          Try it free
+          Ücretsiz Başla
           <ArrowRight01Sharp />
         </MyButton>
         <MyButton
           ghost
           onClick={() => router.push("/#features")}
         >
-          Learn more
+          Özellikleri Keşfet
         </MyButton>
       </motion.div>
     </MaxWidthWrapper>

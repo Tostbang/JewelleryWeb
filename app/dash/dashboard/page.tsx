@@ -8,23 +8,25 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart"
-import { AlignBoxBottomCenter, User02, TradeMark, UserLock01, Bitcoin, BitcoinCircle, BitcoinFilled, BitcoinSquare, BitcoinSquareFilled, Chart, Coins01Filled, Gem, GemFilled, Package, PackageAdd, ShoppingCart01, TruckReturn, TruckReturnFilled, UserAccount, PackageFilled, Desk, Desk01, Desk02Filled, Football, Basketball02Filled, PackageReceiveFilled, UserMultipleFilled, AnalyticsUpFilled, Analytics01Filled, ArrowExpand01Sharp, BorderFullFilled, Calculator01Filled, IrisScanFilled, Sparkles, TimeQuarterPassFilled, GoldIngotsFilled, TimeHalfPassFilled, GoldFilled, ChartLineData01, ChartLineDataFilled, CreditCardFilled } from "asem-icons"
+import { AlignBoxBottomCenter, User02, TradeMark, UserLock01, Bitcoin, BitcoinCircle, BitcoinFilled, BitcoinSquare, BitcoinSquareFilled, Chart, Coins01Filled, Gem, GemFilled, Package, PackageAdd, ShoppingCart01, TruckReturn, TruckReturnFilled, UserAccount, PackageFilled, Desk, Desk01, Desk02Filled, Football, Basketball02Filled, PackageReceiveFilled, UserMultipleFilled, AnalyticsUpFilled, Analytics01Filled, ArrowExpand01Sharp, BorderFullFilled, Calculator01Filled, IrisScanFilled, Sparkles, TimeQuarterPassFilled, GoldIngotsFilled, TimeHalfPassFilled, GoldFilled, ChartLineData01, ChartLineDataFilled, CreditCardFilled, NecklaceFilled } from "asem-icons"
 import { UserMinus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MyCard from "@/components/MyCard"
-import PriceCalculatorForm from "./components/PriceCalculatorForm"
-import { useGetHistory, useGetLiveBuySell } from "./_services/queries"
+import PriceCalculatorForm from "./_components/PriceCalculatorForm"
+import { useGetHistory, useGetLiveBuySell, useGetChartData } from "./_services/queries"
 import { formatDistanceToNow } from "date-fns"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useState } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
-import { GoldPriceChart } from "./components/GoldPriceChart"
+import { GoldPriceChart } from "./_components/GoldPriceChart"
+import { SubscribtionCard } from "./_components/SubscriptionCard"
+import { title } from "process"
 
 function LiveDataSkeleton() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-      {Array.from({ length: 8 }).map((_, i) => (
+      {Array.from({ length: 4 }).map((_, i) => (
         <Skeleton key={i} className="h-[180px] rounded-[60px]" />
       ))}
     </div>
@@ -97,18 +99,26 @@ export default function DashboardPage() {
   const { data: historyData, isLoading } = useGetHistory()
   const { data: liveData, isLoading: isLiveDataLoading } = useGetLiveBuySell()
   const [selectedKarat, setSelectedKarat] = useState("14")
+  const [chartPeriod, setChartPeriod] = useState<"5" | "30">("5")
+  const { data: chartData, isLoading: isChartLoading } = useGetChartData(chartPeriod)
 
   const getKaratPrice = () => {
     if (!liveData) return "..."
     switch (selectedKarat) {
-      case "14":
+      case "14k":
         return `₺${liveData.karatPrices.gram14kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-      case "18":
+      case "18k":
         return `₺${liveData.karatPrices.gram18kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-      case "22":
+      case "22k":
         return `₺${liveData.karatPrices.gram22kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
-      case "24":
+      case "24k":
         return `₺${liveData.karatPrices.gram24kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+      case "Çeyrek":
+        return `₺${liveData.ceyrekAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+      case "Yarım":
+        return `₺${liveData.yarimAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} `
+      case "Tam":
+        return `₺${liveData.tamAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} `
       default:
         return "..."
     }
@@ -117,7 +127,7 @@ export default function DashboardPage() {
   const statsCards = [
     {
       title: "Gram Alış (TL)",
-      value: liveData ? `₺${liveData.gramBuyTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "...",
+      value: liveData ? `₺${liveData.gramBuyTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` : "...",
       change: liveData?.timestamp ? new Date(liveData.timestamp * 1000).toLocaleTimeString('tr-TR') : "",
       trend: "neutral" as const,
       icon: Coins01Filled,
@@ -126,54 +136,57 @@ export default function DashboardPage() {
     },
     {
       title: "Gram Satış (TL)",
-      value: liveData ? `₺${liveData.gramSellTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "...",
+      value: liveData ? `₺${liveData.gramSellTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` : "...",
       change: liveData?.timestamp ? new Date(liveData.timestamp * 1000).toLocaleTimeString('tr-TR') : "",
       trend: "neutral" as const,
       icon: AnalyticsUpFilled,
       bgColor: "bg-my-blue",
       iconColor: "text-yellow-600",
     },
-    // {
-    //   title: "Çeyrek Altın",
-    //   value: liveData ? `₺${liveData.ceyrekAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "...",
-    //   change: "Çeyrek",
-    //   trend: "neutral" as const,
-    //   icon: TimeQuarterPassFilled,
-    //   bgColor: "bg-my-lavender",
-    //   iconColor: "text-purple-600",
-    // },
-    // {
-    //   title: "Yarım Altın",
-    //   value: liveData ? `₺${liveData.yarimAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "...",
-    //   change: "Yarım",
-    //   trend: "neutral" as const,
-    //   icon: TimeHalfPassFilled,
-    //   bgColor: "bg-my-pink",
-    //   iconColor: "text-green-500",
-    // },
-    // {
-    //   title: "Tam Altın",
-    //   value: liveData ? `₺${liveData.tamAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "...",
-    //   change: "Tam",
-    //   trend: "neutral" as const,
-    //   icon: GoldIngotsFilled,
-    //   bgColor: "bg-my-orange2",
-    //   iconColor: "text-orange-600",
-    // },
     {
-      title: "Has Altın",
-      value: liveData ? `₺${liveData.hasAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : "...",
-      change: "Has",
+      title: "24 k",
+      value: liveData ? `₺${liveData.karatPrices.gram24kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` : "...",
+      change: "24k",
       trend: "neutral" as const,
       icon: GoldIngotsFilled,
       bgColor: "bg-my-lavender2",
       iconColor: "text-gray-600",
     },
   ]
+  const otherCards = [
+    {
+      title: "Çeyrek Altın",
+      value: liveData ? `₺${liveData.ceyrekAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` : "...",
+      change: "Çeyrek",
+      trend: "neutral" as const,
+      icon: TimeQuarterPassFilled,
+      bgColor: "bg-my-orange",
+      // bgColor: "bg-",
+      iconColor: "text-purple-600",
+    },
+    {
+      title: "Yarım Altın",
+      value: liveData ? `₺${liveData.yarimAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` : "...",
+      change: "Yarım",
+      trend: "neutral" as const,
+      icon: TimeHalfPassFilled,
+      bgColor: "bg-my-pink",
+      iconColor: "text-green-500",
+    },
+    {
+      title: "Tam Altın",
+      value: liveData ? `₺${liveData.tamAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` : "...",
+      change: "Tam",
+      trend: "neutral" as const,
+      icon: GoldIngotsFilled,
+      bgColor: "bg-my-orange2",
+      iconColor: "text-orange-600",
+    },
+  ]
 
   return (
     <div className="p-6 space-y-3">
-      {/* <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <div>
           <div className=''>
           </div>
@@ -183,9 +196,8 @@ export default function DashboardPage() {
         <div suppressHydrationWarning={true} className="text-sm text-muted-foreground">
           Son güncelleme: {new Date().toLocaleTimeString('tr-TR')}
         </div>
-      </div> */}
-
-      <MyCard title="İş Özeti" Icon={BorderFullFilled} >
+      </div>
+      <MyCard title="Altın Türleri" Icon={BorderFullFilled} >
         {isLiveDataLoading ? (
           <LiveDataSkeleton />
         ) : (
@@ -225,7 +237,7 @@ export default function DashboardPage() {
             })}
 
             {/* Karat Prices Card with Selector */}
-            <div className="relative overflow-hidden rounded-[60px] squircle border bg-card p-3 transition-all hover:shadow-md hover:scale-[1.02] bg-my-orange">
+            <div className="relative overflow-hidden rounded-[60px] squircle border bg-card p-3 transition-all hover:shadow-md hover:scale-[1.02] bg-my-pink">
               <div className="">
                 <div className="w-full flex items-center justify-between">
                   <div className="flex items-center gap-x-2">
@@ -237,10 +249,13 @@ export default function DashboardPage() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="14">14K Altın</SelectItem>
-                        <SelectItem value="18">18K Altın</SelectItem>
-                        <SelectItem value="22">22K Altın</SelectItem>
-                        <SelectItem value="24">24K Altın</SelectItem>
+                        <SelectItem value="14k">14K Altın</SelectItem>
+                        <SelectItem value="18k">18K Altın</SelectItem>
+                        <SelectItem value="22k">22K Altın</SelectItem>
+                        <SelectItem value="24k">24K Altın</SelectItem>
+                        <SelectItem value="Çeyrek">Çeyrek Altin</SelectItem>
+                        <SelectItem value="Yarım">Yarım Altin</SelectItem>
+                        <SelectItem value="Tam">Tam Altin</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -253,7 +268,7 @@ export default function DashboardPage() {
                     <h3 className="text-2xl font-bold mt-2">{getKaratPrice()}</h3>
                   </div>
                   <p className="text-xs mt-2 flex items-center gap-1 text-black">
-                    {selectedKarat} Karat
+                    {selectedKarat} Altın
                   </p>
                 </div>
               </div>
@@ -263,14 +278,81 @@ export default function DashboardPage() {
       </MyCard>
 
       <div className="grid grid-cols-3 gap-3">
-        <div className="col-span-2">
-          <MyCard title="Gold Price Chart" Icon={ChartLineDataFilled}>
-            <GoldPriceChart />
-          </MyCard>
+        <div className="col-span-2 flex flex-col gap-3">
+
+
+          <div className="h-1/2">
+            <MyCard
+              title="Altın Fiyat Grafiği"
+              Icon={ChartLineDataFilled}
+              expandable={true}
+              actions={
+                <Select value={chartPeriod} onValueChange={(value) => setChartPeriod(value as "5" | "30")}>
+                  <SelectTrigger className="h-8 w-32 text-sm border-gray-300">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="5">Son 5 Gün</SelectItem>
+                    <SelectItem value="30">Son 30 Gün</SelectItem>
+                  </SelectContent>
+                </Select>
+              }
+            >
+              {isChartLoading ? (
+                <Skeleton className="h-[200px] w-full" />
+              ) : (
+                <GoldPriceChart data={chartData?.items || []} />
+              )}
+            </MyCard>
+
+          </div>
+          <div className="h-1/2">
+            <MyCard title="Ziynet Altınları" Icon={NecklaceFilled} >
+              {isLiveDataLoading ? (
+                <LiveDataSkeleton />
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2">
+                  {otherCards.map((card, index) => {
+                    const Icon = card.icon
+                    return (
+                      <div
+                        key={index}
+                        className={cn("relative overflow-hidden rounded-[60px] squircle border bg-card p-3 transition-all hover:shadow-md hover:scale-[1.02]", card.bgColor)}
+                      >
+                        <div className="">
+                          <div className="w-full flex items-center justify-between">
+                            <div className="flex items-center gap-x-2">
+                              <div className={` p-3 rounded-full bg-white/40 `}>
+                                <Icon className={`size-4 `} />
+                              </div>
+                              <p className="text-sm font-medium">{card.title}</p>
+                            </div>
+                            <div className={` p-3 rounded-full bg-white/40 `}>
+                              <ArrowExpand01Sharp className={`size-3 `} />
+                            </div>
+                          </div>
+                          <div className="flex-1 px-2">
+                            <div className="min-h-20 flex items-end">
+                              <h3 className="text-2xl font-bold mt-2 ">{card.value}</h3>
+                            </div>
+                            <p className="text-xs mt-2 flex items-center gap-1 text-black">
+                              {card.trend === 'up' && '↑'}
+                              {card.trend === 'down' && '↓'}
+                              {card.change}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </MyCard>
+          </div>
         </div>
         <div className="">
-          <MyCard title="My Scribtion" Icon={CreditCardFilled}>
-            <div></div>
+          <MyCard title="Abonelik Durumu" Icon={CreditCardFilled} expandable={true}>
+            <SubscribtionCard />
           </MyCard>
         </div>
       </div>
@@ -279,7 +361,7 @@ export default function DashboardPage() {
           <PriceCalculatorForm />
         </MyCard>
 
-        <MyCard title="Son Aktiviteler" Icon={TimeQuarterPassFilled}>
+        <MyCard title="Son Aktiviteler" Icon={TimeQuarterPassFilled} expandable={true}>
           <ScrollArea className="space-y-3 h-50 pr-3">
             {isLoading ? (
               <HistorySkeleton />
@@ -294,7 +376,7 @@ export default function DashboardPage() {
                       <p className="text-sm font-medium">Altın Hesaplama</p>
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">
-                      {history.gram ? `${history.gram.toLocaleString('tr-TR')}g • ` : ''}
+                      {history.gram ? `${history.gram.toLocaleString('tr-TR')} g • ` : ''}
                       Maliyet: ₺{history.cost.toLocaleString('tr-TR')} • İşçilik: ₺{history.laborCost.toLocaleString('tr-TR')}
                     </p>
                   </div>

@@ -1,13 +1,17 @@
 import React, { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { VariantProps } from "class-variance-authority";
 
 type Props = {
   children: ReactNode;
   className?: string;
   ghost?: boolean
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+} & React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean
+  };
 
 export const MyButton = ({ children, className, ghost = false, ...rest }: Props) => {
   return (

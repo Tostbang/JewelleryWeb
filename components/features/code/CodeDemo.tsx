@@ -17,10 +17,10 @@ export const CodeDemo = () => {
         </span>
         <SectionHeadingSpacing>
           <SectionHeading persistCenter>
-            If it's code, show how it works
+            Nasıl Çalışır?
           </SectionHeading>
           <SectionSubheading persistCenter>
-            Show why you're better than your competitors
+            Basit, hızlı ve etkili. Üç adımda başlayın.
           </SectionSubheading>
         </SectionHeadingSpacing>
         <CodeCard />

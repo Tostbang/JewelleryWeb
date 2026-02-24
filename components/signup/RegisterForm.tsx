@@ -77,10 +77,10 @@ export const RegisterForm = () => {
         lng: location?.lng || 0,
       })
 
-      toast.success("Kayıt başarılı! Giriş yapabilirsiniz.")
+      toast.success("Kayıt başarılı! Lütfen e-posta adresinizi doğrulayın.")
 
-      // Redirect to login page
-      router.push("/login")
+      // Redirect to confirm page with email
+      router.push(`/confirm?email=${encodeURIComponent(data.email)}`)
     } catch (error) {
       console.error("Register error:", error)
       toast.error(error instanceof Error ? error.message : "Kayıt başarısız. Lütfen tekrar deneyin.")

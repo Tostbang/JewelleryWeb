@@ -2,6 +2,7 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { FetchData } from "@/lib/fetchData"
+import { DurationType } from "@/lib/types"
 
 export interface CreatePackageRequest {
   name: string
@@ -9,6 +10,8 @@ export interface CreatePackageRequest {
   allowMobile: boolean
   allowedRadiusKm: number
   price: number
+  durationValue: number
+  durationType: DurationType
 }
 
 export interface UpdatePackageRequest {
@@ -19,6 +22,8 @@ export interface UpdatePackageRequest {
   allowedRadiusKm: number
   price: number
   status: boolean
+  durationValue: number
+  durationType: number
 }
 
 export interface PackageMutationResponse {

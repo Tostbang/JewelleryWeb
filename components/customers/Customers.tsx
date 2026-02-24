@@ -21,10 +21,9 @@ export const Customers = () => {
     <section id="testimonials" className="relative overflow-hidden">
       <MaxWidthWrapper className="relative z-10 py-20 md:py-40">
         <SectionHeadingSpacing>
-          <SectionHeading>Loved by our customers</SectionHeading>
+          <SectionHeading>Müşterilerimiz Ne Diyor?</SectionHeading>
           <SectionSubheading>
-            People trust people. Show off all of the great reviews of your
-            product to ease the minds of potential customers.
+            Gerçek kullanıcı deneyimleri. İşletmeler için tasarlandı, kuyumcular tarafından onaylandı.
           </SectionSubheading>
         </SectionHeadingSpacing>
         <motion.div
@@ -73,7 +72,7 @@ export const Customers = () => {
           onClick={() => setOpen((pv) => !pv)}
           className="mx-auto mt-12"
         >
-          {open ? "View less" : "View more"}
+          {open ? "Daha Az Göster" : "Daha Fazla Göster"}
         </BubbleButton>
       </MaxWidthWrapper>
       <CornerGrid />
@@ -118,91 +117,91 @@ const ReviewsColumn = ({ reviews }: { reviews: typeof REVIEWS.left }) => {
 const REVIEWS = {
   left: [
     {
-      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
-      name: "John Johnson",
-      handle: "@johns6",
+      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mehmet",
+      name: "Mehmet Kaya",
+      handle: "@kuyumcu_mehmet",
       review:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum labore incidunt temporibus sunt? Excepturi nulla atque odio dolore, velit harum.",
+        "Altın hesaplamalarım artık çok daha hızlı. Mobil uygulaması sayesinde her yerden takip edebiliyorum. Harika bir platform!",
     },
     {
-      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Dan",
-      name: "Dan Daniels",
-      handle: "@DannyD",
+      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ayse",
+      name: "Ayşe Demir",
+      handle: "@aysealtın",
       review:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum labore velit harum.",
+        "Canlı fiyat güncellemeleri çok işime yarıyor. Müşterilerime anında fiyat verebiliyorum.",
     },
     {
-      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Phil",
-      name: "Phil Phillips",
-      handle: "@phillipsp55104",
+      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ali",
+      name: "Ali Yıldız",
+      handle: "@aliyildiz_gold",
       review:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum labore incidunt temporibus sunt? Excepturi velit harum.",
+        "İşletmem için vazgeçilmez oldu. Raporlama özelliği sayesinde her şeyi takip ediyorum. Kesinlikle tavsiye ederim.",
     },
     {
-      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Andy",
-      name: "Andy Anderson",
-      handle: "@andyandyandy",
+      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Fatma",
+      name: "Fatma Şahin",
+      handle: "@fatmakuyumcu",
       review:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing. Excepturi nulla atque odio dolore, velit harum.",
+        "Çoklu cihaz desteği harika. Hem telefondan hem bilgisayardan rahatça kullanıyorum.",
     },
   ],
   center: [
     {
-      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Steve",
-      name: "Steve Stevenson",
-      handle: "@steves",
-      review: "Lorem ipsum, dolor sit amet consectetur adipisicing.",
+      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mustafa",
+      name: "Mustafa Öztürk",
+      handle: "@mustafagold",
+      review: "Kullanımı çok kolay ve pratik. Ekibim hemen adapte oldu.",
     },
     {
-      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Peter",
-      name: "Peter Peterson",
-      handle: "@petey.pete",
+      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Zeynep",
+      name: "Zeynep Arslan",
+      handle: "@zeynepaltın",
       review:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum labore incidunt.",
+        "Destek ekibi çok ilgili. Sorularıma hemen cevap aldım. Platformdan çok memnunum.",
     },
     {
-      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Paul",
-      name: "Paul Paulson",
-      handle: "@p.paulson44",
+      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Hasan",
+      name: "Hasan Aydın",
+      handle: "@hasankuyumcu",
       review:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit velit harum.",
+        "Fiyat hesaplamaları saniyeler içinde yapılıyor. Manuel hesaplamadan kurtuldum.",
     },
     {
-      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Phil",
-      name: "Andrew Andrews",
-      handle: "@andrewA",
+      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Elif",
+      name: "Elif Koç",
+      handle: "@elifgold",
       review:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum labore incidunt temporibus sunt.",
+        "İşletmemin dijitalleşmesinde büyük rol oynadı. Artık her şey çok daha düzenli.",
     },
   ],
   right: [
     {
-      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jeff",
-      name: "Jeff Jefferson",
-      handle: "@jeffJ99",
+      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ahmet",
+      name: "Ahmet Çelik",
+      handle: "@ahmetkuyumcu",
       review:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi nulla atque odio dolore, velit harum.",
+        "Güvenlik önlemleri çok iyi. Verilerimin güvende olduğundan eminim. Herkese tavsiye ederim.",
     },
     {
-      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jess",
-      name: "Jess Jessica",
-      handle: "@jess",
+      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Selin",
+      name: "Selin Yılmaz",
+      handle: "@selingold",
       review:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum labore velit harum. Dolor sit amet consectetur adipisicing elit!",
+        "Paket sistemleri çok uygun fiyatlı. İşletme büyüklüğüme göre paket seçebildim. Harika bir çözüm!",
     },
     {
-      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ben",
-      name: "Ben Benjamin",
-      handle: "@banjamin4491",
+      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emre",
+      name: "Emre Kara",
+      handle: "@emrealtın",
       review:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum labore incidunt temporibus sunt? Excepturi velit harum.",
+        "Raporlama ve analiz özellikleri işimin büyük kısmını kolaylaştırdı. Çok memnunum.",
     },
     {
-      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Frank",
-      name: "Frank Franklin",
-      handle: "@frankyf00",
+      src: "https://api.dicebear.com/7.x/avataaars/svg?seed=Derya",
+      name: "Derya Polat",
+      handle: "@deryakuyumcu",
       review:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing. Excepturi nulla.",
+        "Kullanıcı dostu arayüz. Teknolojiye uzak olmama rağmen kolayca kullanabiliyorum.",
     },
   ],
 };

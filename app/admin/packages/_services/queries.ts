@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { FetchData } from "@/lib/fetchData"
+import { DurationType } from "@/lib/types"
 
 export interface AdminPackage {
   packageId: number
@@ -11,6 +12,8 @@ export interface AdminPackage {
   allowedRadiusKm: number
   price: number
   status: boolean
+  durationValue: number
+  durationType: DurationType
   createdDate: string
   modifiedDate: string | null
   deleteDate: string | null
@@ -38,6 +41,8 @@ export interface PackageDetail {
   allowedRadiusKm: number
   price: number
   status: boolean
+  durationValue: number
+  durationType: DurationType
   createdDate: string
   modifiedDate: string | null
   deletedDate: string | null

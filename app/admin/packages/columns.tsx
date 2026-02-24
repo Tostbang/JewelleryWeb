@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { format } from "date-fns"
 import { ToggleOn } from "asem-icons"
+import { DurationTypeLabels } from "@/lib/types"
 
 export const createColumns = (
   onEdit: (pkg: AdminPackage) => void,
@@ -37,6 +38,18 @@ export const createColumns = (
           currency: "TRY",
         }).format(price)
         return <div className="font-medium">{formatted}</div>
+      },
+    },
+    {
+      id: "duration",
+      header: "Süre",
+      cell: ({ row }) => {
+        const pkg = row.original
+        return (
+          <div className="text-sm">
+            {pkg.durationValue} {DurationTypeLabels[pkg.durationType]}
+          </div>
+        )
       },
     },
     {

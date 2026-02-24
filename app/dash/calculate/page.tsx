@@ -1,7 +1,7 @@
 "use client"
 import MyCard from '@/components/MyCard'
 import React from 'react'
-import PriceCalculatorForm from '../dashboard/components/PriceCalculatorForm'
+import PriceCalculatorForm from '../dashboard/_components/PriceCalculatorForm'
 import { Calculator01Filled, TimeQuarterPassFilled } from 'asem-icons'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { formatDistanceToNow } from 'date-fns'
