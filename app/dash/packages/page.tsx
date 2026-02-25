@@ -2,7 +2,7 @@
 
 import { Check, Smartphone, Monitor, MapPin, Calendar, Clock } from "lucide-react"
 import { useGetAllPackages, useGetActivePackage, useInitializeCheckout } from "./_services/queries"
-import { useBuyPackage } from "./_services/mutations"
+// import { useBuyPackage } from "./_services/mutations"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import MyCard from "@/components/MyCard"
@@ -10,7 +10,7 @@ import { PackageFilled } from "asem-icons"
 import { cn } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Alert } from "@/lib/useGlobalStore"
-import { DurationTypeLabels } from "@/lib/types"
+import { DurationType, DurationTypeLabels } from "@/lib/types"
 import { format } from "date-fns"
 import { PaymentModal } from "./_components/PaymentModal"
 import { useState } from "react"
@@ -165,7 +165,7 @@ export default function PackagesPage() {
                       <div className="flex items-baseline gap-1">
                         <span className="text-3xl font-bold">₺{pkg.price}</span>
                         <span className="text-muted-foreground text-sm">
-                          /{pkg.durationValue} {DurationTypeLabels[pkg.durationType + 1]}
+                          /{pkg.durationValue} {DurationTypeLabels[(pkg.durationType + 1) as DurationType]}
                         </span>
                       </div>
                     </div>

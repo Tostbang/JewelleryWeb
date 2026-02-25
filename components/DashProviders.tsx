@@ -2,7 +2,7 @@
 import { useProfileStore } from "@/lib/store/profile-store";
 import { SidebarProvider, SidebarTrigger, useSidebar } from "./ui/sidebar";
 import useGetProfile from "@/app/dash/_services/queries";
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { Separator } from "./ui/separator";
 import DynamicBreadcrumb from "./DynamicBreadcrumb";
 import { NavUser } from "./nav-user";

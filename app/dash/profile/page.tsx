@@ -38,7 +38,7 @@ export function ProfilePage() {
   const [resetPasswordModalOpen, setResetPasswordModalOpen] = useState(false)
   const deleteMutation = useDeleteAccount()
 
-  const handleDeleteAccount = (sessionId: number) => {
+  const handleDeleteAccount = () => {
     Alert({
       AlertTitle: "Hesabı Sil",
       AlertDescription: "Hesabınızı kalıcı olarak silmek istediğinizden emin misiniz?",

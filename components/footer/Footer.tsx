@@ -5,6 +5,7 @@ import { NavLogo } from "../navbar/NavLogo";
 import Link from "next/link";
 import { Facebook01, Instagram, YoutubeFilled } from "asem-icons";
 import { SimpleGrid } from "../features/grid/SimpleGrid";
+import { IconType } from "@/lib/types";
 
 export const Footer = () => {
   return (

@@ -30,7 +30,7 @@ export interface BuyPackageResponse {
 //   })
 // }
 
-export async function returnCheckout(token: string): Promise<CheckoutReturnResponse> {
+export async function returnCheckout(token: string) {
   return await FetchData("Payment/iyzico-callback", {
     method: "POST",
     secure: true,

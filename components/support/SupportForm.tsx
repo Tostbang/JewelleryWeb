@@ -43,7 +43,7 @@ export const SupportForm = () => {
 
   const supportMutation = useMutation({
     mutationFn: (data: SupportFormValues) =>
-      FetchData<SupportResponse>("Support/Create", {
+      FetchData("Support/Create", {
         method: "POST",
         body: data,
       }),

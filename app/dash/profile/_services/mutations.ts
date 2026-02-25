@@ -2,8 +2,9 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { FetchData } from "@/lib/fetchData"
-import { useProfileStore } from "@/lib/store/profile-store"
+import { Profile, useProfileStore } from "@/lib/store/profile-store"
 import { deleteToken } from "@/lib/helpers"
+import { Role } from "@/lib/types"
 
 export interface UpdateProfileRequest {
   // userId: number
@@ -51,11 +52,11 @@ export const useUpdateProfile = () => {
         email: variables.email,
         firstName: variables.firstName,
         lastName: variables.lastName,
-        registerLat: variables.registerLat,
-        registerLng: variables.registerLng,
-        roleId: useProfileStore.getState().profile?.roleId || 0,
+        // registerLat: variables.registerLat,
+        // registerLng: variables.registerLng,
+        roleId: useProfileStore.getState().profile?.roleId ?? Role.User,
         isApproved: useProfileStore.getState().profile?.isApproved || false,
-      })
+      } as Profile)
     },
   })
 }

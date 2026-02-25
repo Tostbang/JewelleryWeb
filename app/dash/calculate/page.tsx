@@ -51,8 +51,8 @@ const KARAT_OPTIONS = [
 
 export default function CalculatePage() {
   const [karatFilter, setKaratFilter] = useState<number | undefined>(undefined)
-  const [startDate, setStartDate] = useState<Date | null>(null)
-  const [endDate, setEndDate] = useState<Date | null>(null)
+  const [startDate, setStartDate] = useState<Date | undefined>()
+  const [endDate, setEndDate] = useState<Date | undefined>()
   const [selectedItem, setSelectedItem] = useState<HistoryItem | null>(null)
   const [detailOpen, setDetailOpen] = useState(false)
 
@@ -158,7 +158,7 @@ export default function CalculatePage() {
 
 
 
-export function DateInput({ date, setDate, placeholder }: { date: Date | null, setDate: (date: Date | null) => void, placeholder: string }) {
+export function DateInput({ date, setDate, placeholder }: { date: Date | undefined, setDate: (date: Date | undefined) => void, placeholder: string }) {
   const [open, setOpen] = useState(false)
 
   return <Popover open={open} onOpenChange={setOpen}>

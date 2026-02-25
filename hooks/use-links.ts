@@ -1,5 +1,5 @@
 import { ItemLink } from "@/components/my-nav";
-import { AdminLinks, DepartmentUser, ManagerLinks, PurchaserLinks, SupplierLinks } from "@/lib/static";
+// import { AdminLinks, DepartmentUser, ManagerLinks, PurchaserLinks, SupplierLinks } from "@/lib/static";
 // import { useProfileStore } from "@/lib/stores/profile-store"
 import { useMemo } from "react";
 import { adminLinks, userLinks } from "./static";

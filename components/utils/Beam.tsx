@@ -1,5 +1,5 @@
 import React from "react";
-import { AnimationProps, motion } from "motion/react";
+import { Transition, motion } from "motion/react";
 
 export const Beam = ({
   top,
@@ -8,7 +8,7 @@ export const Beam = ({
 }: {
   top: number;
   left: number;
-  transition?: AnimationProps["transition"];
+  transition?: Transition;
 }) => {
   return (
     <motion.div
