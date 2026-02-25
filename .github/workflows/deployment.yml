@@ -9,6 +9,7 @@ on:
 env:
   REGISTRY: ghcr.io
   AZURE_WEBAPP_NAME: jewellery-web
+  IMAGE_NAME: ghcr.io/${{ toLower(github.repository) }}
 
 jobs:
   build:
@@ -52,5 +53,5 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: jewellery-web
-          images: ghcr.io/${{ github.repository }}:${{ github.sha }}
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          images: ${{ env.IMAGE_NAME }}:${{ github.sha }}
