@@ -10,6 +10,11 @@ export function deleteToken() {
   Cookies.remove('token');
 }
 
+
+export function convertToTRYLira(input: number) {
+  return `₺${input.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+}
+
 export const toNumberSafe = (value: string | number | null | undefined): number => {
   if (value == null) return 0;
   if (typeof value === "number") return value;

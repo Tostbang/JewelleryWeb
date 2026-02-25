@@ -16,6 +16,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog"
+import { WeightScale01, WeightScale02 } from "asem-icons"
 
 const formSchema = z.object({
   karat1: z.number({ required_error: "Karat 1 zorunludur", invalid_type_error: "Karat 1 zorunludur" }).min(1),
@@ -26,10 +27,8 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>
 
 const KARAT_OPTIONS = [
-  { value: "8", label: "8K" },
   { value: "14", label: "14K" },
   { value: "18", label: "18K" },
-  { value: "21", label: "21K" },
   { value: "22", label: "22K" },
   { value: "24", label: "24K" },
 ]
@@ -57,18 +56,20 @@ export default function KaratCompareForm() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="grid grid-cols-3 gap-3">
-          <FormInput type="select" name="karat1" label="Karat 1" control={control}>
-            {KARAT_OPTIONS.map((o) => (
-              <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
-            ))}
-          </FormInput>
-          <FormInput type="select" name="karat2" label="Karat 2" control={control}>
-            {KARAT_OPTIONS.map((o) => (
-              <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
-            ))}
-          </FormInput>
-          <FormInput type="number" name="gram" label="Gram" control={control} placeholder="100" />
+        <div className="grid grid-cols-1 gap-3">
+          <div className="w-full gap-3 grid grid-cols-2">
+            <FormInput type="select" name="karat1" label="Karat 1" control={control}>
+              {KARAT_OPTIONS.map((o) => (
+                <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+              ))}
+            </FormInput>
+            <FormInput type="select" name="karat2" label="Karat 2" control={control}>
+              {KARAT_OPTIONS.map((o) => (
+                <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+              ))}
+            </FormInput>
+          </div>
+          <FormInput type="number" Icon={WeightScale02} name="gram" label="Gram" control={control} placeholder="100" />
         </div>
         <Button type="submit" className="w-full h-10" disabled={mutation.isPending}>
           {mutation.isPending ? "Karşılaştırılıyor..." : "Karşılaştır"}

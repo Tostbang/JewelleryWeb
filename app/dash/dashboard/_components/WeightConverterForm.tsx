@@ -17,6 +17,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog"
+import { WeightScale02 } from "asem-icons"
 
 const formSchema = z.object({
   value: z.number({ required_error: "Değer zorunludur", invalid_type_error: "Değer zorunludur" }).positive("Değer 0'dan büyük olmalıdır"),
@@ -53,7 +54,7 @@ export default function WeightConverterForm() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <FormInput type="number" name="value" label="Değer" control={control} placeholder="200" />
+        <FormInput type="number" name="value" Icon={WeightScale02} label="Değer" control={control} placeholder="200" />
         <div className="grid grid-cols-2 gap-3">
           <FormInput type="select" name="fromUnit" label="Birim (Kaynak)" control={control}>
             {UNIT_OPTIONS.map((o) => (

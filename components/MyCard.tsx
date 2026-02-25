@@ -18,7 +18,7 @@ export default function MyCard({
 }: {
   children: ReactNode
   Icon?: IconType
-  title?: string
+  title?: ReactNode
   actions?: ReactNode
   className?: string
   expandable?: boolean

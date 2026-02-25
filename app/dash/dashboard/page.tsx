@@ -24,6 +24,7 @@ import { SubscribtionCard } from "./_components/SubscriptionCard"
 import { title } from "process"
 import { MyButton } from "@/components/buttons/MyButton"
 import Link from "next/link"
+import { convertToTRYLira } from "@/lib/helpers"
 
 function LiveDataSkeleton() {
   return (
@@ -101,20 +102,35 @@ export default function DashboardPage() {
   const { data: historyData, isLoading } = useGetHistory()
   const { data: liveData, isLoading: isLiveDataLoading } = useGetLiveBuySell()
   const [selectedKarat, setSelectedKarat] = useState("22")
+  const [selectedGold, setSelectedGold] = useState<"full" | "half" | "quarter">("full")
   const [chartPeriod, setChartPeriod] = useState<"5" | "30">("5")
   const { data: chartData, isLoading: isChartLoading } = useGetChartData(chartPeriod)
+
 
   const getKaratPrice = () => {
     if (!liveData) return "..."
     switch (selectedKarat) {
       case "14":
-        return `₺${liveData.karatPrices.gram14kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+        return convertToTRYLira(liveData.karatPrices.gram14kTl);
       case "18":
-        return `₺${liveData.karatPrices.gram18kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+        return convertToTRYLira(liveData.karatPrices.gram18kTl);
       case "22":
-        return `₺${liveData.karatPrices.gram22kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+        return convertToTRYLira(liveData.karatPrices.gram22kTl);
       case "24":
-        return `₺${liveData.karatPrices.gram24kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+        return convertToTRYLira(liveData.karatPrices.gram24kTl);
+      default:
+        return "..."
+    }
+  }
+  const getGoldPrice = () => {
+    if (!liveData) return "..."
+    switch (selectedGold) {
+      case "full":
+        return convertToTRYLira(liveData.tamAltin);
+      case "half":
+        return convertToTRYLira(liveData.yarimAltin);
+      case "quarter":
+        return convertToTRYLira(liveData.ceyrekAltin);
       default:
         return "..."
     }
@@ -139,15 +155,15 @@ export default function DashboardPage() {
       bgColor: "bg-my-blue",
       iconColor: "text-yellow-600",
     },
-    {
-      title: "24 k",
-      value: liveData ? `₺${liveData.karatPrices.gram24kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` : "...",
-      change: "24k",
-      trend: "neutral" as const,
-      icon: GoldIngotsFilled,
-      bgColor: "bg-my-lavender2",
-      iconColor: "text-gray-600",
-    },
+    // {
+    //   title: "24 k",
+    //   value: liveData ? `₺${liveData.karatPrices.gram24kTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` : "...",
+    //   change: "24k",
+    //   trend: "neutral" as const,
+    //   icon: GoldIngotsFilled,
+    //   bgColor: "bg-my-lavender2",
+    //   iconColor: "text-gray-600",
+    // },
   ]
   const otherCards = [
     {
@@ -232,13 +248,45 @@ export default function DashboardPage() {
               )
             })}
 
+            <div className="relative overflow-hidden rounded-[60px] squircle border bg-card p-3 transition-all hover:shadow-md hover:scale-[1.02] bg-my-lavender2">
+              <div className="">
+                <div className="w-full flex items-center justify-between">
+                  <div className="flex items-center gap-x-2">
+                    <div className="p-3 rounded-full bg-white/40">
+                      <TimeHalfPassFilled className="size-4" />
+                    </div>
+                    <Select value={selectedGold} onValueChange={setSelectedGold as (value: string) => void}>
+                      <SelectTrigger className="h-8 w-34 border-none bg-white/40 text-sm font-medium">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="quarter">Çeyrek Altin</SelectItem>
+                        <SelectItem value="half">Yarım Altin</SelectItem>
+                        <SelectItem value="full">Tam Altin</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="p-3 rounded-full bg-white/40">
+                    <ArrowExpand01Sharp className="size-3" />
+                  </div>
+                </div>
+                <div className="flex-1 px-2">
+                  <div className="min-h-20 flex items-end">
+                    <h3 className="text-2xl font-bold mt-2">{getGoldPrice()}</h3>
+                  </div>
+                  <p className="text-xs mt-2 flex items-center gap-1 text-black">
+                    {selectedKarat} Altin
+                  </p>
+                </div>
+              </div>
+            </div>
             {/* Karat Prices Card with Selector */}
             <div className="relative overflow-hidden rounded-[60px] squircle border bg-card p-3 transition-all hover:shadow-md hover:scale-[1.02] bg-my-pink">
               <div className="">
                 <div className="w-full flex items-center justify-between">
                   <div className="flex items-center gap-x-2">
                     <div className="p-3 rounded-full bg-white/40">
-                      <GoldFilled className="size-4" />
+                      <GoldIngotsFilled className="size-4" />
                     </div>
                     <Select value={selectedKarat} onValueChange={setSelectedKarat}>
                       <SelectTrigger className="h-8 w-30 border-none bg-white/40 text-sm font-medium">

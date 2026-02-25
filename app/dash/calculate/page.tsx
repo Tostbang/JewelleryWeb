@@ -74,20 +74,18 @@ export default function CalculatePage() {
   return (
     <div className='p-6'>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mb-3">
-        <MyCard title="Hızlı Fiyat Hesaplayıcı" Icon={Calculator01Filled}>
+        <MyCard title="Fiyat Hesaplayıcı" Icon={Calculator01Filled}>
           <PriceCalculatorForm />
         </MyCard>
-
         <MyCard title="Karat Karşılaştırması" Icon={JusticeScale01Filled}>
           <KaratCompareForm />
         </MyCard>
-
         <MyCard title="Ağırlık Dönüştürücü" Icon={BodyWeightFilled}>
           <WeightConverterForm />
         </MyCard>
       </div>
       <MyCard
-        title="Son Aktiviteler"
+        title="Son Aktiviteler (Fiyat Hesaplayıcı için)"
         Icon={TimeQuarterPassFilled}
         actions={
           <div className="flex items-center gap-2 flex-wrap">

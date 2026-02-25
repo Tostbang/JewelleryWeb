@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dialog"
 import { useCalculateLaborCost, LaborCostResponse } from "../_services/mutations"
 import { SelectItem } from "@/components/ui/select"
+import { Tag01 } from "asem-icons"
 
 const formSchema = z.object({
   karat: z.number({
@@ -56,9 +57,10 @@ export default function PriceCalculatorForm() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-between w-full h-full  ">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-3">
           <FormInput
             type="text"
+            Icon={Tag01}
             name="cost"
             label="Cost"
             control={control}
@@ -76,7 +78,7 @@ export default function PriceCalculatorForm() {
             <SelectItem value="14">14K</SelectItem>
           </FormInput>
         </div>
-        <Button type="submit" className="w-full h-11" disabled={mutation.isPending}>
+        <Button type="submit" className="w-full h-10" disabled={mutation.isPending}>
           {mutation.isPending ? "Calculating..." : "Calculate Price"}
         </Button>
       </form>

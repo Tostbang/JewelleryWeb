@@ -11,6 +11,9 @@ import { Control, Controller, FieldValues } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 import { Field, FieldContent, FieldError, FieldLabel } from './ui/field';
 import { Calendar04, View, ViewOff } from 'asem-icons';
+import { InputGroup, InputGroupAddon, InputGroupInput } from './ui/input-group';
+import { InfoIcon } from 'lucide-react';
+import { IconType } from '@/lib/types';
 
 export type Type =
   | 'text'
@@ -31,6 +34,7 @@ export default function FormInput({
   control,
   className,
   children,
+  Icon,
   labelState = true,
   ...props
 }: {
@@ -39,6 +43,7 @@ export default function FormInput({
   control: unknown;
   className?: string;
   label?: string;
+  Icon?: IconType;
   labelState?: boolean;
   children?: React.ReactNode[]
 } & InputHTMLAttributes<HTMLInputElement>) {
@@ -69,7 +74,26 @@ export default function FormInput({
                   {label ? label : name}
                 </FieldLabel>
               )}
-              <Input
+              <InputGroup>
+                <InputGroupInput
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                  placeholder={!labelState ? (label ? label : name) : props.placeholder}
+                  {...field}
+                  {...props}
+                  className={`block w-full ${className}`}
+                />
+                {/* <InputGroupAddon>
+                  <InputGroupText>https://</InputGroupText>
+                </InputGroupAddon> */}
+                {Icon && (
+                  <InputGroupAddon align="inline-end">
+                    <Icon />
+                  </InputGroupAddon>
+                )}
+              </InputGroup>
+              {/* <Input
                 {...field}
                 id={field.name}
                 aria-invalid={fieldState.invalid}
@@ -77,7 +101,7 @@ export default function FormInput({
                 {...field}
                 {...props}
                 className={`block w-full border-2 !focus:shadow-sm focus:border-mainColor placeholder:text-sm ${className}`}
-              />
+              /> */}
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
@@ -152,7 +176,27 @@ export default function FormInput({
                   {label ? label : name}
                 </FieldLabel>
               )}
-              <Input
+              <InputGroup>
+                <InputGroupInput
+                  type='number'
+                  {...field}
+                  onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                  placeholder={!labelState ? (label ? label : name) : props.placeholder}
+                  {...props}
+                  className={`block w-full ${className}`}
+                />
+                {/* <InputGroupAddon>
+                  <InputGroupText>https://</InputGroupText>
+                </InputGroupAddon> */}
+                {Icon && (
+                  <InputGroupAddon align="inline-end">
+                    <Icon />
+                  </InputGroupAddon>
+                )}
+              </InputGroup>
+              {/* <Input
                 type='number'
                 {...field}
                 onChange={(e) => field.onChange(e.target.valueAsNumber)}
@@ -161,7 +205,7 @@ export default function FormInput({
                 placeholder={!labelState ? (label ? label : name) : props.placeholder}
                 {...props}
                 className={`block w-full border-2 !focus:shadow-sm focus:border-mainColor placeholder:text-sm ${className}`}
-              />
+              /> */}
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
