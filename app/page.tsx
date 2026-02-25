@@ -16,6 +16,7 @@ import { SupportForm } from "@/components/support/SupportForm";
 export default function Page() {
   return (
     <main>
+      {/* test */}
       <NavBar />
       <Hero />
       <Logos />
