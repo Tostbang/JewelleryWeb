@@ -13,7 +13,7 @@ import { UserMinus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import MyCard from "@/components/MyCard"
 import PriceCalculatorForm from "./_components/PriceCalculatorForm"
-import { useGetHistory, useGetLiveBuySell, useGetChartData } from "./_services/queries"
+import { useGetHistory, useGetLiveBuySell, useGetChartData, useGetManualGoldPrices } from "./_services/queries"
 import { formatDistanceToNow } from "date-fns"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useState } from "react"
@@ -105,6 +105,7 @@ export default function DashboardPage() {
   const [selectedGold, setSelectedGold] = useState<"full" | "half" | "quarter">("full")
   const [chartPeriod, setChartPeriod] = useState<"5" | "30">("5")
   const { data: chartData, isLoading: isChartLoading } = useGetChartData(chartPeriod)
+  const { data: manualGoldData, isLoading: isManualGoldLoading } = useGetManualGoldPrices()
 
 
   const getKaratPrice = () => {
@@ -351,7 +352,66 @@ export default function DashboardPage() {
 
           </div>
           <div className="h-1/2">
-            <MyCard title="Ziynet Altınları" Icon={NecklaceFilled} >
+            <MyCard title="Manuel Altınlar" Icon={GoldIngotsFilled}>
+              {isManualGoldLoading ? (
+                <LiveDataSkeleton />
+              ) : manualGoldData?.items && manualGoldData.items.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+                  {manualGoldData.items.map((item) => (
+                    <div
+                      key={item.priceId}
+                      className="relative overflow-hidden rounded-[60px] squircle border bg-card p-3 transition-all hover:shadow-md hover:scale-[1.02] bg-my-lavender"
+                    >
+                      <div>
+                        <div className="w-full flex items-center justify-between">
+                          <div className="flex items-center gap-x-2">
+                            <div className="p-3 rounded-full bg-white/40">
+                              <GoldIngotsFilled className="size-4" />
+                            </div>
+                            <p className="text-sm font-medium">#{item.priceId}</p>
+                          </div>
+                          <div className="p-3 rounded-full bg-white/40">
+                            <ArrowExpand01Sharp className="size-3" />
+                          </div>
+                        </div>
+                        <div className="flex-1 px-2">
+                          <div className="min-h-20 flex flex-col justify-end gap-1">
+                            <div className="flex justify-between text-sm font-semibold">
+                              <span>Alış</span>
+                              <span>₺{item.gramBuyTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                            </div>
+                            <div className="flex justify-between text-sm font-semibold">
+                              <span>Satış</span>
+                              <span>₺{item.gramSellTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span>Çeyrek</span>
+                              <span>₺{item.ceyrekAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span>Yarım</span>
+                              <span>₺{item.yarimAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                            </div>
+                            <div className="flex justify-between text-xs">
+                              <span>Tam</span>
+                              <span>₺{item.tamAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                            </div>
+                          </div>
+                          <p className="text-xs mt-2 text-black">
+                            {new Date(item.modifiedDate).toLocaleDateString('tr-TR')}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-sm text-muted-foreground">
+                  Manuel altın fiyatı bulunamadı
+                </div>
+              )}
+            </MyCard>
+            {/* <MyCard title="Ziynet Altınları" Icon={NecklaceFilled} >
               {isLiveDataLoading ? (
                 <LiveDataSkeleton />
               ) : (
@@ -391,7 +451,7 @@ export default function DashboardPage() {
                   })}
                 </div>
               )}
-            </MyCard>
+            </MyCard> */}
           </div>
         </div>
         <div className="">

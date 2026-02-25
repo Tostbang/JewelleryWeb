@@ -19,6 +19,7 @@ import { useState } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useGetLiveBuySell } from "@/app/dash/dashboard/_services/queries"
+import { useGetManualGoldPrices } from "./_services/queries"
 
 function LiveDataSkeleton() {
   return (
@@ -258,6 +259,8 @@ export default function DashboardPage() {
           </div>
         )}
       </MyCard>
+
+
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3  ">
         {/* <MyCard title="Hızlı Fiyat Hesaplayıcı" Icon={Calculator01Filled} className="">
