@@ -98,3 +98,53 @@ export const useConvertWeight = () => {
       }),
   })
 }
+
+export interface UpdateManualGoldPriceRequest {
+  priceId: number
+  gramBuyTl: number
+  gramSellTl: number
+  ceyrekAltin: number
+  yarimAltin: number
+  tamAltin: number
+  karatPrices: {
+    gram14kTl: number
+    gram18kTl: number
+    gram22kTl: number
+    gram24kTl: number
+  }
+}
+
+export interface UpdateManualGoldPriceResponse {
+  code: string
+  message: string
+  errors: string[]
+  priceId: number
+  modifiedDate: string
+  gramBuyTl: number
+  gramSellTl: number
+  ceyrekAltin: number
+  yarimAltin: number
+  tamAltin: number
+  karatPrices: {
+    gram14kTl: number
+    gram18kTl: number
+    gram22kTl: number
+    gram24kTl: number
+  }
+}
+
+export const useUpdateManualGoldPrice = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation<UpdateManualGoldPriceResponse, Error, UpdateManualGoldPriceRequest>({
+    mutationFn: (data) =>
+      FetchData("ManualGoldPrice/Update", {
+        method: "PUT",
+        secure: true,
+        body: data,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["manual-gold-prices"] })
+    },
+  })
+}

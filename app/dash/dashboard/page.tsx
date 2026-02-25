@@ -21,6 +21,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton"
 import { GoldPriceChart } from "./_components/GoldPriceChart"
 import { SubscribtionCard } from "./_components/SubscriptionCard"
+import { ManualGoldEditDialog } from "./_components/ManualGoldEditDialog"
 import { title } from "process"
 import { MyButton } from "@/components/buttons/MyButton"
 import Link from "next/link"
@@ -103,10 +104,35 @@ export default function DashboardPage() {
   const { data: liveData, isLoading: isLiveDataLoading } = useGetLiveBuySell()
   const [selectedKarat, setSelectedKarat] = useState("22")
   const [selectedGold, setSelectedGold] = useState<"full" | "half" | "quarter">("full")
+  const [selectedManualPrice, setSelectedManualPrice] = useState("ceyrek")
   const [chartPeriod, setChartPeriod] = useState<"5" | "30">("5")
   const { data: chartData, isLoading: isChartLoading } = useGetChartData(chartPeriod)
+
+
   const { data: manualGoldData, isLoading: isManualGoldLoading } = useGetManualGoldPrices()
 
+  const getManualSelectedPrice = (item: NonNullable<typeof manualGoldData>["items"][number]) => {
+    switch (selectedManualPrice) {
+      case "ceyrek": return convertToTRYLira(item.ceyrekAltin)
+      case "yarim": return convertToTRYLira(item.yarimAltin)
+      case "tam": return convertToTRYLira(item.tamAltin)
+      case "14k": return convertToTRYLira(item.karatPrices.gram14kTl)
+      case "18k": return convertToTRYLira(item.karatPrices.gram18kTl)
+      case "22k": return convertToTRYLira(item.karatPrices.gram22kTl)
+      case "24k": return convertToTRYLira(item.karatPrices.gram24kTl)
+      default: return "..."
+    }
+  }
+
+  const manualPriceLabel: Record<string, string> = {
+    ceyrek: "Çeyrek Altın",
+    yarim: "Yarım Altın",
+    tam: "Tam Altın",
+    "14k": "14K Altın",
+    "18k": "18K Altın",
+    "22k": "22K Altın",
+    "24k": "24K Altın",
+  }
 
   const getKaratPrice = () => {
     if (!liveData) return "..."
@@ -230,9 +256,9 @@ export default function DashboardPage() {
                         </div>
                         <p className="text-sm font-medium">{card.title}</p>
                       </div>
-                      <div className={` p-3 rounded-full bg-white/40 `}>
+                      {/* <div className={` p-3 rounded-full bg-white/40 `}>
                         <ArrowExpand01Sharp className={`size-3 `} />
-                      </div>
+                      </div> */}
                     </div>
                     <div className="flex-1 px-2">
                       <div className="min-h-20 flex items-end">
@@ -267,9 +293,9 @@ export default function DashboardPage() {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="p-3 rounded-full bg-white/40">
+                  {/* <div className="p-3 rounded-full bg-white/40">
                     <ArrowExpand01Sharp className="size-3" />
-                  </div>
+                  </div> */}
                 </div>
                 <div className="flex-1 px-2">
                   <div className="min-h-20 flex items-end">
@@ -304,9 +330,9 @@ export default function DashboardPage() {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="p-3 rounded-full bg-white/40">
+                  {/* <div className="p-3 rounded-full bg-white/40">
                     <ArrowExpand01Sharp className="size-3" />
-                  </div>
+                  </div> */}
                 </div>
                 <div className="flex-1 px-2">
                   <div className="min-h-20 flex items-end">
@@ -331,6 +357,7 @@ export default function DashboardPage() {
               title="Altın Fiyat Grafiği"
               Icon={ChartLineDataFilled}
               expandable={true}
+              modalStyle="w-[1000px] max-w-[1000px]"
               actions={
                 <Select value={chartPeriod} onValueChange={(value) => setChartPeriod(value as "5" | "30")}>
                   <SelectTrigger className="h-8 w-32 text-sm border-gray-300">
@@ -352,60 +379,95 @@ export default function DashboardPage() {
 
           </div>
           <div className="h-1/2">
-            <MyCard title="Manuel Altınlar" Icon={GoldIngotsFilled}>
+            <MyCard
+              title="Manuel Altınlar"
+              Icon={GoldIngotsFilled}
+              actions={manualGoldData?.items?.[0] && <ManualGoldEditDialog item={manualGoldData.items[0]} />}
+            >
               {isManualGoldLoading ? (
                 <LiveDataSkeleton />
-              ) : manualGoldData?.items && manualGoldData.items.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-                  {manualGoldData.items.map((item) => (
-                    <div
-                      key={item.priceId}
-                      className="relative overflow-hidden rounded-[60px] squircle border bg-card p-3 transition-all hover:shadow-md hover:scale-[1.02] bg-my-lavender"
-                    >
-                      <div>
-                        <div className="w-full flex items-center justify-between">
-                          <div className="flex items-center gap-x-2">
-                            <div className="p-3 rounded-full bg-white/40">
-                              <GoldIngotsFilled className="size-4" />
-                            </div>
-                            <p className="text-sm font-medium">#{item.priceId}</p>
-                          </div>
+              ) : manualGoldData?.items && manualGoldData.items.length > 0 ? (() => {
+                const item = manualGoldData.items[0]
+                return (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                    {/* Gram Alış */}
+                    <div className="relative overflow-hidden rounded-[60px] squircle border bg-card p-3 transition-all hover:shadow-md hover:scale-[1.02] bg-my-orange">
+                      <div className="w-full flex items-center justify-between">
+                        <div className="flex items-center gap-x-2">
                           <div className="p-3 rounded-full bg-white/40">
-                            <ArrowExpand01Sharp className="size-3" />
+                            <Coins01Filled className="size-4" />
                           </div>
+                          <p className="text-sm font-medium">Gram Alış</p>
                         </div>
-                        <div className="flex-1 px-2">
-                          <div className="min-h-20 flex flex-col justify-end gap-1">
-                            <div className="flex justify-between text-sm font-semibold">
-                              <span>Alış</span>
-                              <span>₺{item.gramBuyTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                            </div>
-                            <div className="flex justify-between text-sm font-semibold">
-                              <span>Satış</span>
-                              <span>₺{item.gramSellTl.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                            </div>
-                            <div className="flex justify-between text-xs">
-                              <span>Çeyrek</span>
-                              <span>₺{item.ceyrekAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                            </div>
-                            <div className="flex justify-between text-xs">
-                              <span>Yarım</span>
-                              <span>₺{item.yarimAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                            </div>
-                            <div className="flex justify-between text-xs">
-                              <span>Tam</span>
-                              <span>₺{item.tamAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                            </div>
-                          </div>
-                          <p className="text-xs mt-2 text-black">
-                            {new Date(item.modifiedDate).toLocaleDateString('tr-TR')}
-                          </p>
+                        {/* <div className="p-3 rounded-full bg-white/40">
+                          <ArrowExpand01Sharp className="size-3" />
+                        </div> */}
+                      </div>
+                      <div className="flex-1 px-2">
+                        <div className="min-h-20 flex items-end">
+                          <h3 className="text-2xl font-bold mt-2">{convertToTRYLira(item.gramBuyTl)}</h3>
                         </div>
+                        <p className="text-xs mt-2 text-black">Gram Alış (TL)</p>
                       </div>
                     </div>
-                  ))}
-                </div>
-              ) : (
+
+                    {/* Gram Satış */}
+                    <div className="relative overflow-hidden rounded-[60px] squircle border bg-card p-3 transition-all hover:shadow-md hover:scale-[1.02] bg-my-blue">
+                      <div className="w-full flex items-center justify-between">
+                        <div className="flex items-center gap-x-2">
+                          <div className="p-3 rounded-full bg-white/40">
+                            <AnalyticsUpFilled className="size-4" />
+                          </div>
+                          <p className="text-sm font-medium">Gram Satış</p>
+                        </div>
+                        {/* <div className="p-3 rounded-full bg-white/40">
+                          <ArrowExpand01Sharp className="size-3" />
+                        </div> */}
+                      </div>
+                      <div className="flex-1 px-2">
+                        <div className="min-h-20 flex items-end">
+                          <h3 className="text-2xl font-bold mt-2">{convertToTRYLira(item.gramSellTl)}</h3>
+                        </div>
+                        <p className="text-xs mt-2 text-black">Gram Satış (TL)</p>
+                      </div>
+                    </div>
+
+                    {/* Selector card */}
+                    <div className="relative overflow-hidden rounded-[60px] squircle border bg-card p-3 transition-all hover:shadow-md hover:scale-[1.02] bg-my-lavender">
+                      <div className="w-full flex items-center justify-between">
+                        <div className="flex items-center gap-x-2">
+                          <div className="p-3 rounded-full bg-white/40">
+                            <GoldIngotsFilled className="size-4" />
+                          </div>
+                          <Select value={selectedManualPrice} onValueChange={setSelectedManualPrice}>
+                            <SelectTrigger className="h-8 w-30 border-none bg-white/40 text-sm font-medium">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="ceyrek">Çeyrek Altın</SelectItem>
+                              <SelectItem value="yarim">Yarım Altın</SelectItem>
+                              <SelectItem value="tam">Tam Altın</SelectItem>
+                              <SelectItem value="14k">14K Altın</SelectItem>
+                              <SelectItem value="18k">18K Altın</SelectItem>
+                              <SelectItem value="22k">22K Altın</SelectItem>
+                              <SelectItem value="24k">24K Altın</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        {/* <div className="p-3 rounded-full bg-white/40">
+                          <ArrowExpand01Sharp className="size-3" />
+                        </div> */}
+                      </div>
+                      <div className="flex-1 px-2">
+                        <div className="min-h-20 flex items-end">
+                          <h3 className="text-2xl font-bold mt-2">{getManualSelectedPrice(item)}</h3>
+                        </div>
+                        <p className="text-xs mt-2 text-black">{manualPriceLabel[selectedManualPrice]}</p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })() : (
                 <div className="text-center py-8 text-sm text-muted-foreground">
                   Manuel altın fiyatı bulunamadı
                 </div>
@@ -429,7 +491,6 @@ export default function DashboardPage() {
                               <div className={` p-3 rounded-full bg-white/40 `}>
                                 <Icon className={`size-4 `} />
                               </div>
-                              <p className="text-sm font-medium">{card.title}</p>
                             </div>
                             <div className={` p-3 rounded-full bg-white/40 `}>
                               <ArrowExpand01Sharp className={`size-3 `} />
@@ -460,57 +521,59 @@ export default function DashboardPage() {
           </MyCard>
         </div>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3  ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3  h-80">
         <MyCard title="Hızlı Fiyat Hesaplayıcı" Icon={Calculator01Filled} className="">
           <PriceCalculatorForm />
         </MyCard>
 
         <MyCard title="Son Aktiviteler" Icon={TimeQuarterPassFilled} expandable={true}>
-          <ScrollArea className="space-y-3 h-44 pr-3">
-            {isLoading ? (
-              <HistorySkeleton />
-            ) : historyData && historyData.items && historyData.items.length > 0 ? (
-              historyData.items.slice(0, 5).map((history) => (
-                <div key={history.historyId} className="flex items-center justify-between py-2 border-b last:border-0">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
-                        {history.karat}K
-                      </span>
-                      <p className="text-sm font-medium">Altın Hesaplama</p>
+          <div className="pb-12 h-full">
+            <ScrollArea className="space-y-3 h-full pr-3 ">
+              {isLoading ? (
+                <HistorySkeleton />
+              ) : historyData && historyData.items && historyData.items.length > 0 ? (
+                historyData.items.slice(0, 5).map((history) => (
+                  <div key={history.historyId} className="flex items-center justify-between py-2 border-b last:border-0">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
+                          {history.karat}K
+                        </span>
+                        <p className="text-sm font-medium">Altın Hesaplama</p>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {history.gram ? `${history.gram.toLocaleString('tr-TR')} g • ` : ''}
+                        Maliyet: ₺{history.cost.toLocaleString('tr-TR')} • İşçilik: ₺{history.laborCost.toLocaleString('tr-TR')}
+                      </p>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {history.gram ? `${history.gram.toLocaleString('tr-TR')} g • ` : ''}
-                      Maliyet: ₺{history.cost.toLocaleString('tr-TR')} • İşçilik: ₺{history.laborCost.toLocaleString('tr-TR')}
-                    </p>
+                    <div className="text-right">
+                      <p className="text-sm font-semibold">₺{history.totalCost.toLocaleString('tr-TR')}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {formatDistanceToNow(new Date(history.createdDate), { addSuffix: true })}
+                      </p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-sm font-semibold">₺{history.totalCost.toLocaleString('tr-TR')}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {formatDistanceToNow(new Date(history.createdDate), { addSuffix: true })}
-                    </p>
+                ))
+              ) : (
+                <div className="flex flex-col items-center justify-center h-44 px-24 text-center space-y-3">
+                  <div className="p-4 rounded-full bg-gray-200">
+                    <TimeQuarterPassFilled className="size-5 " />
                   </div>
-                </div>
-              ))
-            ) : (
-              <div className="flex flex-col items-center justify-center h-44 px-24 text-center space-y-3">
-                <div className="p-4 rounded-full bg-gray-200">
-                  <TimeQuarterPassFilled className="size-5 " />
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900 mb-1">Geçmiş bulunamadı</p>
-                  <p className="text-sm text-muted-foreground">{"Fiyat Hesaplayıcı’yı kullandıktan sonra geçmişiniz burada görünecek."}</p>
-                  {/* <MyButton className="h-11 mt-6" asChild>
+                  <div>
+                    <p className="font-medium text-gray-900 mb-1">Geçmiş bulunamadı</p>
+                    <p className="text-sm text-muted-foreground">{"Fiyat Hesaplayıcı’yı kullandıktan sonra geçmişiniz burada görünecek."}</p>
+                    {/* <MyButton className="h-11 mt-6" asChild>
                     <Link href={"/dash/packages"} className="px-2">
                       Paket Al
                     </Link>
                   </MyButton> */}
+                  </div>
                 </div>
-              </div>
-            )}
-          </ScrollArea>
-        </MyCard>
+              )}
+            </ScrollArea>
+          </div>
 
+        </MyCard>
       </div>
     </div>
   )
