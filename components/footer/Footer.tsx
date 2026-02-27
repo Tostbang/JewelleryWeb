@@ -30,7 +30,7 @@ export const Footer = () => {
             },
           ]}
         />
-        <GenericColumn
+        {/* <GenericColumn
           title="Company"
           links={[
             {
@@ -46,7 +46,7 @@ export const Footer = () => {
               href: "/#",
             },
           ]}
-        />
+        /> */}
         <GenericColumn
           title="Legal"
           links={[
@@ -58,10 +58,10 @@ export const Footer = () => {
               title: "Privacy Policy",
               href: "/privacy",
             },
-            {
-              title: "Refund Policy",
-              href: "/#",
-            },
+            // {
+            //   title: "Refund Policy",
+            //   href: "/#",
+            // },
           ]}
         />
 
@@ -78,11 +78,11 @@ export const Footer = () => {
               href: "/#",
               Icon: Instagram,
             },
-            {
-              title: "Youtube",
-              href: "/#",
-              Icon: YoutubeFilled,
-            },
+            // {
+            //   title: "Youtube",
+            //   href: "/#",
+            //   Icon: YoutubeFilled,
+            // },
           ]}
         />
       </MaxWidthWrapper>
@@ -92,10 +92,10 @@ export const Footer = () => {
 
 const LogoColumn = () => {
   return (
-    <div className="col-span-6 md:col-span-4">
+    <div className="col-span-6 md:col-span-6">
       <NavLogo />
       <span className="mt-3 inline-block text-xs text-zinc-600">
-        © Hover.dev - All rights reserved.
+        © Jewellery - All rights reserved.
       </span>
     </div>
   );

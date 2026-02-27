@@ -6,7 +6,7 @@ import { z } from "zod"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import FormInput from "@/components/FormInput"
 import { MyButton } from "@/components/buttons/MyButton"
-import { ManualGoldPriceItem } from "../_services/queries"
+import { ManualGoldPriceResponse } from "../_services/queries"
 import { useUpdateManualGoldPrice } from "../_services/mutations"
 import { toast } from "sonner"
 import { useState } from "react"
@@ -28,7 +28,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>
 
 interface Props {
-  item: ManualGoldPriceItem
+  item: ManualGoldPriceResponse
 }
 
 export function ManualGoldEditDialog({ item }: Props) {
@@ -53,7 +53,6 @@ export function ManualGoldEditDialog({ item }: Props) {
   const onSubmit = (values: FormValues) => {
     mutate(
       {
-        priceId: item.priceId,
         gramBuyTl: values.gramBuyTl,
         gramSellTl: values.gramSellTl,
         ceyrekAltin: values.ceyrekAltin,

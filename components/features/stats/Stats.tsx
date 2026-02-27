@@ -5,9 +5,9 @@ import { CornerBlur } from "@/components/utils/CornerBlur";
 
 export const Stats = () => {
   return (
-    <div className="relative overflow-hidden border-y border-white/40 bg-gradient-to-br from-my-orange/30 via-my-pink/20 to-my-lavender/30 backdrop-blur-md">
+    <div className="relative overflow-hidden border-y text-black border-white/40 ">
       <div className="relative z-20 mx-auto max-w-3xl px-4 py-12">
-        <h2 className="mx-auto mb-9 block w-fit bg-gradient-to-br from-my-blue to-my-lavender bg-clip-text text-center text-lg text-transparent">
+        <h2 className="mx-auto mb-9 block w-fit  text-center text-lg ">
           Rakamlar Konuşuyor
         </h2>
 
@@ -17,14 +17,14 @@ export const Stats = () => {
             suffix="%"
             subheading="Müşteri Memnuniyeti"
           />
-          <div className="h-[1px] w-12 bg-my-lavender/30 sm:h-12 sm:w-[1px]" />
+          <div className="h-[1px] w-12 bg-my-orange/30 sm:h-12 sm:w-[1px]" />
           <Stat
             num={5}
             decimals={0}
             suffix="K+"
             subheading="Aktif Kullanıcı"
           />
-          <div className="h-[1px] w-12 bg-my-lavender/30 sm:h-12 sm:w-[1px]" />
+          <div className="h-[1px] w-12 bg-my-orange/30 sm:h-12 sm:w-[1px]" />
           <Stat
             num={50}
             suffix="M+"
@@ -66,7 +66,7 @@ const Stat = ({ num, suffix, decimals = 0, subheading }: Props) => {
     <div className="flex w-72 flex-col items-center py-8 sm:py-0">
       <p className="mb-2 text-center text-7xl font-semibold text-zinc-900 sm:text-6xl">
         <span ref={ref}></span>
-        <span className="text-my-blue">{suffix}</span>
+        <span className="text-my-orange">{suffix}</span>
       </p>
       <p className="max-w-48 text-center text-zinc-500">{subheading}</p>
     </div>

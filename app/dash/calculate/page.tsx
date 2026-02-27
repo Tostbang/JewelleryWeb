@@ -2,10 +2,11 @@
 import MyCard from '@/components/MyCard'
 import React, { SetStateAction, useState } from 'react'
 import PriceCalculatorForm from '../dashboard/_components/PriceCalculatorForm'
+import ManualPriceCalculatorForm from '../dashboard/_components/ManualPriceCalculatorForm'
 import KaratCompareForm from '../dashboard/_components/KaratCompareForm'
 import WeightConverterForm from '../dashboard/_components/WeightConverterForm'
-import { Calculator01Filled, TimeQuarterPassFilled, JusticeScale01Filled, BodyWeightFilled, Calendar04 } from 'asem-icons'
-import { useGetHistory, HistoryItem, HistoryParams } from '../dashboard/_services/queries'
+import { Calculator01Filled, TimeQuarterPassFilled, JusticeScale01Filled, BodyWeightFilled, Calendar04, GoldIngotsFilled } from 'asem-icons'
+import { useGetHistory, HistoryItem, HistoryParams, useGetManualHistory, ManualHistoryItem, ManualHistoryParams } from '../dashboard/_services/queries'
 import { Skeleton } from '@/components/ui/skeleton'
 import { DataTable } from '@/components/data-table'
 import { createHistoryColumns } from './columns'
@@ -53,8 +54,9 @@ export default function CalculatePage() {
   const [karatFilter, setKaratFilter] = useState<number | undefined>(undefined)
   const [startDate, setStartDate] = useState<Date | undefined>()
   const [endDate, setEndDate] = useState<Date | undefined>()
-  const [selectedItem, setSelectedItem] = useState<HistoryItem | null>(null)
+  const [selectedItem, setSelectedItem] = useState<HistoryItem | ManualHistoryItem | null>(null)
   const [detailOpen, setDetailOpen] = useState(false)
+  const [historySource, setHistorySource] = useState<"normal" | "manual">("normal")
 
   const params: HistoryParams = {
     ...(karatFilter !== undefined && { karat: karatFilter }),
@@ -63,8 +65,12 @@ export default function CalculatePage() {
   }
 
   const { data: historyData, isLoading } = useGetHistory(params)
+  const { data: manualHistoryData, isLoading: isManualLoading } = useGetManualHistory(params)
 
-  const handleViewDetails = (item: HistoryItem) => {
+  const activeData = historySource === "normal" ? historyData : manualHistoryData
+  const activeLoading = historySource === "normal" ? isLoading : isManualLoading
+
+  const handleViewDetails = (item: HistoryItem | ManualHistoryItem) => {
     setSelectedItem(item)
     setDetailOpen(true)
   }
@@ -73,9 +79,14 @@ export default function CalculatePage() {
 
   return (
     <div className='p-6'>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mb-3">
+      <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3">
+        <div className={cn("absolute size-100 left-10 top-0 blur-[100px] rounded-full opacity-30 bg-my-blue")}></div>
+        <div className={cn("absolute size-100 right-10 top-0 blur-[100px] rounded-full opacity-30 bg-my-lavender")}></div>
         <MyCard title="Fiyat Hesaplayıcı" Icon={Calculator01Filled}>
           <PriceCalculatorForm />
+        </MyCard>
+        <MyCard title="Manuel Fiyat Hesaplayıcı" Icon={GoldIngotsFilled}>
+          <ManualPriceCalculatorForm />
         </MyCard>
         <MyCard title="Karat Karşılaştırması" Icon={JusticeScale01Filled}>
           <KaratCompareForm />
@@ -85,10 +96,19 @@ export default function CalculatePage() {
         </MyCard>
       </div>
       <MyCard
-        title="Son Aktiviteler (Fiyat Hesaplayıcı için)"
+        title="Son Aktiviteler"
         Icon={TimeQuarterPassFilled}
         actions={
           <div className="flex items-center gap-2 flex-wrap">
+            <Select value={historySource} onValueChange={(v) => setHistorySource(v as "normal" | "manual")}>
+              <SelectTrigger className="w-40 h-8 text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="normal">Fiyat Hesaplayıcı</SelectItem>
+                <SelectItem value="manual">Manuel Hesaplayıcı</SelectItem>
+              </SelectContent>
+            </Select>
             <Filter className="h-4 w-4 text-muted-foreground shrink-0" />
             <Select
               value={karatFilter !== undefined ? String(karatFilter) : "all"}
@@ -115,17 +135,16 @@ export default function CalculatePage() {
           </div>
         }
       >
-        {isLoading ? (
+        {activeLoading ? (
           <HistoryTableSkeleton />
-        ) : historyData && historyData.items && historyData.items.length > 0 ? (
-          <DataTable columns={columns} data={historyData.items} />
+        ) : activeData && activeData.items && activeData.items.length > 0 ? (
+          <DataTable columns={columns} data={activeData.items} />
         ) : (
           <div className="text-center py-8 text-sm text-muted-foreground">
             Geçmiş bulunamadı
           </div>
         )}
       </MyCard>
-
 
       <Dialog open={detailOpen} onOpenChange={setDetailOpen}>
         <DialogContent className="sm:max-w-[420px]">

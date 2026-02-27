@@ -1,7 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { HistoryItem } from "../dashboard/_services/queries"
+import { HistoryItem, ManualHistoryItem } from "../dashboard/_services/queries"
 import { Button } from "@/components/ui/button"
 import { MoreHorizontal } from "lucide-react"
 import {
@@ -14,9 +14,11 @@ import { format } from "date-fns"
 import { GoogleDoc } from "asem-icons"
 import { tr } from "date-fns/locale"
 
+type AnyHistoryItem = HistoryItem | ManualHistoryItem
+
 export const createHistoryColumns = (
-  onViewDetails: (item: HistoryItem) => void,
-): ColumnDef<HistoryItem>[] => [
+  onViewDetails: (item: AnyHistoryItem) => void,
+): ColumnDef<AnyHistoryItem>[] => [
     {
       accessorKey: "karat",
       header: "Karat",

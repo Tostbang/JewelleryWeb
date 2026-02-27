@@ -100,7 +100,6 @@ export const useConvertWeight = () => {
 }
 
 export interface UpdateManualGoldPriceRequest {
-  priceId: number
   gramBuyTl: number
   gramSellTl: number
   ceyrekAltin: number
@@ -119,6 +118,7 @@ export interface UpdateManualGoldPriceResponse {
   message: string
   errors: string[]
   priceId: number
+  createdDate: string
   modifiedDate: string
   gramBuyTl: number
   gramSellTl: number
@@ -138,13 +138,37 @@ export const useUpdateManualGoldPrice = () => {
 
   return useMutation<UpdateManualGoldPriceResponse, Error, UpdateManualGoldPriceRequest>({
     mutationFn: (data) =>
-      FetchData("ManualGoldPrice/Update", {
-        method: "PUT",
+      FetchData("ManualGoldPrice/Set", {
+        method: "POST",
         secure: true,
         body: data,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["manual-gold-prices"] })
+    },
+  })
+}
+
+export interface ManualLaborCostRequest {
+  karat: number | string
+  cost: string
+}
+
+export const useCalculateManualLaborCost = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation<LaborCostResponse, Error, ManualLaborCostRequest>({
+    mutationFn: (data: ManualLaborCostRequest) =>
+      FetchData("ManualGoldPrice/ManualLaborCost", {
+        method: "POST",
+        secure: true,
+        body: {
+          karat: toNumberSafe(data.karat),
+          cost: toNumberSafe(data.cost),
+        },
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["manual-history"] })
     },
   })
 }

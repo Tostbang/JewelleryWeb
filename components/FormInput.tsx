@@ -74,7 +74,7 @@ export default function FormInput({
                   {label ? label : name}
                 </FieldLabel>
               )}
-              <InputGroup>
+              <InputGroup className={`overflow-hidden ${className}`}>
                 <InputGroupInput
                   {...field}
                   id={field.name}
@@ -82,7 +82,7 @@ export default function FormInput({
                   placeholder={!labelState ? (label ? label : name) : props.placeholder}
                   {...field}
                   {...props}
-                  className={`block w-full ${className}`}
+                  className={` `}
                 />
                 {/* <InputGroupAddon>
                   <InputGroupText>https://</InputGroupText>

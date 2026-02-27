@@ -127,16 +127,52 @@ export interface ManualGoldPriceItem {
   karatPrices: ManualGoldKaratPrices
 }
 
-export interface ManualGoldPriceResponse {
+export interface ManualGoldPriceResponse extends ManualGoldPriceItem {
   code: string
   message: string
   errors: string[]
-  items: ManualGoldPriceItem[]
 }
 
 export const useGetManualGoldPrices = () => {
   return useQuery<ManualGoldPriceResponse>({
     queryKey: ["manual-gold-prices"],
-    queryFn: () => FetchData("ManualGoldPrice/My", { method: "POST", body: {}, secure: true }),
+    queryFn: () => FetchData("ManualGoldPrice/My", { secure: true }),
+  })
+}
+
+export interface ManualHistoryItem {
+  historyId: number
+  karat: number
+  cost: number
+  gramPrice: number
+  laborCost: number
+  totalCost: number
+  createdDate: string
+}
+
+export interface ManualHistoryResponse {
+  code: string
+  message: string
+  errors: string[]
+  items: ManualHistoryItem[]
+}
+
+export interface ManualHistoryParams {
+  karat?: number
+  startDate?: string
+  endDate?: string
+}
+
+export const useGetManualHistory = (params?: ManualHistoryParams) => {
+  return useQuery<ManualHistoryResponse>({
+    queryKey: ["manual-history", params],
+    queryFn: () => {
+      const searchParams = new URLSearchParams()
+      if (params?.karat) searchParams.set("karat", String(params.karat))
+      if (params?.startDate) searchParams.set("startDate", params.startDate)
+      if (params?.endDate) searchParams.set("endDate", params.endDate)
+      const qs = searchParams.toString()
+      return FetchData(`ManualGoldPrice/MyManualHistory${qs ? `?${qs}` : ""}`, { secure: true })
+    },
   })
 }

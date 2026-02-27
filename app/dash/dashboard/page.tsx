@@ -111,7 +111,7 @@ export default function DashboardPage() {
 
   const { data: manualGoldData, isLoading: isManualGoldLoading } = useGetManualGoldPrices()
 
-  const getManualSelectedPrice = (item: NonNullable<typeof manualGoldData>["items"][number]) => {
+  const getManualSelectedPrice = (item: NonNullable<typeof manualGoldData>) => {
     switch (selectedManualPrice) {
       case "ceyrek": return convertToTRYLira(item.ceyrekAltin)
       case "yarim": return convertToTRYLira(item.yarimAltin)
@@ -191,36 +191,6 @@ export default function DashboardPage() {
     //   bgColor: "bg-my-lavender2",
     //   iconColor: "text-gray-600",
     // },
-  ]
-  const otherCards = [
-    {
-      title: "Çeyrek Altın",
-      value: liveData ? `₺${liveData.ceyrekAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` : "...",
-      change: "Çeyrek",
-      trend: "neutral" as const,
-      icon: TimeQuarterPassFilled,
-      bgColor: "bg-my-orange",
-      // bgColor: "bg-",
-      iconColor: "text-purple-600",
-    },
-    {
-      title: "Yarım Altın",
-      value: liveData ? `₺${liveData.yarimAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` : "...",
-      change: "Yarım",
-      trend: "neutral" as const,
-      icon: TimeHalfPassFilled,
-      bgColor: "bg-my-pink",
-      iconColor: "text-green-500",
-    },
-    {
-      title: "Tam Altın",
-      value: liveData ? `₺${liveData.tamAltin.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ` : "...",
-      change: "Tam",
-      trend: "neutral" as const,
-      icon: GoldIngotsFilled,
-      bgColor: "bg-my-orange2",
-      iconColor: "text-orange-600",
-    },
   ]
 
   return (
@@ -357,7 +327,7 @@ export default function DashboardPage() {
               title="Altın Fiyat Grafiği"
               Icon={ChartLineDataFilled}
               expandable={true}
-              modalStyle="w-[1000px] max-w-[1000px]"
+              modalStyle="min-w-200"
               actions={
                 <Select value={chartPeriod} onValueChange={(value) => setChartPeriod(value as "5" | "30")}>
                   <SelectTrigger className="h-8 w-32 text-sm border-gray-300">
@@ -382,12 +352,12 @@ export default function DashboardPage() {
             <MyCard
               title="Manuel Altınlar"
               Icon={GoldIngotsFilled}
-              actions={manualGoldData?.items?.[0] && <ManualGoldEditDialog item={manualGoldData.items[0]} />}
+              actions={manualGoldData && <ManualGoldEditDialog item={manualGoldData} />}
             >
               {isManualGoldLoading ? (
                 <LiveDataSkeleton />
-              ) : manualGoldData?.items && manualGoldData.items.length > 0 ? (() => {
-                const item = manualGoldData.items[0]
+              ) : manualGoldData ? (() => {
+                const item = manualGoldData
                 return (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                     {/* Gram Alış */}
@@ -526,13 +496,13 @@ export default function DashboardPage() {
           <PriceCalculatorForm />
         </MyCard>
 
-        <MyCard title="Son Aktiviteler" Icon={TimeQuarterPassFilled} expandable={true}>
-          <div className="pb-12 h-full">
-            <ScrollArea className="space-y-3 h-full pr-3 ">
+        <MyCard title="Son Aktiviteler" Icon={TimeQuarterPassFilled} expandable={true} modalStyle="min-w-200">
+          <div className="h-full ">
+            <ScrollArea className="space-y-3 h-60 pr-3 ">
               {isLoading ? (
                 <HistorySkeleton />
               ) : historyData && historyData.items && historyData.items.length > 0 ? (
-                historyData.items.slice(0, 5).map((history) => (
+                historyData.items.slice(0, 20).map((history) => (
                   <div key={history.historyId} className="flex items-center justify-between py-2 border-b last:border-0">
                     <div className="flex-1">
                       <div className="flex items-center gap-2">

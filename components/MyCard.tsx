@@ -2,7 +2,7 @@
 
 import { IconType } from '@/lib/types'
 import { cn } from '@/lib/utils'
-import React, { ReactNode, useState } from 'react'
+import React, { HTMLAttributes, ReactNode, useState } from 'react'
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
 import { ArrowExpand01RoundFilled, ArrowExpand01Sharp, ChangeScreenModeFilled, CircleArrowExpand01Round, CircleArrowExpand01SharpFilled } from 'asem-icons'
 import { VisuallyHidden } from 'radix-ui'
@@ -29,10 +29,10 @@ export default function MyCard({
   return (
     <>
       <div
-        className={cn("relative overflow-hidden rounded-[60px] squircle border w-full h-full border-white p-4 pb-6 bg-white/50 backdrop-blur-3xl", className)}
+        className={cn("relative rounded-[60px] squircle border w-full h-full border-white p-4 pb-6 bg-white/50 backdrop-blur-3xl", className)}
       >
-        <div className=" h-full flex flex-col">
-          <div className="w-full flex items-start justify-between ">
+        <div className="h-full  flex flex-col">
+          <div className="h-12  w-full flex items-start justify-between ">
             <div className="flex items-center gap-x-2 mb-4">
               {Icon &&
                 <div className={` p-2.5 rounded-full bg-black`}>
@@ -58,7 +58,7 @@ export default function MyCard({
               )}
             </div>
           </div>
-          <div className="h-full px-2 relative   ">
+          <div className="flex-1   px-2 relative">
             {children}
           </div>
         </div>

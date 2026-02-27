@@ -65,7 +65,7 @@ export const SupportForm = () => {
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-lg mx-auto">
       <MyCard className="p-6">
         <div className="mb-6 text-center">
           <h2 className="text-2xl font-bold">Destek Talebi Oluştur</h2>

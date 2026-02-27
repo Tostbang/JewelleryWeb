@@ -26,7 +26,7 @@ export default function Page() {
       <Stats />
       <Pricing />
       <CTA />
-      <section className="py-20 px-6 bg-gradient-to-b from-white to-my-blue/5">
+      <section className="py-20 px-6 bg-my-gradient">
         <SupportForm />
       </section>
       <Footer />

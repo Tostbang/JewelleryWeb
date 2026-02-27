@@ -80,7 +80,7 @@ export default function PackagesPage() {
       {/* Active Package Section */}
       {activePackage && activePackage.packageId && (
         <MyCard title="Aktif Paketiniz" Icon={PackageFilled}>
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 rounded-lg p-6">
+          <div className="p-6 border rounded-xl">
             <div className="flex items-start justify-between mb-4">
               <div>
                 <h3 className="text-xl font-bold mb-2">{activePackage.name}</h3>
@@ -149,12 +149,12 @@ export default function PackagesPage() {
                   className={cn(
                     "relative rounded-xl border-2 p-6 transition-all hover:shadow-lg",
                     isActive
-                      ? "border-blue-500 bg-blue-50 dark:bg-blue-950"
+                      ? "border-black dark:bg-blue-950"
                       : "border-gray-200 dark:border-gray-700"
                   )}
                 >
                   {isActive && (
-                    <Badge className="absolute top-4 right-4 bg-blue-500 text-white">
+                    <Badge className="absolute top-3 right-4 bg-black text-white">
                       Mevcut Plan
                     </Badge>
                   )}

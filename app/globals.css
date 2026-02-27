@@ -147,9 +147,9 @@
 }
 
 @layer utilities {
-.squircle {
+  .squircle {
     corner-shape: squircle;
-}
+  }
  .bg-grid {
     --grid-size: 32px;
 

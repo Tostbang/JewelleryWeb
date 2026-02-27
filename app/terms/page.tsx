@@ -1,9 +1,11 @@
 import Link from "next/link"
 import { NavLogo } from "@/components/navbar/NavLogo"
+import Carousel from "@/components/features/carousel/Carousel"
 
 export default function TermsPage() {
   return (
     <main className="min-h-screen bg-my-gradient">
+      <Carousel />
       <div className="max-w-3xl mx-auto px-6 py-16">
         <div className="mb-10 flex flex-col items-center gap-4">
           <NavLogo />

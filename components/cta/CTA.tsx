@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 export const CTA = () => {
   const router = useRouter();
   return (
-    <section className="relative overflow-hidden border-t border-white/40 bg-gradient-to-b from-my-blue/20 via-my-lavender/10 to-white/80 backdrop-blur-sm py-20">
+    <section className="relative overflow-hidden border-t border-white/40 py-20 mx-40 rounded-4xl squircle ">
       <MaxWidthWrapper className="relative z-20 flex flex-col items-center justify-center">
         <motion.div
           initial={{
@@ -64,7 +64,7 @@ export const CTA = () => {
           className="flex flex-col items-center gap-4 sm:flex-row"
         >
           <MyButton
-            onClick={() => router.push("/signup")}
+            onClick={() => router.push("/login")}
             className="flex items-center gap-2"
           >
             Ücretsiz Dene
@@ -73,14 +73,14 @@ export const CTA = () => {
           <MyButton
             ghost
             onClick={() => router.push("/#features")}
-            className="rounded-md px-4 py-2 text-lg text-zinc-900"
+            className="rounded-full px-7 py-2  text-zinc-900"
           >
             Daha Fazla Bilgi
           </MyButton>
         </motion.div>
       </MaxWidthWrapper>
-      <div className="absolute inset-0 z-0 bg-grid text-my-lavender/30 opacity-40" />
-      <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-my-pink/5 to-white backdrop-blur-sm" />
+      {/* <div className="absolute inset-0 z-0 bg-grid text-my-lavender/30 opacity-40" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-my-pink/5 to-white backdrop-blur-sm" /> */}
     </section>
   );
 };

@@ -100,9 +100,6 @@ export const RegisterForm = () => {
 
       <MyCard className="">
         <div className="mb-6">
-          <div className="mb-6 flex justify-center">
-            <NavLogo />
-          </div>
           <div className="mt-8 space-y-2 text-center">
             <h1 className="text-3xl font-bold ">
               Hoş Geldiniz

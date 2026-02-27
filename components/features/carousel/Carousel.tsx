@@ -54,7 +54,7 @@ const Carousel = () => {
 
   return (
     <section
-      className="relative overflow-hidden border-b border-white/40 bg-gradient-to-br from-my-lavender/15 via-my-pink/10 to-my-orange/15 backdrop-blur-md py-12"
+      className="relative -hidden border-b border-white/40 bg-my-gradient py-12"
       ref={ref}
     >
       <div className="relative z-20 overflow-hidden">
@@ -112,13 +112,13 @@ const Carousel = () => {
 const Feature = ({ title, description, Icon }: FeatureType) => {
   return (
     <Card
-      className="shrink-0"
+      className="shrink-0 "
       style={{
         width: CARD_WIDTH,
         marginRight: MARGIN,
       }}
     >
-      <Icon className="size-12 rounded-full bg-my-lavender2 p-3 text-blue-50" />
+      <Icon className="size-12 rounded-full bg-my-orange p-3 text-blue-50" />
       <p className="mb-1.5 mt-3 text-lg font-medium">{title}</p>
       <p className="text-sm text-zinc-400">{description}</p>
     </Card>
