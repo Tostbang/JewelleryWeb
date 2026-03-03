@@ -5,7 +5,7 @@ import React from "react";
 export const NavLogo = () => {
   return (
     <Link href="/">
-      <Image src="/logo.png" alt="Logo" width={60} height={50} priority className="" />
+      <Image src="/logo.png" alt="Logo" width={50} height={50} priority className="" />
     </Link>
   );
 };

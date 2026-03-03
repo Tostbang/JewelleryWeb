@@ -20,11 +20,16 @@ export default function DynamicBreadcrumb() {
   // const { segments } = useBreadCrumbStore()
   const breadcrumbNameMap: Record<string, string> = {
     '/dash': "Kontrol Paneli",
-    '/dash/departments': "Departmanlar",
-    '/dash/sectors': "Sektörler",
-    '/dash/my-sectors': "Sektörlerim",
-    '/dash/my-offers': "Tekliflerim",
+    '/dash/calculate': "Hesaplama",
     "/dash/packages": "Paketler",
+    '/dash/devices': "Cihazlarım",
+    '/dash/profile': "Profil",
+    '/admin': "Kontrol Paneli",
+    '/admin/users': "Kullanıcılar",
+    '/admin/packages': "Paketler",
+    '/admin/support': "Destek",
+    '/admin/devices': "Cihazlarım",
+    '/admin/profile': "Profil"
   };
 
   const pathSegments = pathname.split('/').filter(Boolean)

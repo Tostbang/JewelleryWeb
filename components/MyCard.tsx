@@ -32,7 +32,7 @@ export default function MyCard({
         className={cn("relative rounded-[60px] squircle border w-full h-full border-white p-4 pb-6 bg-white/50 backdrop-blur-3xl", className)}
       >
         <div className="h-full  flex flex-col">
-          <div className="h-12  w-full flex items-start justify-between ">
+          <div className="min-h-12  w-full flex items-start justify-between ">
             <div className="flex items-center gap-x-2 mb-4">
               {Icon &&
                 <div className={` p-2.5 rounded-full bg-black`}>

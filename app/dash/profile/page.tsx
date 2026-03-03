@@ -51,7 +51,7 @@ export function ProfilePage() {
   }
 
   return (
-    <div className="p-6 space-y-3">
+    <div className="p-2 md:p-6 space-y-3">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Profil Ayarları</h1>
@@ -69,8 +69,8 @@ export function ProfilePage() {
         </div> */}
       </div>
 
-      <div className="flex gap-3 mt-4">
-        <MyCard title="Ayarlar" Icon={Setting01Filled} className="w-160">
+      <div className="flex flex-col md:flex-row gap-3 mt-4">
+        <MyCard title="Ayarlar" Icon={Setting01Filled} className="w-full md:w-160">
           <div className="">
             <div className="bg-white rounded-full  border  mx-auto size-24 flex justify-center items-center">
               <User02 className="size-14" />

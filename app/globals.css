@@ -219,3 +219,45 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 }
+
+
+.custom-scroll {
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120,120,120,0.4) transparent;
+}
+
+/* Chrome / Edge / Safari */
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(120,120,120,0.4);
+  border-radius: 9999px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(120,120,120,0.6);
+}
+/* remove all scrollbar buttons */
+.custom-scroll::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* remove vertical buttons */
+::-webkit-scrollbar-button:vertical:start:decrement,
+::-webkit-scrollbar-button:vertical:end:increment {
+  display: none;
+}
+
+/* remove horizontal buttons */
+::-webkit-scrollbar-button:horizontal:start:decrement,
+::-webkit-scrollbar-button:horizontal:end:increment {
+  display: none;
+}

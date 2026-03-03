@@ -44,10 +44,10 @@ export function AppSidebar({ layout, ...props }: { layout: "admin" | "dash" } & 
             <div className={`text-sidebar-primary-foreground flex aspect-square size-10 items-center justify-center rounded-lg ${!open && "ml-2"} `}>
               {/* <activeTeam.logo className="size-4" /> */}
               {/* <Image alt="logo" src={logo} width={200} height={200} className="w-full h-full" /> */}
-              <div className="bg-black size-10 flex justify-center items-center rounded-full">
-                <Sparkles className="text-white size-14" />
+              <div className=" size-10 flex justify-center items-center rounded-full">
+                {/* <Sparkles className="text-white size-14" /> */}
+                <Image src="/logo.png" alt="Logo" width={50} height={50} priority className="" />
               </div>
-
             </div>
             <div className="grid flex-1 text-left text-sm leading-tight">
               <h2 className="truncate font-bold ">Jewellery</h2>

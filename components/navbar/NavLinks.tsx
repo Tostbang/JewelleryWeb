@@ -5,19 +5,19 @@ export const NavLinks = () => {
   return (
     <ul className="flex gap-3 text-zinc-600 md:gap-9">
       <li>
-        <NavLink href="/#features">Features</NavLink>
+        <NavLink href="/#features">Özellikler</NavLink>
       </li>
       <li>
-        <NavLink href="/#testimonials">Testimonials</NavLink>
+        <NavLink href="/#testimonials">Yorumlar</NavLink>
       </li>
       <li>
-        <NavLink href="/#pricing">Pricing</NavLink>
+        <NavLink href="/#pricing">Fiyatlandırma</NavLink>
       </li>
-      <li>
+      {/* <li>
         <NavLink href="/#" external>
-          Careers
+          Kariyer
         </NavLink>
-      </li>
+      </li> */}
     </ul>
   );
 };

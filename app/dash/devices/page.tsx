@@ -79,7 +79,7 @@ export function DevicesPage() {
   const inactiveSessions = data?.sessions?.filter((s) => !s.isActive) || []
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-2 md:p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Cihazlarım</h1>

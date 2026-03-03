@@ -10,12 +10,12 @@ export const NavCTAs = () => {
         ghost
         onClick={() => router.push("/register")}
       >
-        Sign up
+        Kayıt Ol
       </MyButton>
       <MyButton
         onClick={() => router.push("/login")}
       >
-        Sign in
+        Giriş Yap
       </MyButton>
     </div>
   );

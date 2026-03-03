@@ -24,8 +24,8 @@ const formSchema = z.object({
     invalid_type_error: "Karat seçimi zorunludur",
   }).min(1, "Karat seçimi zorunludur"),
   cost: z.string({
-    message: "Cost is required",
-  }).min(1, "Cost must be greater than 0"),
+    message: "Maliyet zorunludur",
+  }).min(1, "Maliyet 0'dan büyük olmalıdır"),
 })
 
 type FormValues = z.infer<typeof formSchema>
@@ -62,7 +62,7 @@ export default function PriceCalculatorForm() {
             type="text"
             Icon={Tag01}
             name="cost"
-            label="Cost"
+            label="Maliyet"
             control={control}
             placeholder="10000"
           />
@@ -79,7 +79,7 @@ export default function PriceCalculatorForm() {
           </FormInput>
         </div>
         <Button type="submit" className="w-full h-10" disabled={mutation.isPending}>
-          {mutation.isPending ? "Calculating..." : "Calculate Price"}
+          {mutation.isPending ? "Hesaplanıyor..." : "Fiyat Hesapla"}
         </Button>
       </form>
 
