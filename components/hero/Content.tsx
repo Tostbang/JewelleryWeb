@@ -43,7 +43,7 @@ export const Content = () => {
         }}
         className="mb-3 text-center text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight lg:text-8xl lg:leading-tight"
       >
-        Altın Değerini Anında Hesapla, Yönet
+        Altın Değerini Anında Hesapla ve Yönet
       </motion.h1>
       <motion.p
         initial={{

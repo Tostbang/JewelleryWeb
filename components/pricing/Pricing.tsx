@@ -71,7 +71,7 @@ export const Pricing = () => {
                   price={price}
                   bestFor={`${pkg.maxDeviceCount} cihaza kadar`}
                   CTA={
-                    <MyButton ghost className={`w-full ${i === 1 && "bg-black text-white"}`} asChild>
+                    <MyButton ghost className={`w-full bg-black text-white hover:bg-black/80 hover:text-white`} asChild>
                       <Link href="/login">Hemen Başla</Link>
                     </MyButton>
                   }

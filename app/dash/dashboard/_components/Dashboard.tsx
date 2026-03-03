@@ -176,7 +176,7 @@ export default function Dashboard({ loc }: { loc: "admin" | "user" }) {
         <div>
           <div className=''>
           </div>
-          <h1 className="text-3xl font-bold">Kuyumculuk Paneli</h1>
+          <h1 className="text-3xl font-bold">Kuyumcu Panel</h1>
           <p className="text-muted-foreground mt-1">İşletmenizin genel görünümü</p>
         </div>
         <div suppressHydrationWarning={true} className="text-sm text-muted-foreground">
@@ -379,7 +379,7 @@ export default function Dashboard({ loc }: { loc: "admin" | "user" }) {
                             <GoldIngotsFilled className="size-4" />
                           </div>
                           <Select value={selectedManualPrice} onValueChange={setSelectedManualPrice}>
-                            <SelectTrigger className="h-8 w-30 border-none bg-white/40 text-sm font-medium">
+                            <SelectTrigger className="h-8 w-33 border-none bg-white/40 text-sm font-medium">
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>

@@ -89,7 +89,7 @@ export const LoginForm = () => {
       <MyCard className="">
         <div className="mb-6">
 
-          <div className="mt-8 space-y-2 text-center">
+          <div className="space-y-2 text-center">
             <h1 className="text-3xl font-bold ">
               Tekrar Hoş Geldiniz
             </h1>
@@ -128,8 +128,7 @@ export const LoginForm = () => {
             {loginMutation.isPending ? "Giriş yapılıyor..." : "Giriş Yap"}
           </MyButton>
         </form>
-
-        <div className="mt-6 text-center">
+        <div className="mt-4 text-center">
           <p className="text-sm text-muted-foreground">
             Hesabınız yok mu?{" "}
             <button
@@ -138,10 +137,17 @@ export const LoginForm = () => {
             >
               Kayıt Ol
             </button>
+            {" "}yada,{" "}
+            <button
+              onClick={() => router.push("/forgot-password")}
+              className="text-my-blue font-medium hover:underline transition-all"
+            >
+              Şifremi Unuttum
+            </button>
           </p>
         </div>
 
-        <p className="mt-4 text-xs text-muted-foreground text-center leading-relaxed px-2">
+        {/* <p className="mt-5 text-xs text-muted-foreground text-center leading-relaxed px-2">
           Giriş yaparak{" "}
           <span className="text-my-blue font-medium cursor-pointer hover:underline">
             <Link href="/terms">Şartlar ve Koşullarımızı</Link>
@@ -151,7 +157,7 @@ export const LoginForm = () => {
             <Link href="/privacy">Gizlilik Politikamızı</Link>
           </span>
           {" "}kabul etmiş olursunuz.
-        </p>
+        </p> */}
       </MyCard>
     </div>
   )

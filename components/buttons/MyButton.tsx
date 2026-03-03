@@ -17,7 +17,7 @@ export const MyButton = ({ children, className, ghost = false, ...rest }: Props)
   return (
     <Button
       variant={ghost ? "outline" : "default"}
-      className={cn("px-6 h-14 font-extralight text-[15px] text-white", ghost && "text-black", className)}
+      className={cn("px-6 h-12 font-extralight text-[15px] text-white", ghost && "text-black", className)}
       {...rest}
     >
       {children}
