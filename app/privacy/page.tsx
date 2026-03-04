@@ -70,7 +70,7 @@ export default function PrivacyPage() {
         </div>
 
         <div className="mt-12 text-center">
-          <Link href="/" className="text-sm text-my-blue hover:underline">
+          <Link href="/" className="text-sm hover:underline">
             ← Ana sayfaya dön
           </Link>
         </div>

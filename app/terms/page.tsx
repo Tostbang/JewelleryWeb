@@ -5,10 +5,9 @@ import Carousel from "@/components/features/carousel/Carousel"
 export default function TermsPage() {
   return (
     <main className="min-h-screen bg-my-gradient">
-      <Carousel />
       <div className="max-w-3xl mx-auto px-6 py-16">
         <div className="mb-10 flex flex-col items-center gap-4">
-          <NavLogo />
+          {/* <NavLogo /> */}
           <h1 className="text-4xl font-bold text-center">Şartlar ve Koşullar</h1>
           <p className="text-muted-foreground text-sm text-center">Son güncelleme: Şubat 2026</p>
         </div>
@@ -65,11 +64,11 @@ export default function TermsPage() {
         </div>
 
         <div className="mt-12 text-center">
-          <Link href="/" className="text-sm text-my-blue hover:underline">
+          <Link href="/" className="text-sm  hover:underline">
             ← Ana sayfaya dön
           </Link>
         </div>
       </div>
-    </main>
+    </main >
   )
 }
