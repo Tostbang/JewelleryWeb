@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import { AdminUser } from "./_services/queries"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { MoreHorizontal, Eye } from "lucide-react"
+import { MoreHorizontal, Eye, Trash2 } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +18,7 @@ import { GoogleDoc } from "asem-icons"
 
 export const createColumns = (
   onViewDetails: (user: AdminUser) => void,
+  onDeleteUser: (user: AdminUser) => void,
 ): ColumnDef<AdminUser>[] => [
     {
       accessorKey: "firstName",
@@ -105,6 +106,14 @@ export const createColumns = (
               <DropdownMenuItem onClick={() => onViewDetails(user)}>
                 <GoogleDoc className="mr-1 h-4 w-4" />
                 Detayları Gör
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                className="text-destructive focus:text-destructive"
+                onClick={() => onDeleteUser(user)}
+              >
+                <Trash2 className="mr-1 h-4 w-4" />
+                Pasife Al
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

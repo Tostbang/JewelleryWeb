@@ -1,6 +1,6 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { FetchData } from "@/lib/fetchData"
 
 export interface AdminUser {
@@ -58,7 +58,7 @@ export interface UsersSearchRequest {
 export const useGetAdminUsers = (searchParams?: UsersSearchRequest) => {
   return useQuery<AdminUsersResponse>({
     queryKey: ["admin-users", searchParams],
-    queryFn: () => FetchData("Admin/Users/Search", { 
+    queryFn: () => FetchData("Admin/Users/Search", {
       method: "POST",
       secure: true,
       body: searchParams || {}
@@ -66,10 +66,13 @@ export const useGetAdminUsers = (searchParams?: UsersSearchRequest) => {
   })
 }
 
-export const useGetUserDetail = (userId: number, enabled: boolean = true) => {
-  return useQuery<UserDetailResponse>({
-    queryKey: ["admin-user-detail", userId],
-    queryFn: () => FetchData(`Admin/Users/${userId}`, { secure: true }),
-    enabled,
+export const useDeleteAdminUser = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (userId: number) =>
+      FetchData(`Admin/Users/${userId}`, { method: "DELETE", secure: true }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admin-users"] })
+    },
   })
 }

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useGetAdminUsers, AdminUser } from "./_services/queries"
+import { useGetAdminUsers, AdminUser, useDeleteAdminUser } from "./_services/queries"
 import { DataTable } from "@/components/data-table"
 import { createColumns } from "./columns"
 import { Filter } from "lucide-react"
@@ -16,6 +16,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
+import { Alert } from "@/lib/useGlobalStore"
 import { format } from "date-fns"
 import {
   Select,
@@ -55,6 +56,7 @@ export default function AdminUsersPage() {
     page: currentPage,
     pageSize: pageSize,
   })
+  const { mutate: deleteUser } = useDeleteAdminUser()
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null)
   const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false)
 
@@ -63,7 +65,17 @@ export default function AdminUsersPage() {
     setIsDetailsDialogOpen(true)
   }
 
-  const columns = createColumns(handleViewDetails)
+  const handleDeleteUser = (user: AdminUser) => {
+    Alert({
+      AlertTitle: "Kullanıcıyı Sil",
+      AlertDescription: `${user.firstName} ${user.lastName} adlı kullanıcıyı silmek istediğinizden emin misiniz?`,
+      ConfirmLabel: "Sil",
+      CancelLabel: "İptal",
+      onConfirm: () => deleteUser(user.userId),
+    })
+  }
+
+  const columns = createColumns(handleViewDetails, handleDeleteUser)
 
   const handleFilterChange = (value: string) => {
     setCurrentPage(1)
