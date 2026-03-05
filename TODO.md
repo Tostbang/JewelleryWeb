@@ -11,6 +11,10 @@
 - [x] add support page for admin
 - [x] add the pagination on the users page "admin/users"
 - [x] add email confirmation forms 
-- [ ] test the online iyzico payment
-- [ ] add the send again button on the email confirmation
-- [ ] I would add some calculation cards to the hesaplama page
+- [x] test the online iyzico payment
+- [x] add the send again button on the email confirmation
+- [x] I would add some calculation cards to the hesaplama page
+
+
+## bugs
+- [ ] if the locatoin on the browser is turn off don't let the user login and send him a message that he needs to open his location

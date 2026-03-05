@@ -40,7 +40,7 @@ export function AppSidebar({ layout, ...props }: { layout: "admin" | "dash" } & 
           className={`data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground hover:bg-white`}
           asChild
         >
-          <Link href={`/dash/dashboard/`}>
+          <Link href={layout === "dash" ? `/dash/dashboard/` : `/admin/dashboard/`}>
             <div className={`text-sidebar-primary-foreground flex aspect-square size-10 items-center justify-center rounded-lg ${!open && "ml-2"} `}>
               {/* <activeTeam.logo className="size-4" /> */}
               {/* <Image alt="logo" src={logo} width={200} height={200} className="w-full h-full" /> */}

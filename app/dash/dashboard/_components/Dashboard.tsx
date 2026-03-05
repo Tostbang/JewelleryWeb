@@ -176,7 +176,7 @@ export default function Dashboard({ loc }: { loc: "admin" | "user" }) {
         <div>
           <div className=''>
           </div>
-          <h1 className="text-3xl font-bold">Kuyumcu Panel</h1>
+          <h1 className="text-3xl font-bold">Kontrol Paneli</h1>
           <p className="text-muted-foreground mt-1">İşletmenizin genel görünümü</p>
         </div>
         <div suppressHydrationWarning={true} className="text-sm text-muted-foreground">
