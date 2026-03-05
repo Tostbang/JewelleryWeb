@@ -57,13 +57,11 @@ export const RegisterForm = () => {
         },
         (error) => {
           console.warn("Location access denied:", error)
-          // Set default location if user denies permission
-          setLocation({ lat: 0, lng: 0 })
+          toast.error("Kayıt olabilmek için konum iznine ihtiyaç duyulmaktadır. Lütfen tarayıcı ayarlarından konum iznini etkinleştirin.")
         }
       )
     } else {
-      // Set default location if geolocation is not supported
-      setLocation({ lat: 0, lng: 0 })
+      toast.error("Tarayıcınız konum özelliğini desteklemiyor. Lütfen farklı bir tarayıcı deneyin.")
     }
   }, [])
 
@@ -163,7 +161,7 @@ export const RegisterForm = () => {
             className="w-full h-11 mt-8 shadow-lg shadow-my-blue/20 hover:shadow-xl hover:shadow-my-blue/30 transition-all duration-300"
             disabled={registerMutation.isPending || !location}
           >
-            {registerMutation.isPending ? "Kayıt yapılıyor..." : "Kayıt Ol"}
+            {registerMutation.isPending ? "Kayıt yapılıyor..." : !location ? "Konum izni bekleniyor..." : "Kayıt Ol"}
           </MyButton>
         </form>
 

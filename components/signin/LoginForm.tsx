@@ -51,13 +51,11 @@ export const LoginForm = () => {
         },
         (error) => {
           console.warn("Location access denied:", error)
-          // Set default location if user denies permission
-          setLocation({ lat: 0, lng: 0 })
+          toast.error("Giriş yapabilmek için konum iznine ihtiyaç duyulmaktadır. Lütfen tarayıcı ayarlarından konum iznini etkinleştirin.")
         }
       )
     } else {
-      // Set default location if geolocation is not supported
-      setLocation({ lat: 0, lng: 0 })
+      toast.error("Tarayıcınız konum özelliğini desteklemiyor. Lütfen farklı bir tarayıcı deneyin.")
     }
   }, [])
 
@@ -125,7 +123,7 @@ export const LoginForm = () => {
             className="w-full h-11 mt-8 shadow-lg shadow-my-blue/20 hover:shadow-xl hover:shadow-my-blue/30 transition-all duration-300"
             disabled={loginMutation.isPending || !location}
           >
-            {loginMutation.isPending ? "Giriş yapılıyor..." : "Giriş Yap"}
+            {loginMutation.isPending ? "Giriş yapılıyor..." : !location ? "Konum izni bekleniyor..." : "Giriş Yap"}
           </MyButton>
         </form>
         <div className="mt-4 text-center">
