@@ -54,7 +54,7 @@ export const Pricing = () => {
           <PricingSkeleton />
         ) : packagesData?.packages && packageLength > 0 ? (
           <div className="flex justify-center ">
-            <div className={cn("grid gap-6   ", packageLength === 1 ? "grid-cols-1 w-1/3" : packageLength === 2 ? "grid-cols-2 w-2/3" : "grid-cols-3 w-full")}>
+            <div className={cn("grid gap-6 w-full grid-cols-1", packageLength === 1 ? "md:grid-cols-1 md:w-1/3" : packageLength === 2 ? "md:grid-cols-2 md:w-2/3" : "md:grid-cols-3 md:w-full")}>
               {packagesData.packages.map((pkg, i) => {
                 const durationLabel = DurationTypeLabels[pkg.durationType + 1 as DurationType];
                 const price = `₺${pkg.price}/${pkg.durationValue} ${durationLabel}`;

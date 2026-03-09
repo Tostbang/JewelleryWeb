@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 export const CTA = () => {
   const router = useRouter();
   return (
-    <section className="relative overflow-hidden border-t border-white/40 py-20 mx-40 rounded-4xl squircle ">
+    <section className="relative overflow-hidden border-t border-white/40 py-20 md:mx-40 rounded-4xl squircle ">
       <MaxWidthWrapper className="relative z-20 flex flex-col items-center justify-center">
         <motion.div
           initial={{
