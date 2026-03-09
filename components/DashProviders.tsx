@@ -7,6 +7,7 @@ import { Separator } from "./ui/separator";
 import DynamicBreadcrumb from "./DynamicBreadcrumb";
 import { NavUser } from "./nav-user";
 import DashPage from "./DashPage";
+import { cn } from "@/lib/utils";
 
 export function DashProviders({ children, sideBarDefaultValue }: { children: React.ReactNode, sideBarDefaultValue: boolean }) {
   const { setProfile } = useProfileStore()
@@ -24,9 +25,10 @@ export function DashProviders({ children, sideBarDefaultValue }: { children: Rea
 }
 
 export function MainComponent({ children }: { children: ReactNode | ReactNode[] }) {
-  const { state } = useSidebar()
+  // const { state } = useSidebar()
+  // ${state === "expanded" ? "md:w-[calc(100vw-19rem)]" : "md:w-[calc(100vw-6rem)]"} transition-all duration-300
   return (
-    <main className={`h-screen ${state === "expanded" ? "md:w-[calc(100vw-19rem)]" : "md:w-[calc(100vw-6rem)]"} transition-all duration-300 flex flex-col overflow-hidden  px-2 pb-2 mr-2`}>
+    <main className="h-screen flex flex-col overflow-hidden pl-2 pr-4 pb-2 mr-2 w-full">
       <header className="flex justify-between h-14 shrink-0 items-center gap-2 bg-transparent transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
         <div className="flex items-center gap-2 px-4">
           <SidebarTrigger className="-ml-1 " />

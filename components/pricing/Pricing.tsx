@@ -12,6 +12,7 @@ import { useGetAllPackages } from "@/app/dash/packages/_services/queries";
 import { DurationType, DurationTypeLabels } from "@/lib/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 function PricingSkeleton() {
   return (
@@ -37,6 +38,7 @@ function PricingSkeleton() {
 
 export const Pricing = () => {
   const { data: packagesData, isLoading } = useGetAllPackages();
+  const packageLength = packagesData?.packages ? packagesData?.packages.length : 3
 
   return (
     <section id="pricing" className="relative overflow-hidden bg-my-gradient">
@@ -50,96 +52,101 @@ export const Pricing = () => {
 
         {isLoading ? (
           <PricingSkeleton />
-        ) : packagesData?.packages && packagesData.packages.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {packagesData.packages.map((pkg, i) => {
-              const durationLabel = DurationTypeLabels[pkg.durationType + 1 as DurationType];
-              const price = `₺${pkg.price}/${pkg.durationValue} ${durationLabel}`;
+        ) : packagesData?.packages && packageLength > 0 ? (
+          <div className="flex justify-center ">
+            <div className={cn("grid gap-6   ", packageLength === 1 ? "grid-cols-1 w-1/3" : packageLength === 2 ? "grid-cols-2 w-2/3" : "grid-cols-3 w-full")}>
+              {packagesData.packages.map((pkg, i) => {
+                const durationLabel = DurationTypeLabels[pkg.durationType + 1 as DurationType];
+                const price = `₺${pkg.price}/${pkg.durationValue} ${durationLabel}`;
 
-              const benefits: BenefitType[] = [
-                { text: `${pkg.maxDeviceCount} Cihaz`, checked: true },
-                { text: "Email destek", checked: true },
-                { text: "Mobil erişim", checked: pkg.allowMobile },
-                { text: `${pkg.allowedRadiusKm} km yarıçap kapsamı`, checked: true },
-                { text: `${pkg.durationValue} ${durationLabel} geçerlilik`, checked: true },
-              ];
+                const benefits: BenefitType[] = [
+                  { text: `${pkg.maxDeviceCount} Cihaz`, checked: true },
+                  { text: "Email destek", checked: true },
+                  { text: "Mobil erişim", checked: pkg.allowMobile },
+                  { text: `${pkg.allowedRadiusKm} km yarıçap kapsamı`, checked: true },
+                  { text: `${pkg.durationValue} ${durationLabel} geçerlilik`, checked: true },
+                ];
 
-              return (
-                <PriceCard
-                  key={pkg.packageId}
-                  tier={pkg.name}
-                  price={price}
-                  bestFor={`${pkg.maxDeviceCount} cihaza kadar`}
-                  CTA={
-                    <MyButton ghost className={`w-full bg-black text-white hover:bg-black/80 hover:text-white`} asChild>
-                      <Link href="/login">Hemen Başla</Link>
-                    </MyButton>
-                  }
-                  benefits={benefits}
-                />
-              );
-            })}
+                return (
+                  <PriceCard
+                    key={pkg.packageId}
+                    tier={pkg.name}
+                    price={price}
+                    bestFor={`${pkg.maxDeviceCount} cihaza kadar`}
+                    CTA={
+                      <MyButton ghost className={`w-full bg-black text-white hover:bg-black/80 hover:text-white`} asChild>
+                        <Link href="/login">Hemen Başla</Link>
+                      </MyButton>
+                    }
+                    benefits={benefits}
+                  />
+                );
+              })}
+            </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <PriceCard
-              tier="Başlangıç"
-              price="₺299/ay"
-              bestFor="Küçük işletmeler için"
-              CTA={
-                <MyButton ghost className="w-full" asChild>
-                  <Link href="/login">Hemen Başla</Link>
-                </MyButton>
-              }
-              benefits={[
-                { text: "1 Cihaz", checked: true },
-                { text: "Email destek", checked: true },
-                { text: "Temel raporlama", checked: true },
-                { text: "Mobil erişim", checked: false },
-                { text: "Öncelikli destek", checked: false },
-                { text: "API erişimi", checked: false },
-              ]}
-            />
-            <PriceCard
-              tier="Profesyonel"
-              price="₺799/ay"
-              bestFor="Orta ölçekli işletmeler"
-              CTA={
-                <MyButton ghost className="w-full bg-black text-white hover:shadow-lg hover:shadow-my-lavender/30 backdrop-blur-sm" asChild>
-                  <Link href="/login">14 Gün Ücretsiz Dene</Link>
-                </MyButton>
-              }
-              benefits={[
-                { text: "5 Cihaz", checked: true },
-                { text: "Email destek", checked: true },
-                { text: "Gelişmiş raporlama", checked: true },
-                { text: "Mobil erişim", checked: true },
-                { text: "Öncelikli destek", checked: true },
-                { text: "API erişimi", checked: false },
-              ]}
-            />
-            <PriceCard
-              tier="Kurumsal"
-              price="₺1299/ay"
-              bestFor="Büyük işletmeler için"
-              CTA={
-                <MyButton ghost className="w-full" asChild>
-                  <Link href="/login">Bize Ulaşın</Link>
-                </MyButton>
-              }
-              benefits={[
-                { text: "Sınırsız cihaz", checked: true },
-                { text: "7/24 destek", checked: true },
-                { text: "Özel raporlama", checked: true },
-                { text: "Mobil erişim", checked: true },
-                { text: "Öncelikli destek", checked: true },
-                { text: "API erişimi", checked: true },
-              ]}
-            />
+          <div className="flex justify-center bg-yellow-400">
+            <div className={cn("grid gap-6 bg-red-400", packageLength === 1 ? "grid-cols-1 w-1/3" : packageLength === 2 ? "grid-cols-2 w-2/3" : "grid-cols-3 w-full")}>
+              <PriceCard
+                tier="Başlangıç"
+                price="₺299/ay"
+                bestFor="Küçük işletmeler için"
+                CTA={
+                  <MyButton ghost className="w-full" asChild>
+                    <Link href="/login">Hemen Başla</Link>
+                  </MyButton>
+                }
+                benefits={[
+                  { text: "1 Cihaz", checked: true },
+                  { text: "Email destek", checked: true },
+                  { text: "Temel raporlama", checked: true },
+                  { text: "Mobil erişim", checked: false },
+                  { text: "Öncelikli destek", checked: false },
+                  { text: "API erişimi", checked: false },
+                ]}
+              />
+              <PriceCard
+                tier="Profesyonel"
+                price="₺799/ay"
+                bestFor="Orta ölçekli işletmeler"
+                CTA={
+                  <MyButton ghost className="w-full bg-black text-white hover:shadow-lg hover:shadow-my-lavender/30 backdrop-blur-sm" asChild>
+                    <Link href="/login">14 Gün Ücretsiz Dene</Link>
+                  </MyButton>
+                }
+                benefits={[
+                  { text: "5 Cihaz", checked: true },
+                  { text: "Email destek", checked: true },
+                  { text: "Gelişmiş raporlama", checked: true },
+                  { text: "Mobil erişim", checked: true },
+                  { text: "Öncelikli destek", checked: true },
+                  { text: "API erişimi", checked: false },
+                ]}
+              />
+              <PriceCard
+                tier="Kurumsal"
+                price="₺1299/ay"
+                bestFor="Büyük işletmeler için"
+                CTA={
+                  <MyButton ghost className="w-full" asChild>
+                    <Link href="/login">Bize Ulaşın</Link>
+                  </MyButton>
+                }
+                benefits={[
+                  { text: "Sınırsız cihaz", checked: true },
+                  { text: "7/24 destek", checked: true },
+                  { text: "Özel raporlama", checked: true },
+                  { text: "Mobil erişim", checked: true },
+                  { text: "Öncelikli destek", checked: true },
+                  { text: "API erişimi", checked: true },
+                ]}
+              />
+            </div>
           </div>
+
         )}
       </MaxWidthWrapper>
-    </section>
+    </section >
   );
 };
 

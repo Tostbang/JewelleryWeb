@@ -79,9 +79,9 @@ export default function CalculatePage() {
 
   return (
     <div className='p-2 md:p-6'>
-      <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3">
-        <div className={cn("absolute size-100 left-10 top-0 blur-[100px] rounded-full opacity-30 bg-my-blue")}></div>
-        <div className={cn("absolute size-100 right-10 top-0 blur-[100px] rounded-full opacity-30 bg-my-lavender")}></div>
+      <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3 ">
+        <div className={cn("hidden md:absolute size-100 left-10 top-0 blur-[100px] rounded-full opacity-30 bg-my-blue")}></div>
+        <div className={cn("hidden md:absolute size-100 right-10 top-0 blur-[100px] rounded-full opacity-30 bg-my-lavender")}></div>
         <MyCard title="Fiyat Hesaplayıcı" Icon={Calculator01Filled}>
           <PriceCalculatorForm />
         </MyCard>
@@ -99,42 +99,43 @@ export default function CalculatePage() {
         title="Son Aktiviteler"
         Icon={TimeQuarterPassFilled}
         actions={
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 w-full sm:w-auto">
-            <Select value={historySource} onValueChange={(v) => setHistorySource(v as "normal" | "manual")}>
-              <SelectTrigger className="w-full sm:w-40 h-8 text-xs">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="normal">Fiyat Hesaplayıcı</SelectItem>
-                <SelectItem value="manual">Manuel Hesaplayıcı</SelectItem>
-              </SelectContent>
-            </Select>
-            <div className="flex items-center gap-2 w-full sm:w-auto">
-              <Filter className="h-4 w-4 text-muted-foreground shrink-0" />
-              <Select
-                value={karatFilter !== undefined ? String(karatFilter) : "all"}
-                onValueChange={(v) => setKaratFilter(v === "all" ? undefined : Number(v))}
-              >
-                <SelectTrigger className="flex-1 sm:w-32 h-8 text-xs">
-                  <SelectValue placeholder="Karat" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Tümü</SelectItem>
-                  {KARAT_OPTIONS.map((o) => (
-                    <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className='flex gap-x-2 w-full sm:w-68'>
-              <div className='w-1/2'>
-                <DateInput date={startDate} setDate={setStartDate} placeholder="Başlangıç" />
-              </div>
-              <div className='w-1/2'>
-                <DateInput date={endDate} setDate={setEndDate} placeholder="Bitiş" />
-              </div>
-            </div>
-          </div>
+          // <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:w-auto">
+          //   <Select value={historySource} onValueChange={(v) => setHistorySource(v as "normal" | "manual")}>
+          //     <SelectTrigger className="w-full sm:w-40 h-8 text-xs">
+          //       <SelectValue />
+          //     </SelectTrigger>
+          //     <SelectContent>
+          //       <SelectItem value="normal">Fiyat Hesaplayıcı</SelectItem>
+          //       <SelectItem value="manual">Manuel Hesaplayıcı</SelectItem>
+          //     </SelectContent>
+          //   </Select>
+          //   <div className="flex items-center gap-2 w-full sm:w-auto">
+          //     <Filter className="h-4 w-4 text-muted-foreground shrink-0" />
+          //     <Select
+          //       value={karatFilter !== undefined ? String(karatFilter) : "all"}
+          //       onValueChange={(v) => setKaratFilter(v === "all" ? undefined : Number(v))}
+          //     >
+          //       <SelectTrigger className="flex-1 sm:w-32 h-8 text-xs">
+          //         <SelectValue placeholder="Karat" />
+          //       </SelectTrigger>
+          //       <SelectContent>
+          //         <SelectItem value="all">Tümü</SelectItem>
+          //         {KARAT_OPTIONS.map((o) => (
+          //           <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+          //         ))}
+          //       </SelectContent>
+          //     </Select>
+          //   </div>
+          //   <div className='flex gap-x-2 w-full sm:w-68'>
+          //     <div className='w-1/2'>
+          //       <DateInput date={startDate} setDate={setStartDate} placeholder="Başlangıç" />
+          //     </div>
+          //     <div className='w-1/2'>
+          //       <DateInput date={endDate} setDate={setEndDate} placeholder="Bitiş" />
+          //     </div>
+          //   </div>
+          // </div>
+          <div></div>
         }
       >
         {activeLoading ? (

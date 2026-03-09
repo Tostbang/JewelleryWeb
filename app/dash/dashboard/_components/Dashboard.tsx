@@ -464,7 +464,7 @@ export default function Dashboard({ loc }: { loc: "admin" | "user" }) {
           <PriceCalculatorForm />
         </MyCard>
 
-        <MyCard title="Son Aktiviteler" Icon={TimeQuarterPassFilled} expandable={true} modalStyle="min-w-screen md:min-w-200">
+        <MyCard title="Son Aktiviteler" Icon={TimeQuarterPassFilled} expandable={true} modalStyle="min-w-[90vw] md:min-w-200">
           <div className="h-full ">
             <ScrollArea className="space-y-3 h-60 pr-3 ">
               {isLoading ? (

@@ -28,8 +28,7 @@ import { useProfileStore } from "@/lib/store/profile-store"
 
 export function AppSidebar({ layout, ...props }: { layout: "admin" | "dash" } & React.ComponentProps<typeof Sidebar>) {
   const { open } = useSidebar()
-  const { profile } = useProfileStore()
-
+  // const { profile } = useProfileStore()
 
   return (
     <Sidebar collapsible="icon" variant="floating" className="bg-transparent" {...props}>

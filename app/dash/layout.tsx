@@ -13,8 +13,8 @@ export default async function Layout({ children }: { children: React.ReactNode }
       <main className="bg-my-gradient">
         <DashProviders sideBarDefaultValue={sideBarDefaultValue}>
           <AppSidebar layout="dash" variant="floating" />
-          <SidebarInset className="bg-transparent">
-            <MainComponent >
+          <SidebarInset className="bg-transparent overflow-hidden ">
+            <MainComponent>
               {children}
             </MainComponent>
           </SidebarInset>

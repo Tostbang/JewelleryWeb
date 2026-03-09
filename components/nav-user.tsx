@@ -36,9 +36,10 @@ export function NavUser() {
   // const isDepartmentUser = profile?.roleId === "DepartmentUser"
   const { mutate } = useSignOut()
 
-
   const profileUrl = isAdmin ? "/admin/profile" : "/dash/profile"
   const deviceUrl = isAdmin ? "/admin/devices" : "/dash/devices"
+  const { setOpenMobile } = useSidebar()
+  // const router = useTransitionRouter()
 
 
 
@@ -86,7 +87,12 @@ export function NavUser() {
           <DropdownMenuSeparator />
 
           {/* Profile - All roles */}
-          <DropdownMenuItem onClick={() => router.push(profileUrl)}>
+          <DropdownMenuItem onClick={
+            () => {
+              setOpenMobile(false)
+              router.push(profileUrl)
+            }
+          }>
             <User02 />
             Profil
           </DropdownMenuItem>
@@ -121,7 +127,12 @@ export function NavUser() {
           )} */}
 
           {/* Devices - All roles */}
-          <DropdownMenuItem onClick={() => router.push(deviceUrl)}>
+          <DropdownMenuItem onClick={
+            () => {
+              setOpenMobile(false)
+              router.push(deviceUrl)
+            }
+          }>
             <Laptop />
             Cihazlar
           </DropdownMenuItem>
